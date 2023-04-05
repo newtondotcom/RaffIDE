@@ -4,9 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Cursor;
 
 import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		// belle interface 
+		
+		UIManager.setLookAndFeel( new NimbusLookAndFeel() );
+		
 		System.out.println("Hello World!");
 		JFrame frame = new JFrame("Chat");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,5 +28,7 @@ public class Main {
         frame.setVisible(true);
         frame.setCursor(new Cursor(1));
         
+        Menu Menuframe = new Menu();
+        Menuframe.setVisible(true);
 	}
 }

@@ -124,9 +124,5 @@ public class Menu extends JFrame {
         JOptionPane.showMessageDialog( this, "Button clicked !" );
     }
    
-    public static void main(String[] args) throws Exception {
-        UIManager.setLookAndFeel( new NimbusLookAndFeel() );
-        Menu frame = new Menu();
-        frame.setVisible(true);
-    }
+    
 }
