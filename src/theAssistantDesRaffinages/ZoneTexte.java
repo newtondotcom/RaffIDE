@@ -11,7 +11,7 @@ public class ZoneTexte {
 	private JPanel panel;
 	
 	public ZoneTexte() {
-		textArea = new JTextArea();
+		textArea = new JTextArea(100,100);
 		boutonValider = new JButton("V");
 		boutonSupprimer = new JButton("X");
 		panel = new JPanel();
@@ -21,7 +21,7 @@ public class ZoneTexte {
 		
 		
 	}
-
+	
 	/**
 	 * @return the textArea
 	 */
@@ -49,7 +49,5 @@ public class ZoneTexte {
 	public JPanel getPanel() {
 		return panel;
 	}
-
-	
 
 }
