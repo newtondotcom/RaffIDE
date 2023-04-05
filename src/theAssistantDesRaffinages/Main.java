@@ -14,7 +14,7 @@ public class Main {
         
         //gère les affichages des raffinages en cours (lecture et modification)
         ZoneTexte principale = new ZoneTexte();
-        
+        	
         frame.add(principale.getPanel(), BorderLayout.WEST);
         
         frame.setSize(600, 600);
