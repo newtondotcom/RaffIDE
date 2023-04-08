@@ -7,6 +7,7 @@ import java.awt.*;
 public class Main extends JFrame {
 
     public Main() {
+    	
         // Appliquer le look and feel Nimbus
         try {
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
