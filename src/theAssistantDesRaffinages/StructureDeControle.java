@@ -10,25 +10,27 @@ public abstract class StructureDeControle implements Structure {
 	
 	public StructureDeControle(String condition) {
 		this.condition = condition;
-		this.corps = new ArrayList();
+		this.corps = new ArrayList<>();
 	}
 	
-	public abstract void afficher();
-	
 	public void add(Structure struct) {
-		
+		corps.add(struct);
 	}
 	
 	public void delete(Structure struct) {
-		
+		corps.remove(struct);
 	}
 	
 	public void setCondition(String newCondition) {
-		
+		this.condition = newCondition;
 	}
 	
 	public String getCondition() {
 		return condition;
+	}
+	
+	public List<Structure> getCorps() {
+		return this.corps;
 	}
 	
 }

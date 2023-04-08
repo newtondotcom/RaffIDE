@@ -8,8 +8,11 @@ public class StuctureSi extends StructureDeControle {
 
 	@Override
 	public void afficher() {
-		// TODO Auto-generated method stub
-
+		System.out.println("Si (" + this.getCondition() + ") : " );
+		for (Structure struct : this.getCorps()) {
+			System.out.print("\t");
+			struct.afficher();
+		}
+		System.out.println("FinSi");
 	}
-
 }
