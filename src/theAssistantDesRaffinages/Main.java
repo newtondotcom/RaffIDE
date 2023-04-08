@@ -1,8 +1,14 @@
 package theAssistantDesRaffinages;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import java.awt.*;
 
 public class Main extends JFrame {
 

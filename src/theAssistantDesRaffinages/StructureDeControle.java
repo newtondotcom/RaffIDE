@@ -1,32 +1,34 @@
+package theAssistantDesRaffinages;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.
 
 public abstract class StructureDeControle implements Structure {
 	
 	private String condition;
-	protected List<Structure> corps;
+	private List<Structure> corps;
 	
 	public StructureDeControle(String condition) {
 		this.condition = condition;
 		this.corps = new ArrayList();
 	}
 	
-	abstract void afficher();
+	public abstract void afficher();
 	
-	void add(Structure struct) {
+	public void add(Structure struct) {
 		
 	}
 	
-	void delete(Structure struct) {
+	public void delete(Structure struct) {
 		
 	}
 	
-	void setCondition(String newCondition) {
+	public void setCondition(String newCondition) {
 		
 	}
 	
-	String getCondition() {
-		
+	public String getCondition() {
+		return condition;
 	}
 	
 }

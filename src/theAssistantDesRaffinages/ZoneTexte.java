@@ -1,6 +1,8 @@
 package theAssistantDesRaffinages;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class ZoneTexte {
 	
