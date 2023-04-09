@@ -1,6 +1,7 @@
 package theAssistantDesRaffinages;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.FocusEvent;
@@ -23,35 +24,22 @@ public class Main extends JFrame {
         //Créer le menu
         Menu Menuframe = new Menu();
         
-        //Récupére le menu
+        //Récupérer le menu
         JMenuBar menuBarreBar = Menuframe.getJMenuBar();
-        
-        
-        // Création du conteneur
-        JPanel conteneur = new JPanel();
 
-        // Ajout des zones de texte au conteneur
-        //Zone d'édition du raffinage actif
-        JTextArea edition = new JTextArea();
-        //Permet de pouvoir descendre dans la colonne
-        JScrollPane scrollEdition = new JScrollPane(edition);
-        edition.addFocusListener(new BasicEditorListener());
-        //Permet de revenir à la ligne quand la fin de la TextArea est atteinte
-        edition.setWrapStyleWord(true);
-        edition.setLineWrap(true);
+        //Zone d'edition des raffinages
+        VueEditionRaffinages vueEdition = new VueEditionRaffinages();
+        JScrollPane scrollEdition = vueEdition.getScrollPane();
+        
         
         //Zone d'affichage de l'ensemble des raffinages
-        JTextArea affichage = new JTextArea();
-        JScrollPane scrollAffichage = new JScrollPane(affichage);
-        affichage.setWrapStyleWord(true);
-        affichage.setLineWrap(true);
+        VueListeRaffinages VueListe = new VueListeRaffinages();
+        JScrollPane scrollAffichage = VueListe.getScrollPane();
         
-        //Ajout des Structures de controles
-        JPanel structuresPanel = new JPanel();
-        JLabel structuresLabel = new JLabel("Structures De Controles");
-        structuresPanel.add(structuresLabel);
-        //Ajout des boutons
-        //TODO
+        
+        //Ajout de la partie structures de controles
+        VueStructuresDeControles vueStructures = new VueStructuresDeControles();
+        JPanel structuresPanel = vueStructures.getPanel();
         
         //Creation du premier JSplitPane
         JSplitPane splitPaneLeft = new JSplitPane(JSplitPane.VERTICAL_SPLIT,scrollEdition,structuresPanel);

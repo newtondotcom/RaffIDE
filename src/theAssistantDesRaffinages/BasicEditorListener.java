@@ -25,8 +25,8 @@ public class BasicEditorListener implements FocusListener{
 	             new DefaultHighlighter.DefaultHighlightPainter(Color.blue);
 		
 		try {
-			
-			h.addHighlight(0, tArea.getText().length(), blue);
+			h.removeAllHighlights();
+			h.addHighlight(0, tArea.getText().length(), tArea.getText().length()%2==0?pink:blue);
 			
 		} catch (BadLocationException ex) {
 			System.out.println("Bad Location!");
