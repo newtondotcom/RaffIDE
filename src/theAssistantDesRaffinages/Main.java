@@ -3,6 +3,8 @@ package theAssistantDesRaffinages;
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class Main extends JFrame {
 
@@ -29,6 +31,20 @@ public class Main extends JFrame {
         JTextArea edition = new JTextArea();
         //Permet de pouvoir descendre dans la colonne
         JScrollPane scrollEdition = new JScrollPane(edition);
+        edition.addFocusListener( new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                System.out.println("GAINED");
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                System.out.println("LOST");
+            }
+
+			
+        });
         //Permet de revenir à la ligne quand la fin de la TextArea est atteinte
         edition.setWrapStyleWord(true);
         edition.setLineWrap(true);
