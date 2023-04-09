@@ -55,13 +55,26 @@ public class Main extends JFrame {
         affichage.setWrapStyleWord(true);
         affichage.setLineWrap(true);
         
-        // Création du JSplitPane
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollEdition, scrollAffichage);
+        //Ajout des Structures de controles
+        JPanel structuresPanel = new JPanel();
+        
+        //Ajout des boutons
+        //TODO
+        
+        //Creation du premier JSplitPane
+        JSplitPane splitPaneLeft = new JSplitPane(JSplitPane.VERTICAL_SPLIT,scrollEdition,structuresPanel);
         //Valeur initiale
-        splitPane.setResizeWeight(0.5);
-
+        splitPaneLeft.setResizeWeight(0.5);
+        
+        
+        // Création du deuxieme JSplitPane
+        JSplitPane splitPaneMiddle = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, splitPaneLeft, scrollAffichage);
+        
+        //Valeur initiale
+        splitPaneMiddle.setResizeWeight(0.5);
+        
         // Ajout du conteneur à la fenêtre JFrame
-        add(splitPane);
+        add(splitPaneMiddle);
         
         //Ajouter le menu à la fenêtre
         setJMenuBar(menuBarreBar);
