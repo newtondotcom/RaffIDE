@@ -25,7 +25,8 @@ public class Main extends JFrame {
         
         //Récupére le menu
         JMenuBar menuBarreBar = Menuframe.getJMenuBar();
-
+        
+        
         // Création du conteneur
         JPanel conteneur = new JPanel();
 
@@ -69,6 +70,10 @@ public class Main extends JFrame {
         
         //Ajouter le menu à la fenêtre
         setJMenuBar(menuBarreBar);
+        
+        // Construction et injection de la barre d'outils
+        JPanel contentPane = (JPanel) getContentPane();
+        contentPane.add( Menuframe.createToolBar(), BorderLayout.NORTH );
 
         // Paramètres de la fenêtre
         setSize(1400, 800);
