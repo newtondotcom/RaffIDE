@@ -93,6 +93,8 @@ public class Menu extends JFrame {
         toolBar.add( actOpen ).setHideActionText( true );
         toolBar.add( actSave ).setHideActionText( true );
         toolBar.add( actSaveAs ).setHideActionText( true );
+        toolBar.add(actZoomIn).setHideActionText(true);
+        toolBar.add(actZoomOut).setHideActionText(true);
         toolBar.addSeparator();
         toolBar.add( actExit ).setHideActionText( true );
            
@@ -198,7 +200,35 @@ public class Menu extends JFrame {
             System.out.println( "Redo" );
         }
     };
-
+    
+    private AbstractAction actZoomIn = new AbstractAction() {  
+        {
+            putValue( Action.NAME, "Bigger" );
+            putValue( Action.SMALL_ICON, new ImageIcon( "icons/ZoomIn.png" ) );
+            putValue( Action.MNEMONIC_KEY, KeyEvent.VK_C );
+            putValue( Action.SHORT_DESCRIPTION, "Zoom In" );
+            putValue( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.VK_PLUS ) ); 
+        }
+        
+        @Override public void actionPerformed( ActionEvent e ) {
+            System.out.println( "Zoom In" );
+        }
+    };
+    
+    private AbstractAction actZoomOut = new AbstractAction() {  
+        {
+            putValue( Action.NAME, "Smaller" );
+            putValue( Action.SMALL_ICON, new ImageIcon( "icons/ZoomOut.png" ) );
+            putValue( Action.MNEMONIC_KEY, KeyEvent.VK_C );
+            putValue( Action.SHORT_DESCRIPTION, "Zoom Out" );
+            putValue( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.VK_MINUS ) ); 
+        }
+        
+        @Override public void actionPerformed( ActionEvent e ) {
+            System.out.println( "Zoom In" );
+        }
+    };
+    
     private AbstractAction actCopy = new AbstractAction() {  
         {
             putValue( Action.NAME, "Copy" );
