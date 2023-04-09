@@ -47,7 +47,8 @@ public class Main extends JFrame {
         
         //Ajout des Structures de controles
         JPanel structuresPanel = new JPanel();
-        
+        JLabel structuresLabel = new JLabel("Structures De Controles");
+        structuresPanel.add(structuresLabel);
         //Ajout des boutons
         //TODO
         
