@@ -8,6 +8,9 @@ import java.awt.event.FocusListener;
 
 public class Main extends JFrame {
 
+    /**
+     * 
+     */
     public Main() {
     	
         // Appliquer le look and feel Nimbus
