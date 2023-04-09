@@ -18,8 +18,6 @@ public class ZoneTexte {
 		panel.add(textArea);
 		panel.add(boutonValider);
 		panel.add(boutonSupprimer);
-		
-		
 	}
 	
 	/**
