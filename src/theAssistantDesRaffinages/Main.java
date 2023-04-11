@@ -6,6 +6,8 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends JFrame {
 
@@ -37,9 +39,18 @@ public class Main extends JFrame {
         JScrollPane scrollAffichage = VueListe.getScrollPane();
         
         
-        //Ajout de la partie structures de controles
-        VueStructuresDeControles vueStructures = new VueStructuresDeControles();
-        JPanel structuresPanel = vueStructures.getPanel();
+        // Ajout de la partie structures de controles
+       
+        	// Creation de la liste des structures de controles
+        	List<StructureDeControle> sdcs = new ArrayList<StructureDeControle>();
+        	
+        	// Creation de la structure de controle "Si"
+        	StructureDeControle Si = new StuctureSi("condition");
+        	sdcs.add(Si);
+     
+        	// Creation de la Vue
+        	VueStructuresDeControles vueStructures = new VueStructuresDeControles(sdcs);
+        	JPanel structuresPanel = vueStructures.getPanel();
         
         //Creation du premier JSplitPane
         JSplitPane splitPaneLeft = new JSplitPane(JSplitPane.VERTICAL_SPLIT,scrollEdition,structuresPanel);
