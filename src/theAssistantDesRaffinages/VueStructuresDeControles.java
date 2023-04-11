@@ -16,7 +16,7 @@ public class VueStructuresDeControles {
     structuresLabel = new JLabel("  Structures De Controles  ");
     Border blackBorder = BorderFactory.createLineBorder(Color.black);
     structuresLabel.setBorder(blackBorder);
-    
+   
     structuresPanel.add(structuresLabel);
     
     //Ajout des boutons
