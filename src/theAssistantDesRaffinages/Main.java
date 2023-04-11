@@ -47,7 +47,7 @@ public class Main extends JFrame {
         	// Creation de la structure de controle "Si"
         	StructureDeControle Si = new StuctureSi(" ","Si");
         	sdcs.add(Si);
-     
+        	
         	// Creation de la Vue
         	VueStructuresDeControles vueStructures = new VueStructuresDeControles(sdcs);
         	JPanel structuresPanel = vueStructures.getPanel();
