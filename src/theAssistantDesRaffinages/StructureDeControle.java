@@ -6,10 +6,12 @@ import java.util.List;
 public abstract class StructureDeControle implements Structure {
 	
 	private String condition;
+	private String nom;
 	private List<Structure> corps;
 	
 	public StructureDeControle(String condition) {
 		this.condition = condition;
+		this.nom = nom;
 		this.corps = new ArrayList<>();
 	}
 	
@@ -23,6 +25,10 @@ public abstract class StructureDeControle implements Structure {
 	
 	public void setCondition(String newCondition) {
 		this.condition = newCondition;
+	}
+	
+	public String getNom() {
+	      return nom;
 	}
 	
 	public String getCondition() {
