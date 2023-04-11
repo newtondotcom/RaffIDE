@@ -57,4 +57,8 @@ public class VueEditionRaffinages {
 	public void updateFontSize() {
 		edition.setFont(police);
 	}
+	
+	public JTextArea getTextArea() {
+		return this.edition;
+	}
 }

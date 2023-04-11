@@ -45,7 +45,7 @@ public class Main extends JFrame {
         	List<StructureDeControle> sdcs = new ArrayList<StructureDeControle>();
         	
         	// Creation de la structure de controle "Si"
-        	StructureDeControle Si = new StuctureSi(" ","Si");
+        	StructureDeControle Si = new StructureSi(" ","Si",vueEdition.getTextArea());
         	sdcs.add(Si);
         	
         	// Creation de la Vue
