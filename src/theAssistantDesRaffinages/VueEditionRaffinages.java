@@ -6,13 +6,22 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class VueEditionRaffinages {
-	// Zone d'édition du raffinage actif
+	
+	/** Zone d'édition du raffinage actif */
 	JTextArea edition;
+	
+	/** la taille de la police */
 	private int fontSize;
+	
+	/** La police d'ecriture */
 	private Font police;
-	// Permet de pouvoir descendre dans la colonne
+	
+	/** Permet de pouvoir descendre dans la colonne */
 	JScrollPane scrollEdition;
 
+	/**
+	 * Creer un UI d'edition de raffinage
+	 */
 	public VueEditionRaffinages() {
 		fontSize = 14;
 		police = new Font("Monospaced", Font.PLAIN, fontSize);
