@@ -29,7 +29,7 @@ public class VueStructuresDeControles {
 	    structuresPanel.add(structuresLabel);
     
 	    for (StructureDeControle sdc : this.sdcs) {
-		   JButton newBouton = new JButton("Si");
+		   JButton newBouton = new JButton(sdc.getNom());
 		   newBouton.addActionListener(new StructureDeControleListener(sdc));
 		   boutonsSdc.add(newBouton);
 		   structuresPanel.add(newBouton);

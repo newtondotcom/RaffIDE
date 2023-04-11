@@ -2,8 +2,8 @@ package theAssistantDesRaffinages;
 
 public class StuctureSi extends StructureDeControle {
 
-	public StuctureSi(String condition) {
-		super(condition);
+	public StuctureSi(String condition,String nom) {
+		super(condition,nom);
 	}
 
 	@Override

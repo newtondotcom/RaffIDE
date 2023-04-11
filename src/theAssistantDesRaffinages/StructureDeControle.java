@@ -9,7 +9,7 @@ public abstract class StructureDeControle implements Structure {
 	private String nom;
 	private List<Structure> corps;
 	
-	public StructureDeControle(String condition) {
+	public StructureDeControle(String condition,String nom) {
 		this.condition = condition;
 		this.nom = nom;
 		this.corps = new ArrayList<>();
