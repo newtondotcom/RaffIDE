@@ -19,22 +19,18 @@ package "Assistant de raffinages" #DDDDDD {
     }
 
     abstract StructureDeControle {
-
     }
 
     class ActionElementaire {
     }
 
     class ActionComplexe {
-
     }
 
     class StructureSi {
-
     }
 
     class StructureTantQue {
-
     }
 
     note right of StructureSi
