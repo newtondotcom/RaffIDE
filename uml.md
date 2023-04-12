@@ -5,108 +5,55 @@
 package "Assistant de raffinages" #DDDDDD {
 
     abstract Structure {
-
+        - afficher();
     }
 
     interface Action {
+        - addFormat(TextFormat format)
+        - removeFormat(TextFormat format)
+        - getCouleur()
+        - setCouleur(TextColor color)
+        - getContenu()
+        - getTexteFormate()
+        - print()
+    }
+
+    abstract StructureDeControle {
 
     }
 
-    interface StructureContrôle {
-
-    }
-
-    class Elements {
-
+    interface Elements {
     }
 
     class Raffinage {
 
     }
 
-    class Si {
+    class StructureSi {
 
     }
 
-    note right of Si
+    class StructureTantQue {
+
+    }
+
+    note right of StructureSi
         Généralisation pour toutes 
         les structures de contrôle 
         connues (Sinon, TantQue, etc.)
     end note
 
 
-    Raffinage o-- Structure : lente
-    StructureContrôle o-- Structure
-    Si--> StructureContrôle
+    Raffinage o-- Structure
+    StructureDeControle o-- Structure
+    StructureTantQue-->StructureDeControle
+    StructureSi--> StructureDeControle
     Action-->Structure
-    StructureContrôle-->Structure
+    StructureDeControle-->Structure
     Elements--Action
     Raffinage --Action
 
 
-}
-@enduml
-```
-
-```plantuml
-@startuml
-package "Framework de test" #DDDDDD {
-
-    interface TestElementaire {
-        - mm
-        - préparer
-        - tester-nettoyer
-        - assertTrue
-    }
-
-    interface Test {
-        - lancer(R : RT)
-    }
-
-    class SuiteTest {
-        - lancer(R : RT)
-        + ajouter(Test : test)
-    }
-
-    class ResultatTest {
-        - int nbLancers
-        - int nbEchec
-        + incrementer()
-        + enregistrerEchec(Test : test)
-    }
-
-    note right of SuiteTest
-        faire(Test : test)
-        {T.lancer(R : RT)}
-    end note
-
-    SuiteTest *--"*" Test
-    TestElementaire --> Test
-    SuiteTest ..|> Test
-    ResultatTest o--"*" TestElementaire : testEchec
-
-    interface TM1 {
-        - tester
-    }
-    
-    note right of TM1
-        tester(){
-        m1.ajouter(m2);
-        assertTrue(m1.getValeur==12);
-        }
-    end note
-
-    interface TM2 {
-        - lancer(R : RT)
-    }
-
-    class TM {
-        - préparer
-    }
-
-    TM <|-- TM1
-    TM <|-- TM2
-    TestElementaire <|-- TM
 }
 @enduml
 ```
