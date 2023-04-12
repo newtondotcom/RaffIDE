@@ -22,10 +22,10 @@ package "Assistant de raffinages" #DDDDDD {
 
     }
 
-    interface Elements {
+    class ActionElementaire {
     }
 
-    class Raffinage {
+    class ActionComplexe {
 
     }
 
@@ -44,14 +44,14 @@ package "Assistant de raffinages" #DDDDDD {
     end note
 
 
-    Raffinage o-- Structure
+    Action o-- Structure
     StructureDeControle o-- Structure
     StructureTantQue-->StructureDeControle
     StructureSi--> StructureDeControle
-    Action-->Structure
+    ActionComplexe-->Structure
     StructureDeControle-->Structure
-    Elements--Action
-    Raffinage --Action
+    ActionElementaire--Action
+    ActionComplexe --Action
 
 
 }
