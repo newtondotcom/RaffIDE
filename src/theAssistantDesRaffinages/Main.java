@@ -23,11 +23,7 @@ public class Main extends JFrame {
             e.printStackTrace();
         }
         
-        //Créer le menu
-        Menu Menuframe = new Menu();
         
-        //Récupérer le menu
-        JMenuBar menuBarreBar = Menuframe.getJMenuBar();
 
         //Zone d'edition des raffinages
         VueEditionRaffinages vueEdition = new VueEditionRaffinages();
@@ -38,6 +34,11 @@ public class Main extends JFrame {
         VueListeRaffinages VueListe = new VueListeRaffinages();
         JScrollPane scrollAffichage = VueListe.getScrollPane();
         
+        //Créer le menu
+        Menu Menuframe = new Menu(vueEdition);
+        
+        //Récupérer le menu
+        JMenuBar menuBarreBar = Menuframe.getJMenuBar();
         
         // Ajout de la partie structures de controles
        

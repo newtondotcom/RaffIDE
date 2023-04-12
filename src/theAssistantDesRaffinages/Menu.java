@@ -21,10 +21,11 @@ import javax.swing.JPanel;
 public class Menu extends JFrame {
     
     private static final long serialVersionUID = 1L;
-    
+    private VueEditionRaffinages vueEdition;
 	/* Construction de l'interface graphique */
-    public Menu() {
-        super( "JMenu sample" );
+    public Menu(VueEditionRaffinages vueEdition) {
+        super( "Ra77ineur" );
+        this.vueEdition = vueEdition;
         this.setSize(600,400);
         this.setLocationRelativeTo( null );
         this.setDefaultCloseOperation( DISPOSE_ON_CLOSE );
@@ -211,7 +212,7 @@ public class Menu extends JFrame {
         }
         
         @Override public void actionPerformed( ActionEvent e ) {
-            System.out.println( "Zoom In" );
+            vueEdition.increaseFontSize(2);
         }
     };
     
@@ -225,7 +226,7 @@ public class Menu extends JFrame {
         }
         
         @Override public void actionPerformed( ActionEvent e ) {
-            System.out.println( "Zoom In" );
+        	vueEdition.decreaseFontSize(2);
         }
     };
     

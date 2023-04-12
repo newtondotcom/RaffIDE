@@ -108,6 +108,7 @@ public class VueEditionRaffinages {
 	}
 
 	public void updateFontSize() {
+		this.police = new Font("Monospaced", Font.PLAIN, fontSize);
 		edition.setFont(police);
 	}
 	
@@ -120,6 +121,7 @@ public class VueEditionRaffinages {
 	 * @param stringToAppend
 	 */
 	public void append(String stringToAppend) {
+		
 		try{
 		doc = edition.getStyledDocument();
 		String[] mots = stringToAppend.split(" ");
