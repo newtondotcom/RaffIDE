@@ -1,13 +1,13 @@
 package theAssistantDesRaffinages;
 
-import javax.swing.JTextArea;
+
 
 public class StructureSi extends StructureDeControle {
-	private JTextArea textArea;
+	private VueEditionRaffinages aireTexte;
 
-	public StructureSi(String condition,String nom,JTextArea textArea) {
+	public StructureSi(String condition,String nom,VueEditionRaffinages textArea) {
 		super(condition,nom);
-		this.textArea = textArea;
+		this.aireTexte = textArea;
 	}
 
 	@Override
@@ -17,8 +17,9 @@ public class StructureSi extends StructureDeControle {
 			stringToAppend += "\t";
 			// TODO Gerer le Corps
 		}
-		stringToAppend += "\nFinsi\n";
-		textArea.append(stringToAppend);
+		stringToAppend += "\nFinSi\n";
+		aireTexte.append(stringToAppend);
+		System.out.println("Condition SI ajoutée!");
 		
 	}
 }
