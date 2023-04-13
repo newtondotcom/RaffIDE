@@ -1,24 +1,29 @@
-# UML
-
-```plantuml
+```
 @startuml
 package "Assistant de raffinages" #DDDDDD {
 
-    abstract Structure {
-        - afficher();
+    interface Structure {
+       {method} toString();
     }
 
     interface Action {
-        - addFormat(TextFormat format)
-        - removeFormat(TextFormat format)
-        - getCouleur()
-        - setCouleur(TextColor color)
-        - getContenu()
-        - getTexteFormate()
-        - print()
+        {method} addFormat(TextFormat format)
+        {method} removeFormat(TextFormat format)
+        {method} getCouleur()
+        {method} setCouleur(TextColor color)
+        {method} getContenu()
+        {method} getTexteFormate()
+        {method} print()
     }
 
     abstract StructureDeControle {
+     {field}StructureDeControle()
+    add(Structure struct)
+    delete(Structure struct)
+     setCondition(String s)
+    getNom()
+   getCondition()
+    getCorps()
     }
 
     class ActionElementaire {
@@ -42,12 +47,12 @@ package "Assistant de raffinages" #DDDDDD {
 
     Action o-- Structure
     StructureDeControle o-- Structure
-    StructureTantQue-->StructureDeControle
-    StructureSi--> StructureDeControle
-    ActionComplexe-->Structure
-    StructureDeControle-->Structure
-    ActionElementaire--Action
-    ActionComplexe --Action
+    StructureTantQue-->StructureDeControle : extends
+    StructureSi--> StructureDeControle : extends
+    ActionComplexe--o Structure
+    StructureDeControle --> Structure
+    ActionElementaire--Action : implements
+    ActionComplexe --Action : implements
 
 
 }
