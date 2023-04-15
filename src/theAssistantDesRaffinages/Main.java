@@ -74,7 +74,8 @@ public class Main extends JFrame {
         	
         	// Creation de la Vue
         	VueStructuresDeControles vueStructures = new VueStructuresDeControles(sdcs);
-        	JPanel structuresPanel = vueStructures.getPanel();
+        	JSplitPane structuresPanel = vueStructures.getPanel();
+       
         
         //Creation du premier JSplitPane
         JSplitPane splitPaneLeft = new JSplitPane(JSplitPane.VERTICAL_SPLIT,scrollEdition,structuresPanel);
