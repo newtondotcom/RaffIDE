@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class Menu extends JFrame {
-    
+
     private static final long serialVersionUID = 1L;
     private VueEditionRaffinages vueEdition;
 	/* Construction de l'interface graphique */
@@ -41,7 +41,6 @@ public class Menu extends JFrame {
        
       
     }
-
 
     /* Methode de construction de la barre de menu */
     public JMenuBar createMenuBar() {

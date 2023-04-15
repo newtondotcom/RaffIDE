@@ -2,9 +2,6 @@ package theAssistantDesRaffinages;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -47,7 +44,7 @@ public class VueAction {
 		boutonPanel.add(Boutonelem);
 		
 		//ajout du bouton complexe
-		JButton Boutoncompl = new JButton("action élémentaire");
+		JButton Boutoncompl = new JButton("action complexe");
 		Boutoncompl.addActionListener(new ActionComplexeListener());
 		boutonPanel.add(Boutoncompl);
 		
