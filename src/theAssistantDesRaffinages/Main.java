@@ -3,6 +3,7 @@ package theAssistantDesRaffinages;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import javax.swing.plaf.metal.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -18,10 +19,20 @@ public class Main extends JFrame {
     	
         // Appliquer le look and feel Nimbus
         try {
-            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+          //  UIManager.setLookAndFeel(new SystemLookAndFeel());
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
-        }
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         
 
