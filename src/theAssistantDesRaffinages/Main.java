@@ -75,12 +75,21 @@ public class Main extends JFrame {
         	// Creation de la Vue
         	VueStructuresDeControles vueStructures = new VueStructuresDeControles(sdcs);
         	JSplitPane structuresPanel = vueStructures.getPanel();
-       
+        	
+        // Création des bouton pour les actions complexe/élémentaire
+        VueAction vueActions = new VueAction();
+        JSplitPane actionPanel = vueActions.getPanel();
+        
+        //Séparation des deux fenetre action et structure de controle 
+        	//Creation du premier JSplitPane
+        	JSplitPane splitPanebouton = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,structuresPanel,actionPanel);
+        	//Valeur initiale
+        	splitPanebouton.setResizeWeight(0.5);
         
         //Creation du premier JSplitPane
-        JSplitPane splitPaneLeft = new JSplitPane(JSplitPane.VERTICAL_SPLIT,scrollEdition,structuresPanel);
+        JSplitPane splitPaneLeft = new JSplitPane(JSplitPane.VERTICAL_SPLIT,scrollEdition,splitPanebouton);
         //Valeur initiale
-        splitPaneLeft.setResizeWeight(0.5);
+        splitPaneLeft.setResizeWeight(0.8);
         
         
         // Création du deuxieme JSplitPane
