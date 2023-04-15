@@ -65,7 +65,7 @@ public class Main extends JFrame {
         	sdcs.add(Tq);
         	
         	// Creation de la structure de controle "Repeat"
-        	StructureDeControle loop = new StructureTantque(" ","Répéter",vueEdition);
+        	StructureDeControle loop = new StructureRepeat(" ","Répéter",vueEdition);
         	sdcs.add(loop);
         	
         	

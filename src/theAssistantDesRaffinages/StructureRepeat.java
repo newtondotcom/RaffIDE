@@ -17,8 +17,8 @@ public class StructureRepeat extends StructureDeControle {
 		}
 		stringToAppend += "\nJusqu'À (" + this.getCondition() + ") \n";
 		aireTexte.append(stringToAppend);
-		System.out.println("Condition SI ajoutée!");
-		
+		System.out.println("Condition Répéter ajoutée!");
+
 	}
 }
 
