@@ -64,6 +64,11 @@ public class Main extends JFrame {
         	StructureDeControle Tq = new StructureTantque(" ","Tant que",vueEdition);
         	sdcs.add(Tq);
         	
+        	// Creation de la structure de controle "Repeat"
+        	StructureDeControle loop = new StructureTantque(" ","Répéter",vueEdition);
+        	sdcs.add(loop);
+        	
+        	
         	// Creation de la Vue
         	VueStructuresDeControles vueStructures = new VueStructuresDeControles(sdcs);
         	JPanel structuresPanel = vueStructures.getPanel();
