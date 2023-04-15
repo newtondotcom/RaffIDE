@@ -106,6 +106,6 @@ public class VueListeRaffinages {
 		  final Font bigFont = new Font(currentFont.getName(), currentFont.getStyle(), currentFont.getSize() + 2);
 		  //arbre.setFont(bigFont);
 		  TreePath path = arbre.getSelectionPath();
-	    System.out.println("trace: " + path.getLastPathComponent().getClass());
+	    System.out.println("trace: " + path);
 	  }
 	}
