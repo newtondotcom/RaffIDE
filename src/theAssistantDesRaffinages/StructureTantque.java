@@ -16,7 +16,6 @@ public class StructureTantque extends StructureDeControle {
 			// TODO Gerer le Corps
 		}
 		stringToAppend += "\nFinTQ\n";
-		stringToAppend += "\n { !"+ "(" + this.getCondition() + ")" +" } \n";
 		aireTexte.append(stringToAppend);
 		System.out.println("Condition TQ ajoutée!");
 		
