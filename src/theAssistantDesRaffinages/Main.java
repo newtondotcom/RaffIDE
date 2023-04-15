@@ -68,6 +68,9 @@ public class Main extends JFrame {
         	StructureDeControle loop = new StructureRepeat(" ","Répéter",vueEdition);
         	sdcs.add(loop);
         	
+        	// Creation de la structure de controle "Pour"
+        	StructureDeControle pour = new StructurePour("Pour"," "," "," ",vueEdition);
+        	sdcs.add(pour);
         	
         	// Creation de la Vue
         	VueStructuresDeControles vueStructures = new VueStructuresDeControles(sdcs);

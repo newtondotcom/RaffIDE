@@ -22,9 +22,22 @@ public class StructureDeControleListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String condition = JOptionPane.showInputDialog("Entrez une condition");
-		sdc.setCondition(condition);
-		sdc.afficher();
+		if (sdc instanceof StructurePour) {
+			/* À changer */
+			String var = JOptionPane.showInputDialog("Entrez un nom de variable");
+			sdc.setVar(var);
+			String Debut = JOptionPane.showInputDialog("Entrez le début de la boucle");
+			sdc.setDebut(Debut);
+			String Fin = JOptionPane.showInputDialog("Entrez la fin de la boucle");
+			sdc.setFin(Fin);
+			sdc.afficher();
+		}
+		
+		else {
+			String condition = JOptionPane.showInputDialog("Entrez une condition");
+			sdc.setCondition(condition);
+			sdc.afficher();
+		}
 	}
 
 }
