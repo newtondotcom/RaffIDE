@@ -44,7 +44,7 @@ public class VueListeRaffinages {
 		supprimer.setActionCommand(REMOVE_COMMAND);
 		popupMenu.add(ajouter);
 		popupMenu.add(supprimer);
-		ActionListener actionListener = new PopupActionListener(tree);
+		ActionListener actionListener = new PopupActionListener();
 		ajouter.addActionListener(actionListener);
 		supprimer.addActionListener(actionListener);
 		initTree("");
@@ -52,7 +52,8 @@ public class VueListeRaffinages {
 	}
 	
 	public void initTree(String root) {
-		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(root);
+		ActionComplexe raffdef = new ActionComplexe(root,0);
+		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(raffdef);
 		tree = new JTree(rootNode);
 		tree.setComponentPopupMenu(popupMenu);
 		initPopupListener(tree, popupMenu);
@@ -60,8 +61,9 @@ public class VueListeRaffinages {
 	}
 	
 	public void renameRoot(String newname) {
+		ActionComplexe r0 = new ActionComplexe(newname,0);
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
-		root.setUserObject("R0 : " + newname);
+		root.setUserObject(r0);
 		((DefaultTreeModel)tree.getModel()).nodeChanged(root);
 		tree.setVisible(true);
 	}
@@ -102,18 +104,17 @@ public class VueListeRaffinages {
 		return new JScrollPane(this.tree);
 	}
 
-	public void AddRaffinage(String nom) {
+	public void AddRaffinage(ActionComplexe raffinage) {
 		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
-		DefaultMutableTreeNode child = new DefaultMutableTreeNode(nom);
+		DefaultMutableTreeNode child = new DefaultMutableTreeNode(raffinage);
 		model.insertNodeInto(child, root, root.getChildCount());
 		tree.scrollPathToVisible(new TreePath(child.getPath()));
 	}
 	class PopupActionListener implements ActionListener {
-		private JTree arbre;
 
-		public PopupActionListener(JTree arb) {
-			this.arbre = arb;
+		public PopupActionListener() {
+			
 		}
 
 		public void actionPerformed(ActionEvent actionEvent) {
@@ -123,12 +124,16 @@ public class VueListeRaffinages {
 			// arbre.setFont(bigFont);
 			
 			String command = actionEvent.getActionCommand();
+			
+			TreePath path = tree.getSelectionPath();
+			
+			DefaultMutableTreeNode precedent = (DefaultMutableTreeNode) path.getLastPathComponent();
+			ActionComplexe rprec = (ActionComplexe) precedent.getUserObject();
 			if (ADD_COMMAND.equals(command)) {
-				String newRaff= JOptionPane.showInputDialog("Entrez le Raffinage");
-				AddRaffinage("Ri : Comment " + newRaff + " ?");
+				String titre = JOptionPane.showInputDialog("Entrez le Raffinage");
+				ActionComplexe newRaff  = new ActionComplexe(titre,rprec.getNiveau()+1);
+				AddRaffinage(newRaff);
 			}
-//			TreePath path = arbre.getSelectionPath();
-//			System.out.println("trace: " + path);
 		}
 	}
 
