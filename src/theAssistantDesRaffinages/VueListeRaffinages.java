@@ -138,10 +138,14 @@ public class VueListeRaffinages {
 				AddRaffinage(newRaff, precedent);
 			}
 			if (DELETE_COMMAND.equals(command)) {
-				int nodeIndex = node.getIndex(precedent);
-				precedent.removeAllChildren();
-				node.remove(nodeIndex);
-				((DefaultTreeModel) tree.getModel()).nodeStructureChanged((TreeNode) precedent);
+				try {
+					int nodeIndex = node.getIndex(precedent);
+					precedent.removeAllChildren();
+					node.remove(nodeIndex);
+					((DefaultTreeModel) tree.getModel()).nodeStructureChanged((TreeNode) precedent);
+				} catch (NullPointerException e) {
+					JOptionPane.showMessageDialog(supprimer, "On ne peut pas supprimer le R0");
+				}
 
 			}
 
