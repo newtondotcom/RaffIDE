@@ -1,14 +1,17 @@
 package theAssistantDesRaffinages;
-
+/**
+ * TextColor définit une énumération qui définit une liste de couleurs de texte 
+ * possibles pour le formatage du texte.
+ *  Chaque couleur est associée à un code hexadécimal correspondant. 
+ */
 public enum TextColor {
-	BLACK("\u001B[30m"),
-    RED("\u001B[31m"),
-    GREEN("\u001B[32m"),
-    YELLOW("\u001B[33m"),
-    BLUE("\u001B[34m"),
-    PURPLE("\u001B[35m"),
-    CYAN("\u001B[36m"),
-    WHITE("\u001B[37m");
+	BLACK("#000000"),
+    RED("#FF0000"),
+    GREEN("#008000"),
+    YELLOW("#FFFF00"),
+    BLUE("#0000FF"),
+    PURPLE("#800080"),
+    WHITE("#FFFFFF");
 
     private final String code;
 

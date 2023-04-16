@@ -1,31 +1,31 @@
 package theAssistantDesRaffinages;
-
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * La classe ActionComplexe implémente Action 
+ * et définit les méthodes pour gérer les raffinages à décomposer(formatage, couleur..)
+ */
 public class ActionComplexe implements Action {
-
+	
+    /* le niveau de raffinage de l'action. */
     private int niveau;
+    /* les sous blocs de texte de l'action complexe (par exemple les structures de controle,
+     *  les actions éléméntaires la décomposant..). */
     private List<Element> sousFils;
 
-    /* le contenu du bloc de texte */
-    private String contenu;
-    /* formats de texte à appliquer (par exemple, gras, italique, souligné)*/
+    /* le titre de l'action. */
+    private String titre;
+    /* formats de texte à appliquer (gras, italique, souligné).*/
     private List<TextFormat> formats;
-    /* la couleur du texte à appliquer */
+    /* la couleur du texte à appliquer. */
     private TextColor couleur;
 
-//    public ActionComplexe (String contenu) {
-//        this.contenu = contenu;
-//        this.formats = new ArrayList<>();
-//        this.couleur = TextColor.BLACK;
-//    }
-    
-    public ActionComplexe (String titre, int niveau) {
-        this.niveau = niveau;
-        this.contenu = "R" + this.niveau + " : Comment " + titre + " ?";
+    public ActionComplexe (String titre) {
+        this.titre = titre;
         this.formats = new ArrayList<>();
         this.couleur = TextColor.BLACK;
+        this.sousFils = new ArrayList<>();
+
     }
 
     public int getNiveau() {
@@ -63,13 +63,13 @@ public class ActionComplexe implements Action {
     }
 
     @Override
-	public void setCouleur(TextColor color) {
-        this.couleur = color;
+	public void setCouleur(TextColor nouvelleCouleur) {
+        this.couleur = nouvelleCouleur;
     }
 
     @Override
-	public String getContenu() {
-        return this.contenu;
+	public String getTitre() {
+        return this.titre;
     }
 
     /* @Override
@@ -80,28 +80,33 @@ public class ActionComplexe implements Action {
 
     @Override
 	public String getTexteFormate() {
-        StringBuilder formattedContent = new StringBuilder();
+        StringBuilder formattedTitle = new StringBuilder();
 
         if (this.couleur != TextColor.BLACK) {
-            formattedContent.append(this.couleur.getCode());
+        	formattedTitle.append(this.couleur.getCode());
         }
 
         for (TextFormat format : this.formats) {
-            formattedContent.append(format.getCode());
+        	formattedTitle.append(format.getCode());
         }
 
-        formattedContent.append(this.contenu);
+        formattedTitle.append(this.titre);
 
         if (this.couleur != TextColor.BLACK || !this.formats.isEmpty()) {
-            formattedContent.append(TextFormat.RESET.getCode());
+        	formattedTitle.append(TextFormat.RESET.getCode());
         }
 
-        return formattedContent.toString();
+        return formattedTitle.toString();
     }
 
     @Override
 	public void print() {
         System.out.println(this.getTexteFormate());
+    }
+    
+    @Override
+    public String toString() {
+        return "R" + this.niveau + "  :  Comment " + this.titre + " ?" ;
     }
 
 	@Override
