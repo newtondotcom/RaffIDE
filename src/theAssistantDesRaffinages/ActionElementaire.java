@@ -17,10 +17,11 @@ public class ActionElementaire implements Action {
 	    /* la couleur du texte à appliquer. */
 	    private TextColor couleur;
 
-	    public ActionElementaire (String titre) {
+	    public ActionElementaire (String titre, int niveau) {
 	        this.titre = titre;
 	        this.formats = new ArrayList<>();
 	        this.couleur = TextColor.BLACK;
+	        this.niveau = niveau;
 	    }
 
 	    @Override
