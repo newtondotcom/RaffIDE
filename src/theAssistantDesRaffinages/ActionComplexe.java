@@ -20,11 +20,12 @@ public class ActionComplexe implements Action {
     /* la couleur du texte à appliquer. */
     private TextColor couleur;
 
-    public ActionComplexe (String titre) {
+    public ActionComplexe (String titre, int niveau) {
         this.titre = titre;
         this.formats = new ArrayList<>();
         this.couleur = TextColor.BLACK;
         this.sousFils = new ArrayList<>();
+        this.niveau = niveau;
 
     }
 
