@@ -1,18 +1,23 @@
 package theAssistantDesRaffinages;
-
+import java.awt.GridBagConstraints;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.border.Border;
 
 public class VueStructuresDeControles {
 	
 	/** Le Panel */
-	private JPanel structuresPanel;
+	private JSplitPane structuresPanel;
 	
 	/** Le Label (Titre) */
 	private JLabel structuresLabel;
@@ -34,21 +39,30 @@ public class VueStructuresDeControles {
 		this.boutonsSdc = new ArrayList<JButton>();
 		
 		// Initialisation du Panel
-		structuresPanel = new JPanel();
+		JPanel titlePanel = new JPanel();
+		JPanel boutonPanel = new JPanel(new FlowLayout());
+		//structuresPanel.setLayout(new FlowLayout());
 		
 		// Ajout d'un Label
 	    structuresLabel = new JLabel("  Structures De Controles  ");
 	    Border blackBorder = BorderFactory.createLineBorder(Color.black);
 	    structuresLabel.setBorder(blackBorder);
-	    structuresPanel.add(structuresLabel);
+	    titlePanel.add(structuresLabel);
     
 	    // Creer un Bouton pour chaque structure de controle
 	    for (StructureDeControle sdc : this.sdcs) {
 		   JButton newBouton = new JButton(sdc.getNom());
 		   newBouton.addActionListener(new StructureDeControleListener(sdc));
 		   boutonsSdc.add(newBouton);
-		   structuresPanel.add(newBouton);
-	    }	
+		   boutonPanel.add(newBouton);
+		 
+	    }
+	    //Creation du premier JSplitPane
+        JSplitPane structuresPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT,titlePanel,boutonPanel);
+        //Valeur initiale
+        structuresPanel.setResizeWeight(0.05);
+        this.structuresPanel = structuresPanel;
+	    
  
 	}
 	
@@ -56,7 +70,7 @@ public class VueStructuresDeControles {
 	 * Recuperer le Panel
 	 * @return JPanel le panel
 	 */
-	public JPanel getPanel() {
+	public JSplitPane getPanel() {
 		return this.structuresPanel;
 	}
 	

@@ -7,10 +7,20 @@ public abstract class StructureDeControle implements Structure {
 	
 	private String condition;
 	private String nom;
+	private String var;
+	private String debut;
+	private String fin;
 	private List<Structure> corps;
 	
 	public StructureDeControle(String condition,String nom) {
 		this.condition = condition;
+		this.nom = nom;
+		this.corps = new ArrayList<>();
+	}
+	
+	public StructureDeControle(String nom,String var,String debut,String fin) {
+		this.setVar(var);
+		this.setDebut(fin);
 		this.nom = nom;
 		this.corps = new ArrayList<>();
 	}
@@ -35,8 +45,33 @@ public abstract class StructureDeControle implements Structure {
 		return condition;
 	}
 	
+	
 	public List<Structure> getCorps() {
 		return this.corps;
 	}
-	
+
+	public String getVar() {
+		return var;
+	}
+
+	public void setVar(String var) {
+		this.var = var;
+	}
+
+	public String getDebut() {
+		return debut;
+	}
+
+	public void setDebut(String debut) {
+		this.debut = debut;
+	}
+
+	public String getFin() {
+		return fin;
+	}
+
+	public void setFin(String fin) {
+		this.fin = fin;
+	}
+
 }
