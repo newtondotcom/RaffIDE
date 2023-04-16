@@ -35,15 +35,14 @@ public class Main extends JFrame {
 		}
         
         
-
         //Zone d'edition des raffinages
         VueEditionRaffinages vueEdition = new VueEditionRaffinages();
         JScrollPane scrollEdition = vueEdition.getScrollPane();
         
         
         //Zone d'affichage de l'ensemble des raffinages
-        VueListeRaffinages VueListe = new VueListeRaffinages();
-        JScrollPane scrollAffichage = VueListe.getScrollPane();
+        VueListeRaffinages vueListe = new VueListeRaffinages();
+        JScrollPane scrollAffichage = vueListe.getScrollPane();
         
         //Créer le menu
         Menu Menuframe = new Menu(vueEdition);
@@ -101,6 +100,8 @@ public class Main extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         
+        String r0 = JOptionPane.showInputDialog("Entrez R0");
+        vueListe.renameRoot(r0);
         
     }
 
