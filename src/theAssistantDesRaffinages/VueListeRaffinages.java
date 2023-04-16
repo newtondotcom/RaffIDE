@@ -24,6 +24,7 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 // TEST COMMENTAIRE
@@ -33,41 +34,40 @@ public class VueListeRaffinages {
 	private JMenuItem ajouter, supprimer;
 	private JTree tree;
 	private static String ADD_COMMAND = "add";
-	private static String REMOVE_COMMAND = "remove";
-	
-	
+	private static String DELETE_COMMAND = "remove";
+
 	public VueListeRaffinages() {
 		popupMenu = new JPopupMenu();
 		ajouter = new JMenuItem("Ajouter");
 		supprimer = new JMenuItem("Supprimer");
 		ajouter.setActionCommand(ADD_COMMAND);
-		supprimer.setActionCommand(REMOVE_COMMAND);
+		supprimer.setActionCommand(DELETE_COMMAND);
 		popupMenu.add(ajouter);
 		popupMenu.add(supprimer);
 		ActionListener actionListener = new PopupActionListener();
 		ajouter.addActionListener(actionListener);
 		supprimer.addActionListener(actionListener);
 		initTree("");
-		
+
 	}
-	
+
 	public void initTree(String root) {
-		ActionComplexe raffdef = new ActionComplexe(root,0);
+		ActionComplexe raffdef = new ActionComplexe(root, 0);
 		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(raffdef);
 		tree = new JTree(rootNode);
 		tree.setComponentPopupMenu(popupMenu);
 		initPopupListener(tree, popupMenu);
 		tree.setVisible(false);
 	}
-	
+
 	public void renameRoot(String newname) {
-		ActionComplexe r0 = new ActionComplexe(newname,0);
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
+		ActionComplexe r0 = new ActionComplexe(newname, 0);
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel()
+				.getRoot();
 		root.setUserObject(r0);
-		((DefaultTreeModel)tree.getModel()).nodeChanged(root);
+		((DefaultTreeModel) tree.getModel()).nodeChanged(root);
 		tree.setVisible(true);
 	}
-	
 
 	private static void initPopupListener(JTree tree, JPopupMenu popupMenu) {
 		popupMenu.addPopupMenuListener(new PopupMenuListener() {
@@ -99,43 +99,53 @@ public class VueListeRaffinages {
 		});
 	}
 
-
 	public JScrollPane getScrollPane() {
 		return new JScrollPane(this.tree);
 	}
 
-	public void AddRaffinage(ActionComplexe raffinage,DefaultMutableTreeNode precedent) {
+	public void AddRaffinage(ActionComplexe raffinage,
+			DefaultMutableTreeNode precedent) {
 		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-		//DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
+		// DefaultMutableTreeNode root = (DefaultMutableTreeNode)
+		// tree.getModel().getRoot();
 		DefaultMutableTreeNode child = new DefaultMutableTreeNode(raffinage);
 		model.insertNodeInto(child, precedent, precedent.getChildCount());
 		tree.scrollPathToVisible(new TreePath(child.getPath()));
 	}
+
 	class PopupActionListener implements ActionListener {
 
 		public PopupActionListener() {
-			
+
 		}
 
 		public void actionPerformed(ActionEvent actionEvent) {
-//			final Font currentFont = arbre.getFont();
-//			final Font bigFont = new Font(currentFont.getName(),
-//					currentFont.getStyle(), currentFont.getSize() + 2);
-			// arbre.setFont(bigFont);
-			
+
 			String command = actionEvent.getActionCommand();
-			
+
 			TreePath path = tree.getSelectionPath();
+
+			DefaultMutableTreeNode precedent = (DefaultMutableTreeNode) path
+					.getLastPathComponent();
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) precedent.getParent();
 			
-			DefaultMutableTreeNode precedent = (DefaultMutableTreeNode) path.getLastPathComponent();
 			ActionComplexe rprec = (ActionComplexe) precedent.getUserObject();
 			if (ADD_COMMAND.equals(command)) {
-				String titre = JOptionPane.showInputDialog("Entrez le Raffinage");
-				ActionComplexe newRaff  = new ActionComplexe(titre,rprec.getNiveau()+1);
-				AddRaffinage(newRaff,precedent);
+				String titre = JOptionPane
+						.showInputDialog("Entrez le Raffinage");
+				ActionComplexe newRaff = new ActionComplexe(titre,
+						rprec.getNiveau() + 1);
+				AddRaffinage(newRaff, precedent);
 			}
+			if (DELETE_COMMAND.equals(command)) {
+				int nodeIndex = node.getIndex(precedent);
+				precedent.removeAllChildren();
+				node.remove(nodeIndex);
+				((DefaultTreeModel) tree.getModel()).nodeStructureChanged((TreeNode) precedent);
+
+			}
+
 		}
 	}
 
 }
-
