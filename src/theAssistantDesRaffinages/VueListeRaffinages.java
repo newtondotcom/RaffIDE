@@ -104,11 +104,11 @@ public class VueListeRaffinages {
 		return new JScrollPane(this.tree);
 	}
 
-	public void AddRaffinage(ActionComplexe raffinage) {
+	public void AddRaffinage(ActionComplexe raffinage,DefaultMutableTreeNode precedent) {
 		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
+		//DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
 		DefaultMutableTreeNode child = new DefaultMutableTreeNode(raffinage);
-		model.insertNodeInto(child, root, root.getChildCount());
+		model.insertNodeInto(child, precedent, precedent.getChildCount());
 		tree.scrollPathToVisible(new TreePath(child.getPath()));
 	}
 	class PopupActionListener implements ActionListener {
@@ -132,7 +132,7 @@ public class VueListeRaffinages {
 			if (ADD_COMMAND.equals(command)) {
 				String titre = JOptionPane.showInputDialog("Entrez le Raffinage");
 				ActionComplexe newRaff  = new ActionComplexe(titre,rprec.getNiveau()+1);
-				AddRaffinage(newRaff);
+				AddRaffinage(newRaff,precedent);
 			}
 		}
 	}
