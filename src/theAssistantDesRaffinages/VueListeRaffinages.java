@@ -127,8 +127,8 @@ public class VueListeRaffinages {
 				String newRaff= JOptionPane.showInputDialog("Entrez le Raffinage");
 				AddRaffinage("Ri : Comment " + newRaff + " ?");
 			}
-			TreePath path = arbre.getSelectionPath();
-			System.out.println("trace: " + path);
+//			TreePath path = arbre.getSelectionPath();
+//			System.out.println("trace: " + path);
 		}
 	}
 
