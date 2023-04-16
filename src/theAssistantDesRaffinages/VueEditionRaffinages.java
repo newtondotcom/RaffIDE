@@ -71,9 +71,7 @@ public class VueEditionRaffinages {
 							"Répéter", "FinRépéter"};
 		for (String word:words) {
 			structKeywords.add(word);
-		}
-		System.out.println(this.structKeywords.size());
-		
+		}		
 		
 		// Permet de revenir à la ligne quand la fin de la TextArea est atteinte
 		
