@@ -42,5 +42,7 @@ public interface Action extends Element {
 	 * Afficher le titre formaté de l'action dans la console.
 	 */
     public void print();
+    
+    public String toString();
 }
 
