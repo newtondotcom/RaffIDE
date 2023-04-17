@@ -28,7 +28,9 @@ public class ActionComplexe implements Action {
         this.niveau = niveau;
 
     }
-
+    
+//gestion des niveaux
+    @Override
     public int getNiveau() {
 		return niveau;
 	}
@@ -41,6 +43,8 @@ public class ActionComplexe implements Action {
 		this.niveau += 1;
 		return this.niveau;
 	}
+	
+// gestion des fils
 
 	public void addSousFils (Element nouveauSousFils) {
 		this.sousFils.add(nouveauSousFils);
@@ -58,27 +62,41 @@ public class ActionComplexe implements Action {
 		this.sousFils = sousFils;
 	}
 
+//gestion du format
+	
 	@Override
 	public void addFormat(TextFormat format) {
         this.formats.add(format);
     }
+	
+	@Override
+	public void removeFormat(TextFormat format) {
+		 this.formats.remove(format);
+	}
 
+// gestion de la couleur
+	
     @Override
 	public void setCouleur(TextColor nouvelleCouleur) {
         this.couleur = nouvelleCouleur;
     }
+    
+	
 
-    @Override
-	public String getTitre() {
-        return this.titre;
-    }
+	@Override
+	public TextColor getCouleur() {
+		return this.couleur;
+	}
+
 
     /* @Override
     public void setContent(String content) {
         this.textArea.setText(content);
     }
    */
-
+    
+ // affichage
+    
     @Override
 	public String getTexteFormate() {
         StringBuilder formattedTitle = new StringBuilder();
@@ -100,6 +118,7 @@ public class ActionComplexe implements Action {
         return formattedTitle.toString();
     }
 
+
     @Override
 	public void print() {
         System.out.println(this.getTexteFormate());
@@ -110,15 +129,6 @@ public class ActionComplexe implements Action {
         return "R" + this.niveau + "  :  Comment " + this.titre + " ?" ;
     }
 
-	@Override
-	public void removeFormat(TextFormat format) {
-		 this.formats.remove(format);
-	}
-
-	@Override
-	public TextColor getCouleur() {
-		return this.couleur;
-	}
 
 
 }
