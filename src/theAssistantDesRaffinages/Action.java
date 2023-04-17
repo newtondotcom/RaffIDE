@@ -27,10 +27,10 @@ public interface Action extends Element {
     public void setCouleur(TextColor nouvelleCouleur);
     
 	/**
-	 * Obtenir le titre de l'action.
-	 * @return titre de l'action
+	 * Obtenir le niveau de l'action.
+	 * @return niveau de l'action
 	 */
-    public String getTitre();
+    public int getNiveau();
     
 	/**
 	 * Obtenir le titre de l'action formaté(Application des couleurs et formats au texte).
@@ -45,4 +45,3 @@ public interface Action extends Element {
     
     public String toString();
 }
-
