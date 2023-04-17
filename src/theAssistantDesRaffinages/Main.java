@@ -39,7 +39,6 @@ public class Main extends JFrame {
         VueEditionRaffinages vueEdition = new VueEditionRaffinages();
         JScrollPane scrollEdition = vueEdition.getScrollPane();
         
-        
         //Zone d'affichage de l'ensemble des raffinages
         VueListeRaffinages vueListe = new VueListeRaffinages();
         JScrollPane scrollAffichage = vueListe.getScrollPane();
@@ -103,6 +102,8 @@ public class Main extends JFrame {
         //Ajouter le menu à la fenêtre
         setJMenuBar(menuBarreBar);
         
+        
+        
         // Construction et injection de la barre d'outils
         JPanel contentPane = (JPanel) getContentPane();
         contentPane.add( Menuframe.createToolBar(), BorderLayout.NORTH );
@@ -114,7 +115,7 @@ public class Main extends JFrame {
         setVisible(true);
         
         String r0 = JOptionPane.showInputDialog("Entrez R0");
-        vueListe.renameRoot(r0);
+        vueListe.changeRoot(r0);
         
     }
 
