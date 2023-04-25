@@ -12,8 +12,8 @@ public class StructureTantque extends StructureDeControle {
 	public void afficher() {
 		String stringToAppend = "TantQue (" + this.getCondition() + ") Faire :" ;
 		for (Structure struct : this.getCorps()) {
-			stringToAppend += "\t";
-			// TODO Gerer le Corps
+			stringToAppend += "\n\t";
+			struct.afficher();
 		}
 		stringToAppend += "\nFinTQ\n";
 		aireTexte.append(stringToAppend);

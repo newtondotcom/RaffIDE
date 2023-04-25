@@ -8,7 +8,6 @@ public class ActionComplexeListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.print("bouton action complexe clické \n");
-		
 	}
 
 }
