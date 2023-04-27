@@ -15,13 +15,14 @@ public class ActionElementaire implements Action {
 	    /* formats de texte à appliquer (gras, italique, souligné).*/
 	    private List<TextFormat> formats;
 	    /* la couleur du texte à appliquer. */
-	    private TextColor couleur;
+	    private TextColor couleur;	    
+	    private VueEditionRaffinages aireTexte;
 
-	    public ActionElementaire (String titre, int niveau) {
-	        this.titre = titre;
+	    public ActionElementaire (VueEditionRaffinages textArea) {
 	        this.formats = new ArrayList<>();
 	        this.couleur = TextColor.BLACK;
-	        this.niveau = niveau;
+	        this.aireTexte = textArea;
+
 	    }
 
 // gestion de la couleur
@@ -35,8 +36,18 @@ public class ActionElementaire implements Action {
 		public TextColor getCouleur() {
 			return this.couleur;
 		}
+		
+		
 
-// gestion du niveau
+		public String getTitre() {
+			return titre;
+		}
+
+		public void setTitre(String nouveauTitre) {
+			this.titre = nouveauTitre;
+		}
+
+		// gestion du niveau
 		@Override
 		public int getNiveau() {
 	        return this.niveau;
@@ -95,6 +106,13 @@ public class ActionElementaire implements Action {
 	    @Override
 		public void print() {
 	        System.out.println(this.getTexteFormate());
+	    }
+	    
+	    @Override
+		public void afficher() {
+	    	String stringToAppend = this.getTexteFormate() + "\n" ;
+			aireTexte.append(stringToAppend);
+			System.out.println("Action élémentaire ajoutée!");
 	    }
 
 	    @Override

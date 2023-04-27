@@ -7,20 +7,22 @@ import javax.swing.JOptionPane;
 
 public class ActionElementaireListener implements ActionListener {
 	
-	private VueEditionRaffinages aireTexte;
-	
-	public ActionElementaireListener (VueEditionRaffinages aireTexte) {
-		this.aireTexte = aireTexte;
-	}
+	/** L'action élémentaire */
+	private ActionElementaire action;
+	private VueEditionRaffinages vueEdition;
 
+	/** Creer un observateur de l'action */
+	public ActionElementaireListener(VueEditionRaffinages vueEdition) {
+		this.action = new ActionElementaire(vueEdition);
+	}
+	
+	/**
+	 * Action se declanchant lorsque l'on appuie sur le bouton
+	 * @param e L'evenement (appuyer sur le bouton)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String text = JOptionPane.showInputDialog("Entrez l'action elementaire");
-		// TODO Prendre le niveau en compte
-		ActionElementaire actionElem = new ActionElementaire(text,0);
-		aireTexte.append(text);
-		
-		
+		System.out.print("bouton action élémentaire clické \n");
 		
 	}
 
