@@ -25,8 +25,8 @@ public class VueEditionRaffinages {
 	JTextPane edition;
 	StyledDocument doc;
 	
-	/** la taille de la police */
-	private int fontSize;
+	/** la taille de la police  ( par defaut à 14 ) */
+	private int fontSize = 14;
 	
 	/** La police d'ecriture */
 	private Font police;
@@ -112,6 +112,19 @@ public class VueEditionRaffinages {
 	
 	public JTextPane getTextArea() {
 		return this.edition;
+	}
+	
+	public void updatePolice(Font newPolice) {
+		this.police = newPolice;
+		edition.setFont(police);
+	}
+	
+	public int getFontSize() {
+		return this.fontSize;
+	}
+	
+	public void setFontSize(int newSize) {
+		this.fontSize = newSize;
 	}
 
 	/**
