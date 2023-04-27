@@ -25,7 +25,7 @@ public class VueAction {
 	 * Creer un UI Structure de Controle
 	 * @param sdcs La liste de structures suportees
 	 */
-	public VueAction() {
+	public VueAction(VueEditionRaffinages vueEdition) {
 		
 		// Initialisation du Panel
 		JPanel titlePanel = new JPanel();
@@ -40,12 +40,12 @@ public class VueAction {
     
 	    // ajout du bouton elementaire
 	    JButton Boutonelem = new JButton("action élémentaire");
-		Boutonelem.addActionListener(new ActionElementaireListener());
+		Boutonelem.addActionListener(new ActionElementaireListener(vueEdition));
 		boutonPanel.add(Boutonelem);
 		
 		//ajout du bouton complexe
 		JButton Boutoncompl = new JButton("action complexe");
-		Boutoncompl.addActionListener(new ActionComplexeListener());
+		Boutoncompl.addActionListener(new ActionComplexeListener(vueEdition));
 		boutonPanel.add(Boutoncompl);
 		
 	    

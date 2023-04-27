@@ -75,7 +75,7 @@ public class Main extends JFrame {
         	JSplitPane structuresPanel = vueStructures.getPanel();
         	
         // Création des bouton pour les actions complexe/élémentaire
-        VueAction vueActions = new VueAction();
+        VueAction vueActions = new VueAction(vueEdition);
         JSplitPane actionPanel = vueActions.getPanel();
         
         //Séparation des deux fenetre action et structure de controle 

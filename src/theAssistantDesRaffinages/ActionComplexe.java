@@ -19,10 +19,20 @@ public class ActionComplexe implements Action {
     private List<TextFormat> formats;
     /* la couleur du texte à appliquer. */
     private TextColor couleur;
+    
+    private VueEditionRaffinages aireTexte;
 
-    public ActionComplexe (String titre, int niveau) {
-        this.titre = titre;
+    public ActionComplexe (VueEditionRaffinages textArea) {
         this.formats = new ArrayList<>();
+        this.couleur = TextColor.BLACK;
+        this.sousFils = new ArrayList<>();
+        this.aireTexte = textArea;
+
+    }
+    
+    public ActionComplexe (String titre, int niveau) {
+        this.formats = new ArrayList<>();
+        this.titre = titre;
         this.couleur = TextColor.BLACK;
         this.sousFils = new ArrayList<>();
         this.niveau = niveau;
@@ -44,8 +54,17 @@ public class ActionComplexe implements Action {
 		return this.niveau;
 	}
 	
-// gestion des fils
 
+
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
+	// gestion des fils
 	public void addSousFils (Element nouveauSousFils) {
 		this.sousFils.add(nouveauSousFils);
 	}
@@ -87,13 +106,6 @@ public class ActionComplexe implements Action {
 	public TextColor getCouleur() {
 		return this.couleur;
 	}
-
-
-    /* @Override
-    public void setContent(String content) {
-        this.textArea.setText(content);
-    }
-   */
     
  // affichage
     
@@ -123,6 +135,14 @@ public class ActionComplexe implements Action {
 	public void print() {
         System.out.println(this.getTexteFormate());
     }
+    
+    @Override
+	public void afficher() {
+    	String stringToAppend = this.getTexteFormate() + "\n" ;
+		aireTexte.append(stringToAppend);
+		System.out.println("Action complexe ajoutée!");
+    }
+    
     
     @Override
     public String toString() {
