@@ -11,7 +11,7 @@ public class StructurePour extends StructureDeControle {
 	@Override
 	public void afficher() {
 		String stringToAppend = "Pour " + this.getVar() + "  De " + this.getDebut() + " À " + this.getFin() + " Faire :" ;
-		for (Structure struct : this.getCorps()) {
+		for (Element struct : this.getCorps()) {
 			stringToAppend += "\n\t";
 			stringToAppend += struct.toString();
 		}

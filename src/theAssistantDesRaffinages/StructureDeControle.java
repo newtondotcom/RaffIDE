@@ -3,14 +3,14 @@ package theAssistantDesRaffinages;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class StructureDeControle implements Structure {
+public abstract class StructureDeControle implements Element {
 	
 	private String condition;
 	private String nom;
 	private String var;
 	private String debut;
 	private String fin;
-	private List<Structure> corps;
+	private List<Element> corps;
 	
 	public StructureDeControle(String condition,String nom) {
 		this.condition = condition;
@@ -25,11 +25,11 @@ public abstract class StructureDeControle implements Structure {
 		this.corps = new ArrayList<>();
 	}
 	
-	public void add(Structure struct) {
+	public void add(Element struct) {
 		corps.add(struct);
 	}
 	
-	public void delete(Structure struct) {
+	public void delete(Element struct) {
 		corps.remove(struct);
 	}
 	
@@ -46,7 +46,7 @@ public abstract class StructureDeControle implements Structure {
 	}
 	
 	
-	public List<Structure> getCorps() {
+	public List<Element> getCorps() {
 		return this.corps;
 	}
 

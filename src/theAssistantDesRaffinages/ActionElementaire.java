@@ -101,6 +101,12 @@ public class ActionElementaire implements Action {
 	    public String toString() {
 	        return this.titre;
 	    }
+
+		@Override
+		public void afficher() {
+			// TODO Auto-generated method stub
+			
+		}
 	    
 
 

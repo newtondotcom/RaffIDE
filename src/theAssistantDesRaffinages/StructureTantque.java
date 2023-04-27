@@ -11,7 +11,7 @@ public class StructureTantque extends StructureDeControle {
 	@Override
 	public void afficher() {
 		String stringToAppend = "TantQue (" + this.getCondition() + ") Faire :" ;
-		for (Structure struct : this.getCorps()) {
+		for (Element struct : this.getCorps()) {
 			stringToAppend += "\n\t";
 			struct.afficher();
 		}

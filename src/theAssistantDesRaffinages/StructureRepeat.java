@@ -11,7 +11,7 @@ public class StructureRepeat extends StructureDeControle {
 	@Override
 	public void afficher() {
 		String stringToAppend = "Faire :" ;
-		for (Structure struct : this.getCorps()) {
+		for (Element struct : this.getCorps()) {
 			stringToAppend += "\t";
 			// TODO Gerer le Corps
 		}

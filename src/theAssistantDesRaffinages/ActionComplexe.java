@@ -129,6 +129,12 @@ public class ActionComplexe implements Action {
         return "R" + this.niveau + "  :  Comment " + this.titre + " ?" ;
     }
 
+	@Override
+	public void afficher() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

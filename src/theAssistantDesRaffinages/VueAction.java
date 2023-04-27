@@ -17,6 +17,8 @@ public class VueAction {
 	/** Le Label (Titre) */
 	private JLabel titleLabel;
 	
+	/** Reference a la zone d'edition des raffinages */
+	private VueEditionRaffinages aireTexte;
 	
 	
 	
@@ -25,8 +27,10 @@ public class VueAction {
 	 * Creer un UI Structure de Controle
 	 * @param sdcs La liste de structures suportees
 	 */
-	public VueAction() {
+	public VueAction(VueEditionRaffinages aireTexte) {
 		
+		this.aireTexte = aireTexte;
+			
 		// Initialisation du Panel
 		JPanel titlePanel = new JPanel();
 		JPanel boutonPanel = new JPanel(new FlowLayout());
@@ -40,7 +44,7 @@ public class VueAction {
     
 	    // ajout du bouton elementaire
 	    JButton Boutonelem = new JButton("action élémentaire");
-		Boutonelem.addActionListener(new ActionElementaireListener());
+		Boutonelem.addActionListener(new ActionElementaireListener(aireTexte));
 		boutonPanel.add(Boutonelem);
 		
 		//ajout du bouton complexe

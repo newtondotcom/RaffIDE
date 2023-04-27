@@ -13,7 +13,7 @@ public class StructureSi extends StructureDeControle {
 	@Override
 	public void afficher() {
 		String stringToAppend = "Si (" + this.getCondition() + ") Alors :" ;
-		for (Structure struct : this.getCorps()) {
+		for (Element struct : this.getCorps()) {
 			stringToAppend += "\t";
 			// TODO Gerer le Corps
 		}
