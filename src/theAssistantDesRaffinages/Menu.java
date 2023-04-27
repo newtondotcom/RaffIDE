@@ -1,6 +1,8 @@
 package theAssistantDesRaffinages;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -10,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JComboBox;
 
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
@@ -23,6 +26,15 @@ import java.io.IOException;
  
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+
 
 
 @SuppressWarnings("serial")
@@ -103,7 +115,34 @@ public class Menu extends JFrame {
         toolBar.add( actOpen ).setHideActionText( true );
         toolBar.add( actSave ).setHideActionText( true );
         toolBar.add( actSaveAs ).setHideActionText( true );
-        toolBar.add( actPolice ).setHideActionText( true );
+        
+        
+       
+
+        /* Ajout pour pouvoir changer police d'ecriture */
+        
+        // Créer une liste de noms de police disponibles
+        String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+
+        // Créer la JComboBox pour sélectionner une police
+        JComboBox<String> police = new JComboBox<>(fonts);
+        police.setMaximumSize(new Dimension(150, police.getPreferredSize().height)); // ajuster la taille de la JComboBox
+        police.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String fontName = (String) police.getSelectedItem();
+                Font font = new Font(fontName, Font.PLAIN, vueEdition.getFontSize());
+                vueEdition.updatePolice(font);
+            }
+        });
+
+        // Ajouter la JComboBox à la JToolBar
+        toolBar.add(police);
+
+
+     
+        
+        
         toolBar.add(actZoomIn).setHideActionText(true);
         toolBar.add(actZoomOut).setHideActionText(true);
         toolBar.addSeparator();
@@ -305,19 +344,10 @@ public class Menu extends JFrame {
     
     };
     
-    private AbstractAction actPolice = new AbstractAction() {  
-        {
-            putValue( Action.NAME, "Police" );
-            putValue( Action.SMALL_ICON, new ImageIcon( "icons/police.png" ));
-           
-     
-        }
-        
-        @Override public void actionPerformed( ActionEvent e ) {
-            System.out.println( "Police en cours de modification" );
-        }
     
-    };
+    
+
+	
     
     private AbstractAction actPoliceTimes = new AbstractAction() {  
         {
@@ -372,6 +402,9 @@ public class Menu extends JFrame {
 		
     
     };
+    
+   
+
     
     public void mnuNewListener( ActionEvent event ) {
         JOptionPane.showMessageDialog( this, "Button clicked !" );

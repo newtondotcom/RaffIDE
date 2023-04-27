@@ -119,6 +119,10 @@ public class VueEditionRaffinages {
 		edition.setFont(police);
 	}
 	
+	public Font getPolice() {
+		return this.police;
+	}
+	
 	public int getFontSize() {
 		return this.fontSize;
 	}
