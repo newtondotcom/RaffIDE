@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
@@ -42,6 +43,9 @@ public class Menu extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private VueEditionRaffinages vueEdition;
+    
+    private JLabel fontSizeLabel;
+    
 	/* Construction de l'interface graphique */
     public Menu(VueEditionRaffinages vueEdition) {
         super( "Ra77ineur" );
@@ -139,6 +143,12 @@ public class Menu extends JFrame {
         // Ajouter la JComboBox à la JToolBar
         toolBar.add(police);
 
+        
+     // Créer un JLabel pour afficher la taille de police courante
+        
+        toolBar.add(incFontSizeButton).setHideActionText(true);;
+        toolBar.add(decFontSizeButton).setHideActionText(true);;
+        //toolBar.add(fontSizeLabel);
 
      
         
@@ -403,7 +413,41 @@ public class Menu extends JFrame {
     
     };
     
+    
+    private AbstractAction incFontSizeButton = new AbstractAction() {  
+        {
+            putValue( Action.NAME, "+" );
+           
+           
+     
+        }
+        
+        @Override public void actionPerformed( ActionEvent e ) {
+        	vueEdition.incFontSizeOnClick();
+        	fontSizeLabel = new JLabel("Taille : " + vueEdition.getFontSize());
+        }
+
+		
+    
+    };
    
+    private AbstractAction decFontSizeButton = new AbstractAction() {  
+        {
+            putValue( Action.NAME, "-" );
+           
+           
+     
+        }
+        
+        @Override public void actionPerformed( ActionEvent e ) {
+        	vueEdition.decFontSizeOnClick();
+        	fontSizeLabel = new JLabel("Taille : " + vueEdition.getFontSize());
+        }
+
+		
+    
+    };
+
 
     
     public void mnuNewListener( ActionEvent event ) {

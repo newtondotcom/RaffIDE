@@ -92,6 +92,25 @@ public class VueEditionRaffinages {
 		}
 		this.updateFontSize();
 	}
+	/*
+	 * Lors d'un click decremente la taille de la police de 0,5 
+	 */
+	public void decFontSizeOnClick() {
+		if (this.fontSize >= 1) {
+			this.fontSize--;
+			this.updateFontSize();
+		}
+	}
+	
+	/*
+	 * Lors d'un click augmente la taille de la police de 0,5 
+	 */
+	public void incFontSizeOnClick() {
+
+		this.fontSize++;
+		this.updateFontSize();
+		
+	}
 
 	/**
 	 * incremente la taille de la police
@@ -107,6 +126,11 @@ public class VueEditionRaffinages {
 
 	public void updateFontSize() {
 		this.police = new Font("Monospaced", Font.PLAIN, fontSize);
+		edition.setFont(police);
+	}
+	
+	public void updateFontSize(int new_size) {
+		this.police = new Font("Monospaced", Font.PLAIN, new_size);
 		edition.setFont(police);
 	}
 	
