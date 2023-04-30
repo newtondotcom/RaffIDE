@@ -21,6 +21,7 @@ import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import javax.swing.text.AbstractDocument.LeafElement;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
@@ -189,6 +190,14 @@ public class VueListeRaffinages {
 		
 		// Mise a jour du chemin
 		tree.scrollPathToVisible(new TreePath(child.getPath()));
+	}
+	
+	/**
+	 * Retourne le {@link DefaultTreeModel} correspondant à l'abre
+	 * @return {@link DefaultTreeModel}
+	 */
+	public DefaultTreeModel getTreeModel() {
+		return (DefaultTreeModel) this.tree.getModel();
 	}
 
 	

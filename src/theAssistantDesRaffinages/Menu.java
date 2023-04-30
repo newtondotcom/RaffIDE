@@ -1,4 +1,4 @@
-package theAssistantDesRaffinages;
+package src.theAssistantDesRaffinages;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,17 +17,19 @@ import javax.swing.JLabel;
 
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
+import javax.swing.JTree;
 import javax.swing.KeyStroke;
 
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
  
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
+import javax.swing.tree.DefaultTreeModel;
 
 import java.awt.event.ActionListener;
 
@@ -37,12 +39,16 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 
+import src.theAssistantDesRaffinages.Export;
+
 
 @SuppressWarnings("serial")
 public class Menu extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private VueEditionRaffinages vueEdition;
+    private VueListeRaffinages vueRaffinages;
+    private String filePath;
     
     private JLabel fontSizeLabel;
     
@@ -189,6 +195,7 @@ public class Menu extends JFrame {
         
         @Override public void actionPerformed( ActionEvent e ) {
             System.out.println( "Open" );
+            //Ouvrir le fichier et modifier l'arbre correspondant
         }
     };
 
@@ -203,6 +210,7 @@ public class Menu extends JFrame {
         
         @Override public void actionPerformed( ActionEvent e ) {
             System.out.println( "Save" );
+            //Rajouter enregistrement normal
             
         }
     };
@@ -234,6 +242,18 @@ public class Menu extends JFrame {
                 }
             }
             // TODO enregistrer le fichier qu'on veut ( en .json ) 
+            DefaultTreeModel arbre = vueRaffinages.getTreeModel();
+            Export classExport = new Export();
+            String dataString = classExport.exportation(arbre);
+
+            FileWriter writer;
+			try {
+				writer = new FileWriter("./test.json");
+	            writer.write(dataString);
+	            writer.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
             
             
         }
