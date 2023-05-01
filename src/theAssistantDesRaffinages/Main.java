@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends JFrame {
-
+	private static final long serialVersionUID = 1L;
+	private VueEditionRaffinages vueEdition;
+	
     /**
      * 
      */
@@ -36,7 +38,7 @@ public class Main extends JFrame {
         
         
         //Zone d'edition des raffinages
-        VueEditionRaffinages vueEdition = new VueEditionRaffinages();
+        vueEdition = new VueEditionRaffinages();
         JScrollPane scrollEdition = vueEdition.getScrollPane();
         
         //Zone d'affichage de l'ensemble des raffinages
@@ -120,6 +122,10 @@ public class Main extends JFrame {
         //vueActions.changeRoot(r0);
         
     }
+    
+    public VueEditionRaffinages getVueEditionRaffinages() {
+		return this.vueEdition;
+	}
 
     public static void main(String[] args) {
         @SuppressWarnings("unused")

@@ -25,8 +25,8 @@ public class VueEditionRaffinages {
 	JTextPane edition;
 	StyledDocument doc;
 	
-	/** la taille de la police */
-	private int fontSize;
+	/** la taille de la police  ( par defaut à 14 ) */
+	private int fontSize = 14;
 	
 	/** La police d'ecriture */
 	private Font police;
@@ -92,6 +92,25 @@ public class VueEditionRaffinages {
 		}
 		this.updateFontSize();
 	}
+	/*
+	 * Lors d'un click decremente la taille de la police de 0,5 
+	 */
+	public void decFontSizeOnClick() {
+		if (this.fontSize >= 1) {
+			this.fontSize--;
+			this.updateFontSize();
+		}
+	}
+	
+	/*
+	 * Lors d'un click augmente la taille de la police de 0,5 
+	 */
+	public void incFontSizeOnClick() {
+
+		this.fontSize++;
+		this.updateFontSize();
+		
+	}
 
 	/**
 	 * incremente la taille de la police
@@ -110,8 +129,30 @@ public class VueEditionRaffinages {
 		edition.setFont(police);
 	}
 	
+	public void updateFontSize(int new_size) {
+		this.police = new Font("Monospaced", Font.PLAIN, new_size);
+		edition.setFont(police);
+	}
+	
 	public JTextPane getTextArea() {
 		return this.edition;
+	}
+	
+	public void updatePolice(Font newPolice) {
+		this.police = newPolice;
+		edition.setFont(police);
+	}
+	
+	public Font getPolice() {
+		return this.police;
+	}
+	
+	public int getFontSize() {
+		return this.fontSize;
+	}
+	
+	public void setFontSize(int newSize) {
+		this.fontSize = newSize;
 	}
 
 	/**
