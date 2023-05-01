@@ -77,6 +77,14 @@ public class VueListeRaffinages {
 		initTree("");
 	}
 
+	public JTree getTree() {
+		return tree;
+	}
+
+	public void setTree(JTree tree) {
+		this.tree = tree;
+	}
+
 	/**
 	 * Initialise la JTree avec la racine spécifiée.
 	 * @param root La chaîne représentant la racine de la JTree.
@@ -175,8 +183,7 @@ public class VueListeRaffinages {
 	 * @param raffinage, le raffinage a ajouter
 	 * @param precedent, le raffinage parent
 	 */
-	public void AddRaffinage(ActionComplexe raffinage,
-			DefaultMutableTreeNode precedent) {
+	public void AddRaffinage(ActionComplexe raffinage, DefaultMutableTreeNode precedent) {
 		
 		// Recuperer le modele de l'arbre
 		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();

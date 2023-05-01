@@ -43,6 +43,7 @@ public class Main extends JFrame {
         VueListeRaffinages vueListe = new VueListeRaffinages();
         JScrollPane scrollAffichage = vueListe.getScrollPane();
         
+        
         //Créer le menu
         Menu Menuframe = new Menu(vueEdition);
         
@@ -75,7 +76,7 @@ public class Main extends JFrame {
         	JSplitPane structuresPanel = vueStructures.getPanel();
         	
         // Création des bouton pour les actions complexe/élémentaire
-        VueAction vueActions = new VueAction(vueEdition);
+        VueAction vueActions = new VueAction(vueEdition, vueListe);
         JSplitPane actionPanel = vueActions.getPanel();
         
         //Séparation des deux fenetre action et structure de controle 
@@ -116,6 +117,7 @@ public class Main extends JFrame {
         
         String r0 = JOptionPane.showInputDialog("Entrez R0");
         vueListe.changeRoot(r0);
+        //vueActions.changeRoot(r0);
         
     }
 
