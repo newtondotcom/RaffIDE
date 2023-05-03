@@ -25,11 +25,8 @@ public class VueAction {
 	/** Le Label (Titre) */
 	private JLabel titleLabel;
 	
-	/** La JTree contenant les raffinages */
-	private JTree tree;
 	
-	
-	
+
 	
 	/**
 	 * Creer un UI Structure de Controle
@@ -54,10 +51,7 @@ public class VueAction {
 		boutonPanel.add(Boutonelem);
 		
 		//ajout du bouton complexe
-		// Initialisation de la JTree avec une racine vide
-		//initTree("");
 		JButton Boutoncompl = new JButton("action complexe");
-		//AddRaffinage(ActionComplexe raffinage, DefaultMutableTreeNode precedent);
 		Boutoncompl.addActionListener(new ActionComplexeListener(vueEdition, vueListe));
 		boutonPanel.add(Boutoncompl);
 		
@@ -70,48 +64,7 @@ public class VueAction {
   
  
 	}
-	/**
-	 * Initialise la JTree avec la racine spécifiée.
-	 * @param root La chaîne représentant la racine de la JTree.
-	 */
-	public void initTree(String root) {
-		// Création de l'élément racine avec un ActionComplexe contenant la
-		// chaîne spécifiée
-		ActionComplexe raffdef = new ActionComplexe(root, 0);
-		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(raffdef);
 
-		// Création de la JTree avec l'élément racine
-		tree = new JTree(rootNode);
-
-		// Assignation du menu contextuel à la JTree
-		//tree.setComponentPopupMenu(popupMenu);
-
-		// Initialisation de l'écouteur pour les événements du menu contextuel
-		//initPopupListener(tree, popupMenu);
-
-		// La JTree est initialement cachée
-		tree.setVisible(false);
-	}
-
-	/**
-	 * Changer la racine de la JTree.
-	 * @param newname Le nouveau nom de la racine
-	 */
-	public void changeRoot(String newname) {
-		// Creation de l'action complexe
-		ActionComplexe r0 = new ActionComplexe(newname, 0);
-
-		// Recuperation de la racine
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel()
-				.getRoot();
-
-		// Changement d'objet
-		root.setUserObject(r0);
-
-		// Mise a jour
-		((DefaultTreeModel) tree.getModel()).nodeChanged(root);
-		tree.setVisible(true);
-	}
 	
 	/**
 	 * Recuperer le Panel
