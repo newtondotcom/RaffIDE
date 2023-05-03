@@ -1,13 +1,21 @@
 package theAssistantDesRaffinages;
+import theAssistantDesRaffinages.VueListeRaffinages;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.JTree;
 import javax.swing.border.Border;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 public class VueAction {
 
@@ -20,14 +28,13 @@ public class VueAction {
 	/** Reference a la zone d'edition des raffinages */
 	private VueEditionRaffinages aireTexte;
 	
-	
-	
+
 	
 	/**
 	 * Creer un UI Structure de Controle
 	 * @param sdcs La liste de structures suportees
 	 */
-	public VueAction(VueEditionRaffinages vueEdition) {
+	public VueAction(VueEditionRaffinages vueEdition, VueListeRaffinages vueListe) {
 		
 		// Initialisation du Panel
 		JPanel titlePanel = new JPanel();
@@ -47,18 +54,19 @@ public class VueAction {
 		
 		//ajout du bouton complexe
 		JButton Boutoncompl = new JButton("action complexe");
-		Boutoncompl.addActionListener(new ActionComplexeListener(vueEdition));
+		Boutoncompl.addActionListener(new ActionComplexeListener(vueEdition, vueListe));
 		boutonPanel.add(Boutoncompl);
+		
 		
 	    
 	    // Séparation entre le titre et les boutons
         actionPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT,titlePanel,boutonPanel);
         //Valeur initiale
         actionPanel.setResizeWeight(0.05);
-        
-	    
+  
  
 	}
+
 	
 	/**
 	 * Recuperer le Panel

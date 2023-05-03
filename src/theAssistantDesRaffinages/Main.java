@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends JFrame {
-
+	private static final long serialVersionUID = 1L;
+	private VueEditionRaffinages vueEdition;
+	
     /**
      * 
      */
@@ -36,12 +38,13 @@ public class Main extends JFrame {
         
         
         //Zone d'edition des raffinages
-        VueEditionRaffinages vueEdition = new VueEditionRaffinages();
+        vueEdition = new VueEditionRaffinages();
         JScrollPane scrollEdition = vueEdition.getScrollPane();
         
         //Zone d'affichage de l'ensemble des raffinages
         VueListeRaffinages vueListe = new VueListeRaffinages();
         JScrollPane scrollAffichage = vueListe.getScrollPane();
+        
         
         //Créer le menu
         Menu Menuframe = new Menu(vueEdition);
@@ -75,7 +78,7 @@ public class Main extends JFrame {
         	JSplitPane structuresPanel = vueStructures.getPanel();
         	
         // Création des bouton pour les actions complexe/élémentaire
-        VueAction vueActions = new VueAction(vueEdition);
+        VueAction vueActions = new VueAction(vueEdition, vueListe);
         JSplitPane actionPanel = vueActions.getPanel();
         
         //Séparation des deux fenetre action et structure de controle 
@@ -116,8 +119,13 @@ public class Main extends JFrame {
         
         String r0 = JOptionPane.showInputDialog("Entrez R0");
         vueListe.changeRoot(r0);
+        //vueActions.changeRoot(r0);
         
     }
+    
+    public VueEditionRaffinages getVueEditionRaffinages() {
+		return this.vueEdition;
+	}
 
     public static void main(String[] args) {
         @SuppressWarnings("unused")

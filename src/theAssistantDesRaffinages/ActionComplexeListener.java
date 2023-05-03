@@ -3,16 +3,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 public class ActionComplexeListener implements ActionListener{
 
-	/** L'action complexe */
-	private ActionComplexe action;
 	private VueEditionRaffinages vueEdition;
+	private  VueListeRaffinages vueListe ;
 
 	/** Creer un observateur de l'action */
-	public ActionComplexeListener (VueEditionRaffinages vueEdition) {
-		this.action = new ActionComplexe(vueEdition);
+	public ActionComplexeListener (VueEditionRaffinages vueEdition, VueListeRaffinages vueListe ) {
+		this.vueListe = vueListe;
+		this.vueEdition = vueEdition;
+
 	}
 	
 	/**
@@ -23,10 +28,24 @@ public class ActionComplexeListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		System.out.print("bouton action complexe clické \n");
 		String titre = JOptionPane.showInputDialog("Entrez une action complexe");
-		this.action.setTitre(titre);
+		ActionComplexe action = new ActionComplexe(this.vueEdition);
+		action.setTitre(titre);
 		if (titre != null) {
-			this.action.afficher();
+			action.afficher();
+			// Recuperation du chemin
+	        TreePath path = this.vueListe.getTree().getSelectionPath();
+	        
+	        // Recuperation du noeud courant et parent
+	        DefaultMutableTreeNode courant = (DefaultMutableTreeNode) path.getLastPathComponent();
+	        
+	        // Recuperation du raffinage courant
+	        ActionComplexe raffinageCourant = (ActionComplexe) courant.getUserObject();
+			action.setNiveau(raffinageCourant.getNiveau() + 1);
+            this.vueListe.AddRaffinage(action, courant);
+			
 		}
 	}
+	
+
 
 }
