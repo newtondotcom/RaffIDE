@@ -39,7 +39,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 
-import src.theAssistantDesRaffinages.Export;
+import theAssistantDesRaffinages.Export;
 
 
 @SuppressWarnings("serial")
