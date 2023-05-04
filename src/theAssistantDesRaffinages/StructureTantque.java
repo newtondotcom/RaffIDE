@@ -1,23 +1,19 @@
 package theAssistantDesRaffinages;
 
 public class StructureTantque extends StructureDeControle {
-	private VueEditionRaffinages aireTexte;
-
-	public StructureTantque(String condition,String nom,VueEditionRaffinages textArea) {
+	public StructureTantque(String condition,String nom) {
 		super(condition,nom);
-		this.aireTexte = textArea;
 	}
 
 	@Override
-	public void afficher() {
+	public String toString() {
 		String stringToAppend = "TantQue (" + this.getCondition() + ") Faire :" ;
 		for (Element struct : this.getCorps()) {
 			stringToAppend += "\n\t";
-			struct.afficher();
+			stringToAppend += struct;
 		}
 		stringToAppend += "\nFinTQ\n";
-		aireTexte.append(stringToAppend);
-		System.out.println("Condition TQ ajoutée!");
+		return stringToAppend;
 		
 	}
 }

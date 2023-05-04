@@ -20,13 +20,11 @@ public class ActionComplexe implements Action {
     /* la couleur du texte à appliquer. */
     private TextColor couleur;
     
-    private VueEditionRaffinages aireTexte;
 
-    public ActionComplexe (VueEditionRaffinages textArea) {
+    public ActionComplexe () {
         this.formats = new ArrayList<>();
         this.couleur = TextColor.BLACK;
         this.sousFils = new ArrayList<>();
-        this.aireTexte = textArea;
 
     }
     
@@ -136,24 +134,20 @@ public class ActionComplexe implements Action {
         System.out.println(this.getTexteFormate());
     }
     
-    @Override
-	public void afficher() {
-    	String stringToAppend = this.getTexteFormate() + "\n" ;
-		aireTexte.append(stringToAppend);
-		System.out.println("Action complexe ajoutée!");
-    }
     
-    
-    @Override
-    public String toString() {
+    public String getTitreEntier() {
         return "R" + this.niveau + "  :  Comment " + this.titre + " ?" ;
     }
 
-	@Override
-	public void afficher() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public String toString() {
+    	String acString;
+    	acString = this.getTitreEntier() + "\n";
+    	for (Element element : this.sousFils) {
+    		acString += element;
+    	}
+    	return acString;
+    }
 
 
 

@@ -195,4 +195,9 @@ public class VueEditionRaffinages {
         style.addAttribute("id", id);
         return style;
     }
+
+	public void update(ActionComplexe raffinageCourant) {
+		edition.setText(raffinageCourant.toString());
+		
+	}
 }

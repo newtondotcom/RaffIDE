@@ -42,7 +42,7 @@ public class Main extends JFrame {
         JScrollPane scrollEdition = vueEdition.getScrollPane();
         
         //Zone d'affichage de l'ensemble des raffinages
-        VueListeRaffinages vueListe = new VueListeRaffinages();
+        VueListeRaffinages vueListe = new VueListeRaffinages(vueEdition);
         JScrollPane scrollAffichage = vueListe.getScrollPane();
         
         
@@ -58,19 +58,19 @@ public class Main extends JFrame {
         	List<StructureDeControle> sdcs = new ArrayList<StructureDeControle>();
         	
         	// Creation de la structure de controle "Si"
-        	StructureDeControle Si = new StructureSi(" ","Si",vueEdition);
+        	StructureDeControle Si = new StructureSi(" ","Si");
         	sdcs.add(Si);
         	
         	// Creation de la structure de controle "TantQue"
-        	StructureDeControle Tq = new StructureTantque(" ","Tant que",vueEdition);
+        	StructureDeControle Tq = new StructureTantque(" ","Tant que");
         	sdcs.add(Tq);
         	
         	// Creation de la structure de controle "Repeat"
-        	StructureDeControle loop = new StructureRepeat(" ","Répéter",vueEdition);
+        	StructureDeControle loop = new StructureRepeat(" ","Répéter");
         	sdcs.add(loop);
         	
         	// Creation de la structure de controle "Pour"
-        	StructureDeControle pour = new StructurePour("Pour"," "," "," ",vueEdition);
+        	StructureDeControle pour = new StructurePour("Pour"," "," "," ");
         	sdcs.add(pour);
         	
         	// Creation de la Vue

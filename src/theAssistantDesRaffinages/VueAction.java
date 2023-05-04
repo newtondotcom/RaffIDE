@@ -49,7 +49,7 @@ public class VueAction {
     
 	    // ajout du bouton elementaire
 	    JButton Boutonelem = new JButton("action élémentaire");
-		Boutonelem.addActionListener(new ActionElementaireListener());
+		Boutonelem.addActionListener(new ActionElementaireListener(vueEdition));
 		boutonPanel.add(Boutonelem);
 		
 		//ajout du bouton complexe

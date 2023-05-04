@@ -242,7 +242,7 @@ public class Menu extends JFrame {
                 }
             }
             // TODO enregistrer le fichier qu'on veut ( en .json ) 
-            VueListeRaffinages vueRaffinages = new VueListeRaffinages();
+            VueListeRaffinages vueRaffinages = new VueListeRaffinages(new VueEditionRaffinages());
             DefaultTreeModel arbre = vueRaffinages.getTreeModel();
             Export classExport = new Export();
             String dataString = classExport.exportation(arbre);

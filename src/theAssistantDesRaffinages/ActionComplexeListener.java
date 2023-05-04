@@ -28,7 +28,7 @@ public class ActionComplexeListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		System.out.print("bouton action complexe clické \n");
 		String titre = JOptionPane.showInputDialog("Entrez une action complexe");
-		ActionComplexe action = new ActionComplexe(this.vueEdition);
+		ActionComplexe action = new ActionComplexe();
 		action.setTitre(titre);
 		if (titre != null) {
 			action.afficher();

@@ -109,22 +109,10 @@ public class ActionElementaire implements Action {
 	    }
 	    
 	    @Override
-		public void afficher() {
-	    	String stringToAppend = this.getTexteFormate() + "\n" ;
-			aireTexte.append(stringToAppend);
-			System.out.println("Action élémentaire ajoutée!");
-	    }
-
-	    @Override
 	    public String toString() {
 	        return this.titre;
 	    }
 
-		@Override
-		public void afficher() {
-			// TODO Auto-generated method stub
-			
-		}
 	    
 
 

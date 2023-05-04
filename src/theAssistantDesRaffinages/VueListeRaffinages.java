@@ -7,6 +7,9 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Map;
@@ -45,13 +48,18 @@ public class VueListeRaffinages {
 	/** Les constantes pour les commandes d'ajout et de suppression */
 	private static String ADD_COMMAND = "add";
 	private static String DELETE_COMMAND = "remove";
+	
+	/** La vue d'edition (vue de gauche) */
+	private VueEditionRaffinages vueEd;
 
 	/**
 	 * Constructeur de la classe. Crée un menu contextuel et y ajoute les
 	 * éléments Ajouter et Supprimer. Initialise la JTree avec une racine vide.
 	 */
-	public VueListeRaffinages() {
+	public VueListeRaffinages(VueEditionRaffinages vueEd) {
 
+		this.vueEd = vueEd;
+		
 		// Création du menu contextuel
 		popupMenu = new JPopupMenu();
 
@@ -94,15 +102,33 @@ public class VueListeRaffinages {
 		// chaîne spécifiée
 		ActionComplexe raffdef = new ActionComplexe(root, 0);
 		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(raffdef);
-
 		// Création de la JTree avec l'élément racine
 		tree = new JTree(rootNode);
 
 		// Assignation du menu contextuel à la JTree
 		tree.setComponentPopupMenu(popupMenu);
 
-		// Initialisation de l'écouteur pour les événements du menu contextuel
+		// Initialisation de l'observateur pour les événements du menu contextuel
 		initPopupListener(tree, popupMenu);
+		
+		// Initialisation de l'observateur de click gauche de la souris
+		tree.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent event) {
+				if (event.getButton() == MouseEvent.BUTTON1) {
+					 // Recuperation du chemin
+			        TreePath path = tree.getSelectionPath();
+			        
+			        // Recuperation du noeud courant et parent
+			        DefaultMutableTreeNode courant = (DefaultMutableTreeNode) path.getLastPathComponent();
+			     
+			        // Recuperation du raffinage courant
+			        ActionComplexe raffinageCourant = (ActionComplexe) courant.getUserObject();
+			        vueEd.update(raffinageCourant);
+				}
+			}
+		
+		});
+		
 
 		// La JTree est initialement cachée
 		tree.setVisible(false);
@@ -251,7 +277,7 @@ public class VueListeRaffinages {
 	            }
 	        }
 	    }
-	}
-
+	}	
+	
 
 }
