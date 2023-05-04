@@ -43,8 +43,8 @@ public class ActionComplexeListener implements ActionListener{
 	        ActionComplexe raffinageCourant = (ActionComplexe) courant.getUserObject();
 			action.setNiveau(raffinageCourant.getNiveau() + 1);
             this.vueListe.AddRaffinage(action, courant);
-            //this.vueEdition.getRaffCourant().addElement(action);
-            //this.vueEdition.update();
+            this.vueEdition.getRaffCourant().addElement(action);
+            this.vueEdition.update();
 			
 		}
 	}
