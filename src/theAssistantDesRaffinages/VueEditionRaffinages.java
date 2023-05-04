@@ -37,6 +37,10 @@ public class VueEditionRaffinages {
 	/** identifiant du mot en cours dans la zone d'affichage **/
 	private int currentWordId = 0;
 	
+	
+	/** Le Raffinage courant */
+	private ActionComplexe raffCourant;
+	
 	/**
 	 * Creer un UI d'edition de raffinage
 	 */
@@ -75,6 +79,14 @@ public class VueEditionRaffinages {
 		
 		// Permet de revenir à la ligne quand la fin de la TextArea est atteinte
 		
+	}
+	
+	public ActionComplexe getRaffCourant() {
+		return this.raffCourant;
+	}
+	
+	public void setRaffCourant(ActionComplexe raffCourant) {
+		this.raffCourant = raffCourant;
 	}
 
 	public JScrollPane getScrollPane() {
@@ -196,8 +208,10 @@ public class VueEditionRaffinages {
         return style;
     }
 
-	public void update(ActionComplexe raffinageCourant) {
-		edition.setText(raffinageCourant.toString());
+	public void update() {
+		edition.setText("");
+		this.append(raffCourant.toString());
+
 		
 	}
 }

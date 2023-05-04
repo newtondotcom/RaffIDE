@@ -123,7 +123,8 @@ public class VueListeRaffinages {
 			     
 			        // Recuperation du raffinage courant
 			        ActionComplexe raffinageCourant = (ActionComplexe) courant.getUserObject();
-			        vueEd.update(raffinageCourant);
+			        vueEd.setRaffCourant(raffinageCourant);
+			        vueEd.update();
 				}
 			}
 		

@@ -28,12 +28,17 @@ public class VueStructuresDeControles {
 	/** La liste de boutons*/
 	private List<JButton> boutonsSdc;
 	
+	/** La zone d'edition */
+	private VueEditionRaffinages vueEd;
+	
 	/**
 	 * Creer un UI Structure de Controle
 	 * @param sdcs La liste de structures suportees
 	 */
-	public VueStructuresDeControles(List<StructureDeControle> sdcs) {
+	public VueStructuresDeControles(List<StructureDeControle> sdcs, VueEditionRaffinages vueEd) {
 	
+		this.vueEd = vueEd;
+		
 		// Initialisations des Listes
 		this.sdcs = sdcs;
 		this.boutonsSdc = new ArrayList<JButton>();
@@ -52,7 +57,7 @@ public class VueStructuresDeControles {
 	    // Creer un Bouton pour chaque structure de controle
 	    for (StructureDeControle sdc : this.sdcs) {
 		   JButton newBouton = new JButton(sdc.getNom());
-		   newBouton.addActionListener(new StructureDeControleListener(sdc));
+		   newBouton.addActionListener(new StructureDeControleListener(sdc,vueEd));
 		   boutonsSdc.add(newBouton);
 		   boutonPanel.add(newBouton);
 		 

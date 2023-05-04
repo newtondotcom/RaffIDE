@@ -1,5 +1,6 @@
 package theAssistantDesRaffinages;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 /**
  * La classe ActionComplexe implémente Action 
@@ -11,7 +12,7 @@ public class ActionComplexe implements Action {
     private int niveau;
     /* les sous blocs de texte de l'action complexe (par exemple les structures de controle,
      *  les actions éléméntaires la décomposant..). */
-    private List<Element> sousFils;
+    private LinkedList<Element> elements;
 
     /* le titre de l'action. */
     private String titre;
@@ -24,7 +25,7 @@ public class ActionComplexe implements Action {
     public ActionComplexe () {
         this.formats = new ArrayList<>();
         this.couleur = TextColor.BLACK;
-        this.sousFils = new ArrayList<>();
+        this.elements = new LinkedList<>();
 
     }
     
@@ -32,7 +33,7 @@ public class ActionComplexe implements Action {
         this.formats = new ArrayList<>();
         this.titre = titre;
         this.couleur = TextColor.BLACK;
-        this.sousFils = new ArrayList<>();
+        this.elements = new LinkedList<>();
         this.niveau = niveau;
 
     }
@@ -63,20 +64,16 @@ public class ActionComplexe implements Action {
 	}
 
 	// gestion des fils
-	public void addSousFils (Element nouveauSousFils) {
-		this.sousFils.add(nouveauSousFils);
+	public void addElement (Element newElement) {
+		this.elements.add(newElement);
 	}
 
-	public void removeSousFils (Element sousFils) {
-		this.sousFils.remove(sousFils);
+	public void removeElement (Element element) {
+		this.elements.remove(element);
 	}
 
-	public List<Element> getSousFils() {
-		return sousFils;
-	}
-
-	public void setSousFils(List<Element> sousFils) {
-		this.sousFils = sousFils;
+	public LinkedList<Element> getElements() {
+		return elements;
 	}
 
 //gestion du format
@@ -143,7 +140,7 @@ public class ActionComplexe implements Action {
     public String toString() {
     	String acString;
     	acString = this.getTitreEntier() + "\n";
-    	for (Element element : this.sousFils) {
+    	for (Element element : this.elements) {
     		acString += element;
     	}
     	return acString;

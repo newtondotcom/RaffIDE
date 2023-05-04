@@ -74,7 +74,7 @@ public class Main extends JFrame {
         	sdcs.add(pour);
         	
         	// Creation de la Vue
-        	VueStructuresDeControles vueStructures = new VueStructuresDeControles(sdcs);
+        	VueStructuresDeControles vueStructures = new VueStructuresDeControles(sdcs,vueEdition);
         	JSplitPane structuresPanel = vueStructures.getPanel();
         	
         // Création des bouton pour les actions complexe/élémentaire
@@ -119,6 +119,7 @@ public class Main extends JFrame {
         
         String r0 = JOptionPane.showInputDialog("Entrez R0");
         vueListe.changeRoot(r0);
+        vueEdition.setRaffCourant((ActionComplexe) vueListe.getTree().getModel().getRoot());
         //vueActions.changeRoot(r0);
         
     }

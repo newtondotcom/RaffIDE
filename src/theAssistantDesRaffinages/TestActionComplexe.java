@@ -54,8 +54,8 @@ public class TestActionComplexe {
 		nouveausousFils.add(r2_1);
 		nouveausousFils.add(r2_2);
 		assertTrue(r1_1.getSousFils().isEmpty());
-		r1_1.addSousFils(r2_1);
-		r1_1.addSousFils(r2_2);
+		r1_1.addElement(r2_1);
+		r1_1.addElement(r2_2);
 		assertEquals(r1_1.getSousFils().get(0), r2_1);
 		assertTrue(r1_1.getSousFils().contains(r2_1));
 		r1_1.setSousFils(nouveausousFils);

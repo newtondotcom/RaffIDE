@@ -10,10 +10,14 @@ public class StructureDeControleListener implements ActionListener {
 	
 	/** La structure de controle a observer */
 	private StructureDeControle sdc;
+	
+	/** La zone d'edition */
+	private VueEditionRaffinages vueEd;
 
 	/** Creer un observateur de structure de controle */
-	public StructureDeControleListener(StructureDeControle sdc) {
+	public StructureDeControleListener(StructureDeControle sdc,VueEditionRaffinages vueEd) {
 		this.sdc = sdc;
+		this.vueEd = vueEd;
 	}
 	
 	/**
@@ -30,14 +34,16 @@ public class StructureDeControleListener implements ActionListener {
 			sdc.setDebut(Debut);
 			String Fin = JOptionPane.showInputDialog("Entrez la fin de la boucle");
 			sdc.setFin(Fin);
-			sdc.afficher();
+			
 		}
 		
 		else {
 			String condition = JOptionPane.showInputDialog("Entrez une condition");
 			sdc.setCondition(condition);
-			sdc.afficher();
+			
 		}
+		vueEd.getRaffCourant().addElement(sdc);
+		vueEd.update();
 	}
 
 }
