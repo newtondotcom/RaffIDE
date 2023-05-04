@@ -20,12 +20,15 @@ public class ActionComplexe implements Action {
     private List<TextFormat> formats;
     /* la couleur du texte à appliquer. */
     private TextColor couleur;
+    private VueEditionRaffinages aireTexte;
     
 
-    public ActionComplexe () {
+    public ActionComplexe (VueEditionRaffinages textArea) {
         this.formats = new ArrayList<>();
         this.couleur = TextColor.BLACK;
         this.elements = new LinkedList<>();
+        this.aireTexte = textArea;
+
 
     }
     
@@ -131,6 +134,11 @@ public class ActionComplexe implements Action {
         System.out.println(this.getTexteFormate());
     }
     
+    public String afficher() {
+    	String titre;
+    	titre = this.getTexteFormate() + "\n";
+    	return titre;
+    }
     
     public String getTitreEntier() {
         return "R" + this.niveau + "  :  Comment " + this.titre + " ?" ;

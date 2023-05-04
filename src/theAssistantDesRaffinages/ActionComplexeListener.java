@@ -28,10 +28,11 @@ public class ActionComplexeListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		System.out.print("bouton action complexe clické \n");
 		String titre = JOptionPane.showInputDialog("Entrez une action complexe");
-		ActionComplexe action = new ActionComplexe();
+		ActionComplexe action = new ActionComplexe(vueEdition);
 		action.setTitre(titre);
 		if (titre != null) {
-			action.afficher();
+			//action.toString();
+			//action.afficher();
 			// Recuperation du chemin
 	        TreePath path = this.vueListe.getTree().getSelectionPath();
 	        
@@ -42,6 +43,8 @@ public class ActionComplexeListener implements ActionListener{
 	        ActionComplexe raffinageCourant = (ActionComplexe) courant.getUserObject();
 			action.setNiveau(raffinageCourant.getNiveau() + 1);
             this.vueListe.AddRaffinage(action, courant);
+            //this.vueEdition.getRaffCourant().addElement(action);
+            //this.vueEdition.update();
 			
 		}
 	}

@@ -24,6 +24,11 @@ public class ActionElementaire implements Action {
 	        this.aireTexte = textArea;
 
 	    }
+	    
+	    public ActionElementaire () {
+	        this.formats = new ArrayList<>();
+	        this.couleur = TextColor.BLACK;
+	    }
 
 // gestion de la couleur
 	    
@@ -110,7 +115,9 @@ public class ActionElementaire implements Action {
 	    
 	    @Override
 	    public String toString() {
-	        return this.titre;
+	    	String titre;
+	    	titre = this.getTexteFormate() + "\n";
+	    	return titre;
 	    }
 
 	    
