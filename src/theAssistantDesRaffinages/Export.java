@@ -1,9 +1,11 @@
 package theAssistantDesRaffinages;
 
-import org.json.JSONObject;
+//import org.json.JSONObject;
 import java.io.FileWriter;
 import java.lang.String;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -19,7 +21,7 @@ public class Export {
         //obj.put("key2", 42);
     	System.out.println("DÃ©but de l'exportation dans Export.java");
     	try {
-            Gson gson = new Gson();
+    		Gson gson = new GsonBuilder().registerTypeAdapter(DefaultTreeModel.class, new DefaultTreeModelAdapter()).create();
             String json = gson.toJson(arbre); 
             return json;
 		} catch (Exception e) {
