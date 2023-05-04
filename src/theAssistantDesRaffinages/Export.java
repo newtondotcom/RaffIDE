@@ -1,4 +1,4 @@
-package src.theAssistantDesRaffinages;
+package theAssistantDesRaffinages;
 
 import org.json.JSONObject;
 import java.io.FileWriter;
@@ -12,21 +12,21 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 public class Export {
-    public static void main(String[] args) throws Exception{
+	
+    String exportation(DefaultTreeModel arbre){
         //JSONObject obj = new JSONObject();
         //obj.put("key1", "valeur1");
         //obj.put("key2", 42);
-
-
-        
-        DefaultTreeModel arbre = new DefaultTreeModel(null);
-        Gson gson = new Gson();
-        String json = gson.toJson(gson); 
-        FileWriter writer = new FileWriter("./test.json");
-        writer.write(json);
-        writer.close();
-        
-        
+    	System.out.println("DÃ©but de l'exportation dans Export.java");
+    	try {
+            Gson gson = new Gson();
+            String json = gson.toJson(arbre); 
+            return json;
+		} catch (Exception e) {
+			System.out.println("Erreur dans la conversion");
+			System.out.println(e.getMessage());
+		}
+		return null;
     }
     
     
