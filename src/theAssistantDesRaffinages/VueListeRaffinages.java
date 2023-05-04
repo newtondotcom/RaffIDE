@@ -169,6 +169,15 @@ public class VueListeRaffinages {
 	        }
 	    });
 	}
+	
+	/**
+     * Retourne le {@link DefaultTreeModel} correspondant à l'abre
+     * @return {@link DefaultTreeModel}
+     */
+    public DefaultTreeModel getTreeModel() {
+        return (DefaultTreeModel) this.tree.getModel();
+    }
+    
 
 	/**
 	 * Recuperer le ScrollPane
