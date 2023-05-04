@@ -21,7 +21,7 @@ public class Export {
         //obj.put("key2", 42);
     	System.out.println("DÃ©but de l'exportation dans Export.java");
     	try {
-    		Gson gson = new GsonBuilder().registerTypeAdapter(DefaultTreeModel.class, new DefaultTreeModelAdapter()).create();
+    		Gson gson = new Gson();
             String json = gson.toJson(arbre); 
             return json;
 		} catch (Exception e) {
