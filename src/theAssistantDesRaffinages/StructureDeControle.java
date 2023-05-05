@@ -73,5 +73,5 @@ public abstract class StructureDeControle implements Element {
 	public void setFin(String fin) {
 		this.fin = fin;
 	}
-
+        public abstract List<Element> getSinonCorps();
 }
