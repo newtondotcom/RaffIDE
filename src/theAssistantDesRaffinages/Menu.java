@@ -1,5 +1,6 @@
 package theAssistantDesRaffinages;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -29,6 +30,11 @@ import java.io.IOException;
  
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
 import javax.swing.tree.DefaultTreeModel;
 
 import java.awt.event.ActionListener;
@@ -37,7 +43,7 @@ import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-
+import javax.swing.text.Style;
 
 import theAssistantDesRaffinages.Export;
 
@@ -49,6 +55,8 @@ public class Menu extends JFrame {
     private VueEditionRaffinages vueEdition;
     private VueListeRaffinages vueRaffinages;
     private String filePath;
+    
+    private boolean italique = false; // initialisation de la variable italique
     
     private JLabel fontSizeLabel;
     
@@ -155,10 +163,13 @@ public class Menu extends JFrame {
         toolBar.add(incFontSizeButton).setHideActionText(true);;
         toolBar.add(decFontSizeButton).setHideActionText(true);;
         //toolBar.add(fontSizeLabel);
+        
+        
 
      
-        
-        
+        toolBar.add(actBold).setHideActionText(true);
+        toolBar.add(actItalic).setHideActionText(true);
+        toolBar.add(actUnderline).setHideActionText(true);
         toolBar.add(actZoomIn).setHideActionText(true);
         toolBar.add(actZoomOut).setHideActionText(true);
         toolBar.addSeparator();
@@ -375,7 +386,112 @@ public class Menu extends JFrame {
     
     };
     
+ // Déclaration de la variable pour suivre l'état actuel de l'italique
+    private boolean estEnItalique = false;
+
     
+    private AbstractAction actItalic = new AbstractAction() {  
+        {
+            putValue( Action.NAME, "Italic" );
+            putValue( Action.SMALL_ICON, new ImageIcon( "icons/italic.png" ) );
+       
+        }
+        
+        @Override public void actionPerformed( ActionEvent e ) {
+            System.out.println( "Italique" );
+
+            // Création d'un style en italique
+            SimpleAttributeSet italic = new SimpleAttributeSet();
+            StyleConstants.setItalic(italic, !estEnItalique);
+
+            // Application du style en italique au texte sélectionné
+            StyledDocument doc = vueEdition.getTextArea().getStyledDocument();
+            int debutSelection = vueEdition.getTextArea().getSelectionStart();
+            int finSelection = vueEdition.getTextArea().getSelectionEnd();
+            doc.setCharacterAttributes(debutSelection, finSelection - debutSelection, italic, false);
+
+            // Mise à jour de la variable estEnItalique
+            estEnItalique = !estEnItalique;
+        }
+   
+    
+    };
+    
+    private boolean estSouligne = false;
+    
+    
+    private AbstractAction actUnderline = new AbstractAction() {  
+        {
+            putValue( Action.NAME, "Underline" );
+            putValue( Action.SMALL_ICON, new ImageIcon( "icons/underline.png" ) );
+       
+        }
+        
+        @Override public void actionPerformed( ActionEvent e ) {
+            System.out.println( "Underline" );
+
+            JTextPane textPane = vueEdition.getTextArea();
+           
+                int debut = textPane.getSelectionStart();
+                int fin = textPane.getSelectionEnd();
+
+                StyledDocument doc = textPane.getStyledDocument();
+                Style style = doc.addStyle("souligne", null);
+
+                // Si le texte est déjà souligné, on l'enlève
+                if (estSouligne) {
+                    StyleConstants.setUnderline(style, false);
+                    estSouligne = false;
+                } else {  // Sinon, on ajoute le soulignement
+                    StyleConstants.setUnderline(style, true);
+                    estSouligne = true;
+                }
+
+                doc.setCharacterAttributes(debut, fin - debut, style, false);
+            }
+        
+   
+    
+    };
+    
+    private boolean estGras = false;
+    
+    private AbstractAction actBold = new AbstractAction() {  
+        {
+            putValue( Action.NAME, "Bold" );
+            putValue( Action.SMALL_ICON, new ImageIcon( "icons/bold.png" ) );
+       
+        }
+        
+        @Override public void actionPerformed( ActionEvent e ) {
+            System.out.println( "Bold" );
+
+         // obtenir le texte sélectionné dans le JTextPane
+            JTextPane textPane = vueEdition.getTextArea();
+      
+
+            
+                StyledDocument doc = textPane.getStyledDocument();
+                int debutSelection = textPane.getSelectionStart();
+                int finSelection = textPane.getSelectionEnd();
+
+                // si le texte est déjà en gras, on le met en normal
+                if (estGras) {
+                    StyleConstants.setBold(doc.getStyle(StyleContext.DEFAULT_STYLE), false);
+                    doc.setCharacterAttributes(debutSelection, finSelection - debutSelection, doc.getStyle(StyleContext.DEFAULT_STYLE), true);
+                    estGras = false;
+                } else {
+                    // sinon, on le met en gras
+                    Style style = doc.addStyle("gras", null);
+                    StyleConstants.setBold(style, true);
+                    doc.setCharacterAttributes(debutSelection, finSelection - debutSelection, style, true);
+                    estGras = true;
+                }
+            }
+        
+   
+    
+    };
     
 
 	
