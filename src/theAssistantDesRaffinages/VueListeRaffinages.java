@@ -101,12 +101,13 @@ public class VueListeRaffinages {
 		// Création de l'élément racine avec un ActionComplexe contenant la
 		// chaîne spécifiée
 		ActionComplexe raffdef = new ActionComplexe(root, 0);
-		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(raffdef);
+		RaffinageMutableTreeNode rootNode = new RaffinageMutableTreeNode(raffdef);
 		// Création de la JTree avec l'élément racine
 		tree = new JTree(rootNode);
 
 		// Assignation du menu contextuel à la JTree
 		tree.setComponentPopupMenu(popupMenu);
+		
 
 		// Initialisation de l'observateur pour les événements du menu contextuel
 		initPopupListener(tree, popupMenu);
@@ -119,7 +120,7 @@ public class VueListeRaffinages {
 			        TreePath path = tree.getSelectionPath();
 			        
 			        // Recuperation du noeud courant et parent
-			        DefaultMutableTreeNode courant = (DefaultMutableTreeNode) path.getLastPathComponent();
+			        RaffinageMutableTreeNode courant = (RaffinageMutableTreeNode) path.getLastPathComponent();
 			     
 			        // Recuperation du raffinage courant
 			        ActionComplexe raffinageCourant = (ActionComplexe) courant.getUserObject();
@@ -144,7 +145,7 @@ public class VueListeRaffinages {
 		ActionComplexe r0 = new ActionComplexe(newname, 0);
 
 		// Recuperation de la racine
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel()
+		RaffinageMutableTreeNode root = (RaffinageMutableTreeNode) tree.getModel()
 				.getRoot();
 
 		// Changement d'objet
@@ -219,13 +220,13 @@ public class VueListeRaffinages {
 	 * @param raffinage, le raffinage a ajouter
 	 * @param precedent, le raffinage parent
 	 */
-	public void AddRaffinage(ActionComplexe raffinage, DefaultMutableTreeNode precedent) {
+	public void AddRaffinage(ActionComplexe raffinage, RaffinageMutableTreeNode precedent) {
 		
 		// Recuperer le modele de l'arbre
 		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 		
 		// Creation du nouveau noeud a partir du raffinage
-		DefaultMutableTreeNode child = new DefaultMutableTreeNode(raffinage);
+		RaffinageMutableTreeNode child = new RaffinageMutableTreeNode(raffinage);
 		
 		// Ajout du noeud
 		model.insertNodeInto(child, precedent, precedent.getChildCount());
@@ -253,8 +254,8 @@ public class VueListeRaffinages {
 	        TreePath path = tree.getSelectionPath();
 	        
 	        // Recuperation du noeud courant et parent
-	        DefaultMutableTreeNode courant = (DefaultMutableTreeNode) path.getLastPathComponent();
-	        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) courant.getParent();
+	        RaffinageMutableTreeNode courant = (RaffinageMutableTreeNode) path.getLastPathComponent();
+	        RaffinageMutableTreeNode parent = (RaffinageMutableTreeNode) courant.getParent();
 	        
 	        // Recuperation du raffinage courant
 	        ActionComplexe raffinageCourant = (ActionComplexe) courant.getUserObject();

@@ -146,10 +146,18 @@ public class ActionComplexe implements Action {
 
     @Override
     public String toString() {
-    	String acString;
-    	acString = this.getTitreEntier() + "\n";
+    	return toStringRecursif(this.getNiveau());
+    }
+    
+    public String toStringRecursif(int niveau) {
+    	String acString ="";
+    	if (niveau != this.getNiveau()) acString += this.titre + "\n";
     	for (Element element : this.elements) {
-    		acString += element;
+    		if (element instanceof ActionComplexe) {
+    			acString += ((ActionComplexe) element).toStringRecursif(niveau);
+    		} else {
+    			acString += element;
+    		}
     	}
     	return acString;
     }

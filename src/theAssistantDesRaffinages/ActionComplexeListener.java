@@ -37,7 +37,7 @@ public class ActionComplexeListener implements ActionListener{
 	        TreePath path = this.vueListe.getTree().getSelectionPath();
 	        
 	        // Recuperation du noeud courant et parent
-	        DefaultMutableTreeNode courant = (DefaultMutableTreeNode) path.getLastPathComponent();
+	       RaffinageMutableTreeNode courant = (RaffinageMutableTreeNode) path.getLastPathComponent();
 	        
 	        // Recuperation du raffinage courant
 	        ActionComplexe raffinageCourant = (ActionComplexe) courant.getUserObject();

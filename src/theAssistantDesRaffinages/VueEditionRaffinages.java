@@ -209,7 +209,7 @@ public class VueEditionRaffinages {
     }
 
 	public void update() {
-		edition.setText("");
+		edition.setText(raffCourant.getTitreEntier() + '\n');
 		this.append(raffCourant.toString());
 
 		
