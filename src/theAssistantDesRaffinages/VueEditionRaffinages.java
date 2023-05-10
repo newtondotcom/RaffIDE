@@ -180,7 +180,9 @@ public class VueEditionRaffinages {
 		for (String mot:mots) {
 			System.out.println(mot);
 			String type = this.structKeywords.contains(mot.replaceAll("[\n\t]", "")) ? "structure" : "condition";
-			doc.insertString(doc.getLength(), mot+(mot.contains("\n")?"":" "), createStyle(mot, type, currentWordId++));
+			doc.insertString(doc.getLength(),
+					mot+(mot.contains("\n")?"":" "),
+					createStyle(mot, type, currentWordId++));
 		}
 
 		}catch (BadLocationException e) {
