@@ -6,6 +6,7 @@ import java.util.List;
 public abstract class StructureSiSinon extends StructureDeControle {
 
 	List<Element> SinonCorps;
+	
     public StructureSiSinon(String condition, String nom) {
         super(condition, nom);
         SinonCorps = new ArrayList<>();
