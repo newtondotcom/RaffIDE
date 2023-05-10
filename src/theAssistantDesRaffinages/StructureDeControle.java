@@ -20,7 +20,8 @@ public class StructureDeControle implements Element {
 	
 	public StructureDeControle(String nom,String var,String debut,String fin) {
 		this.setVar(var);
-		this.setDebut(fin);
+		this.setDebut(debut);
+		this.setFin(fin);
 		this.nom = nom;
 		this.corps = new ArrayList<>();
 	}

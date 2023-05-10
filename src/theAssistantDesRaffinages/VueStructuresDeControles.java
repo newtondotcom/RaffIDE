@@ -57,7 +57,7 @@ public class VueStructuresDeControles {
 	    // Creer un Bouton pour chaque structure de controle
 	    for (StructureDeControle sdc : this.sdcs) {
 		   JButton newBouton = new JButton(sdc.getNom());
-		   newBouton.addActionListener(new StructureDeControleListener(sdc,vueEd));
+		   newBouton.addActionListener(new StructureDeControleListener(sdc.getClass(),vueEd));
 		   boutonsSdc.add(newBouton);
 		   boutonPanel.add(newBouton);
 		 

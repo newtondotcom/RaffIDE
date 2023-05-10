@@ -2,6 +2,7 @@ package theAssistantDesRaffinages;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -9,14 +10,14 @@ import javax.swing.JTextArea;
 public class StructureDeControleListener implements ActionListener {
 	
 	/** La structure de controle a observer */
-	private StructureDeControle sdc;
+	private Class<? extends StructureDeControle> classe;
 	
 	/** La zone d'edition */
 	private VueEditionRaffinages vueEd;
 
 	/** Creer un observateur de structure de controle */
-	public StructureDeControleListener(StructureDeControle sdc,VueEditionRaffinages vueEd) {
-		this.sdc = sdc;
+	public StructureDeControleListener(Class<? extends StructureDeControle> class1,VueEditionRaffinages vueEd) {
+		this.classe = class1;
 		this.vueEd = vueEd;
 	}
 	
@@ -26,23 +27,38 @@ public class StructureDeControleListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (sdc instanceof StructurePour) {
+		StructureDeControle sdc;
+		if (classe == StructurePour.class) {
 			/* À changer */
 			String var = JOptionPane.showInputDialog("Entrez un nom de variable");
-			sdc.setVar(var);
 			String Debut = JOptionPane.showInputDialog("Entrez le début de la boucle");
-			sdc.setDebut(Debut);
 			String Fin = JOptionPane.showInputDialog("Entrez la fin de la boucle");
-			sdc.setFin(Fin);
-			
+			System.out.println(e.getSource().getClass());
+			try {
+				sdc = classe.getConstructor(new Class<?>[]{String.class,String.class,String.class,String.class}).newInstance("",var,Debut,Fin);
+				vueEd.getRaffCourant().addElement(sdc);
+			} catch (InstantiationException | IllegalAccessException
+					| IllegalArgumentException | InvocationTargetException
+					| NoSuchMethodException | SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 		else {
 			String condition = JOptionPane.showInputDialog("Entrez une condition");
-			sdc.setCondition(condition);
-			
+			try {
+				sdc = classe.getConstructor(new Class<?>[]{String.class,String.class}).newInstance(condition,"");
+				vueEd.getRaffCourant().addElement(sdc);
+			} catch (InstantiationException | IllegalAccessException
+					| IllegalArgumentException | InvocationTargetException
+					| NoSuchMethodException | SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
-		vueEd.getRaffCourant().addElement(sdc);
+		
+		
 		vueEd.update();
 	}
 
