@@ -13,9 +13,8 @@ public class StructureRepeat extends StructureDeControle {
 			stringToAppend += "\t";
 			// TODO Gerer le Corps
 		}
-		stringToAppend += "\nJusqu'À (" + this.getCondition() + ") \n";
+		stringToAppend += "\n Jusqu'À (" + this.getCondition() + ") \n";
 		return stringToAppend;
 
 	}
 }
-

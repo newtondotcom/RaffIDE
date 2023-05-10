@@ -70,13 +70,13 @@ public class VueEditionRaffinages {
         });
 		
 		structKeywords = new HashSet<String>();
-		String[] words =  {"Si", "Alors", "Sinon", "FinSi",
+		String[] words =  {"De","À",":","Si", "Alors", "Sinon", "FinSi",
 							"SinonSi", "TantQue", "FinTantQue",
-							"Répéter", "FinRépéter"};
+							"Répéter", "FinRépéter", "Pour","Faire", "Jusqu'À",
+							"FinTQ", "FinPour"};
 		for (String word:words) {
 			structKeywords.add(word);
 		}		
-		
 		// Permet de revenir à la ligne quand la fin de la TextArea est atteinte
 		
 	}
@@ -179,10 +179,10 @@ public class VueEditionRaffinages {
 		
 		for (String mot:mots) {
 			System.out.println(mot);
-			String type = this.structKeywords.contains(mot.replaceAll("\n", "")) ? "structure" : "condition";
-			doc.insertString(doc.getLength(), mot, createStyle(mot, type, currentWordId++));
+			String type = this.structKeywords.contains(mot.replaceAll("[\n\t]", "")) ? "structure" : "condition";
+			doc.insertString(doc.getLength(), mot+(mot.contains("\n")?"":" "), createStyle(mot, type, currentWordId++));
 		}
-		
+
 		}catch (BadLocationException e) {
 			e.printStackTrace();
 		}
@@ -211,7 +211,5 @@ public class VueEditionRaffinages {
 	public void update() {
 		edition.setText(raffCourant.getTitreEntier() + '\n');
 		this.append(raffCourant.toString());
-
-		
 	}
 }

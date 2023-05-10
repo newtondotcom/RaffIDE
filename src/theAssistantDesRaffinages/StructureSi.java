@@ -15,7 +15,7 @@ public class StructureSi extends StructureDeControle {
 			stringToAppend += "\t";
 			// TODO Gerer le Corps
 		}
-		stringToAppend += "\nFinSi\n";
+		stringToAppend += "\n FinSi \n";
 		return stringToAppend;		
 	}
 }
