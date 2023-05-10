@@ -18,7 +18,7 @@ public abstract class StructureSiSinon extends StructureDeControle {
         stringBuilder.append(TextFormat.BOLD.getCode()); // Appliquer le format en gras
         stringBuilder.append(TextColor.YELLOW.getCode()); // Appliquer la couleur jaune
         stringBuilder.append("Si (").append(getCondition()).append(") Alors :");
-        stringBuilder.append(TextFormat.RESET.getCode()); // R�initialiser le format
+        stringBuilder.append(TextFormat.RESET.getCode()); // Réinitialiser le format
 
         // Affichage des éléments dans la partie "Alors"
         for (Element struct : getCorps()) {
