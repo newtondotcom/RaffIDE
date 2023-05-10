@@ -151,7 +151,7 @@ public class ActionComplexe implements Action {
     
     public String toStringRecursif(int niveau) {
     	String acString ="";
-    	if (niveau != this.getNiveau()) acString += this.titre + "\n";
+    	if (niveau == this.getNiveau() - 1) acString += this.titre + "\n";
     	for (Element element : this.elements) {
     		if (element instanceof ActionComplexe) {
     			acString += ((ActionComplexe) element).toStringRecursif(niveau);

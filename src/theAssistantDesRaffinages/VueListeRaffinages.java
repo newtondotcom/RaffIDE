@@ -84,6 +84,10 @@ public class VueListeRaffinages {
 		// Initialisation de la JTree avec une racine vide
 		initTree("");
 	}
+	
+	public JMenuItem getAdd() {
+		return ajouter;
+	}
 
 	public JTree getTree() {
 		return tree;
@@ -239,7 +243,7 @@ public class VueListeRaffinages {
 	/**
 	 * Classe interne implémentant ActionListener pour gérer les événements de clic sur les éléments du menu contextuel (popup) de la JTree.
 	 */
-	class PopupActionListener implements ActionListener {
+	private class PopupActionListener implements ActionListener {
 	 
 	    /**
 	     * Gère les événements de clic sur les éléments du menu contextuel (Ajouter/Supprimer)
@@ -262,11 +266,20 @@ public class VueListeRaffinages {
 	        
 	        // Traitement de la commande
 	        if (ADD_COMMAND.equals(command)) {
-	            // Ajouter un nouveau raffinage
-	            String titre = JOptionPane.showInputDialog("Entrez le Raffinage");
-	            ActionComplexe newRaff = new ActionComplexe(titre, raffinageCourant.getNiveau() + 1);
-	            AddRaffinage(newRaff, courant);
+	        	
+	        	String titre = JOptionPane.showInputDialog("Entrez une action complexe");
+	    		ActionComplexe action = new ActionComplexe(vueEd);
+	    		action.setTitre(titre);
+	    		if (titre != null) {
+	    	        
+	    			action.setNiveau(raffinageCourant.getNiveau() + 1);
+	                AddRaffinage(action, courant);
+	                vueEd.getRaffCourant().addElement(action);
+	                vueEd.update();
+	        	
+	    		}
 	        }
+	        
 	        if (DELETE_COMMAND.equals(command)) {
 	            // Supprimer le raffinage sélectionné
 	            try {
