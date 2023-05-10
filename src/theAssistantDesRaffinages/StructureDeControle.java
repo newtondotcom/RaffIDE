@@ -3,7 +3,7 @@ package theAssistantDesRaffinages;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class StructureDeControle implements Element {
+public class StructureDeControle implements Element {
 	
 	private String condition;
 	private String nom;
@@ -73,5 +73,5 @@ public abstract class StructureDeControle implements Element {
 	public void setFin(String fin) {
 		this.fin = fin;
 	}
-        public abstract List<Element> getSinonCorps();
+
 }
