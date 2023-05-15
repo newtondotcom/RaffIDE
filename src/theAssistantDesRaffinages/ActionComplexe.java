@@ -20,14 +20,12 @@ public class ActionComplexe implements Action {
     private List<TextFormat> formats;
     /* la couleur du texte à appliquer. */
     private TextColor couleur;
-    private VueEditionRaffinages aireTexte;
     
 
     public ActionComplexe (VueEditionRaffinages textArea) {
         this.formats = new ArrayList<>();
         this.couleur = TextColor.BLACK;
         this.elements = new LinkedList<>();
-        this.aireTexte = textArea;
 
 
     }
@@ -66,7 +64,7 @@ public class ActionComplexe implements Action {
 		this.titre = titre;
 	}
 
-	// gestion des fils
+	// gestion des elements
 	public void addElement (Element newElement) {
 		this.elements.add(newElement);
 	}
