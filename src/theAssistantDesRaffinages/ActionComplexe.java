@@ -10,14 +10,17 @@ public class ActionComplexe implements Action {
 	
     /* le niveau de raffinage de l'action. */
     private int niveau;
+    
     /* les sous blocs de texte de l'action complexe (par exemple les structures de controle,
      *  les actions éléméntaires la décomposant..). */
     private LinkedList<Element> elements;
 
     /* le titre de l'action. */
     private String titre;
+    
     /* formats de texte à appliquer (gras, italique, souligné).*/
     private List<TextFormat> formats;
+    
     /* la couleur du texte à appliquer. */
     private TextColor couleur;
     
@@ -160,6 +163,7 @@ public class ActionComplexe implements Action {
     	return acString;
     }
 
-
-
+    public List<TextFormat> getFormats() {
+    	return this.formats;
+    }
 }
