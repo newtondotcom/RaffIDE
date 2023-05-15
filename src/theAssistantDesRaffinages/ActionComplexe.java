@@ -150,15 +150,26 @@ public class ActionComplexe implements Action {
     	return toStringRecursif(this.getNiveau());
     }
     
+    /**
+     * Permet un traitement different de l'affichage d'une Action complexe, selon sa reference au niveau courant
+     * @param niveau le niveau courant
+     */
     public String toStringRecursif(int niveau) {
+    	// Initialisation du string
     	String acString ="";
-    	if (niveau == this.getNiveau() - 1) acString += this.titre + "\n";
-    	for (Element element : this.elements) {
-    		if (element instanceof ActionComplexe) {
-    			acString += ((ActionComplexe) element).toStringRecursif(niveau);
-    		} else {
-    			acString += element;
-    		}
+    	
+    	// Si on est un raffinage plus profond, on affiche juste le titre de l'Action complexe
+    	if (niveau == this.getNiveau() - 1) {
+    		acString += this.titre + "\n";
+    	} else {
+    		//Sinon, on affiche tout les elements contenu dans le raffinage
+	    	for (Element element : this.elements) {
+	    		if (element instanceof ActionComplexe) {
+	    			acString += ((ActionComplexe) element).toStringRecursif(niveau);
+	    		} else {
+	    			acString += element;
+	    		}
+	    	}
     	}
     	return acString;
     }
