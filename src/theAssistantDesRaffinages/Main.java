@@ -119,7 +119,7 @@ public class Main extends JFrame {
         
         String r0 = JOptionPane.showInputDialog("Entrez R0");
         vueListe.changeRoot(r0);
-        vueEdition.setRaffCourant((ActionComplexe) vueListe.getTree().getModel().getRoot());
+        vueEdition.setRaffCourant((ActionComplexe)((RaffinageMutableTreeNode) vueListe.getTree().getModel().getRoot()).getUserObject());
         //vueActions.changeRoot(r0);
         
     }
