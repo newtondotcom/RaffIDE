@@ -8,7 +8,7 @@ import javax.swing.tree.DefaultTreeModel;
 
 public class Export {
 	
-    String exportation(DefaultTreeModel arbre){
+    String exportation(RaffinageMutableTreeNode arbre){
         //JSONObject obj = new JSONObject();
         //obj.put("key1", "valeur1");
         //obj.put("key2", 42);
