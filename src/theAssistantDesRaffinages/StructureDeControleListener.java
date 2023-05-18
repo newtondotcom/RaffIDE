@@ -43,7 +43,7 @@ public class StructureDeControleListener implements ActionListener {
 					.showInputDialog("Entrez la fin de la boucle");
 			System.out.println(e.getSource().getClass());
 			
-			// Instanciation d'une nouvelle structure Pour a partir des donnees entres par l'utilisateur
+			// Instanciation d'une nouvelle structure Pour a partir des donnees entrees par l'utilisateur
 			try {
 				sdc = classe
 						.getConstructor(new Class<?>[] { String.class,
@@ -76,7 +76,7 @@ public class StructureDeControleListener implements ActionListener {
 				e1.printStackTrace();
 			}
 		}
-		// Mise a jour de la vue d'Edition des raffinages
+		// Mise a jour de la vue d'Edition des raffinage
 		vueEd.update();
 	}
 

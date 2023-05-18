@@ -14,6 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.Highlighter;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -179,7 +180,20 @@ public class VueEditionRaffinages {
 		
 		for (String mot:mots) {
 			System.out.println(mot);
-			String type = this.structKeywords.contains(mot.replaceAll("[\n\t]", "")) ? "structure" : "condition";
+			String type; 
+				if (this.structKeywords.contains(mot.replaceAll("[\n\t]", ""))) {
+					type = "structure";
+					
+				}else if (mot.contains("\r")) {
+					type = "raffinage";
+					mot.replaceAll("\r", "");
+					
+				} else {
+					type = "condition";
+				}
+			
+			
+			
 			doc.insertString(doc.getLength(),
 					mot+(mot.contains("\n")?"":" "),
 					createStyle(mot, type, currentWordId++));
@@ -198,6 +212,9 @@ public class VueEditionRaffinages {
         	style.addAttribute(StyleConstants.Foreground, Color.RED);
             style.addAttribute("emphasis", TextAttribute.WEIGHT_BOLD);
             break;
+        case "raffinage":
+        	style.addAttribute(StyleConstants.Background, raffCourant.getSurlignageSuivant(mot));
+       
         default:
         	style.addAttribute(StyleConstants.Foreground, Color.BLUE);
             style.addAttribute("emphasis", TextAttribute.WEIGHT_LIGHT);
@@ -214,4 +231,5 @@ public class VueEditionRaffinages {
 		edition.setText(raffCourant.getTitreEntier() + '\n');
 		this.append(raffCourant.toString());
 	}
+	
 }
