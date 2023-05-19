@@ -1,6 +1,7 @@
 package theAssistantDesRaffinages;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
@@ -128,6 +129,7 @@ public class VueListeRaffinages {
 			     
 			        // Recuperation du raffinage courant
 			        ActionComplexe raffinageCourant = (ActionComplexe) courant.getUserObject();
+			        updateSurlignage(courant);
 			        vueEd.setRaffCourant(raffinageCourant);
 			        vueEd.update();
 				}
@@ -138,6 +140,11 @@ public class VueListeRaffinages {
 
 		// La JTree est initialement cachée
 		tree.setVisible(false);
+	}
+
+
+	protected Color updateSurlignage(DefaultMutableTreeNode courant) {
+		return Color.RED;
 	}
 
 	/**

@@ -30,9 +30,11 @@ public class StructureDeControleListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//Initialisation de la Structure
 		StructureDeControle sdc;
+		
+		// Traitement special de la structure Pour
 		if (classe == StructurePour.class) {
-			/* À changer */
 			String var = JOptionPane
 					.showInputDialog("Entrez un nom de variable");
 			String Debut = JOptionPane
@@ -40,6 +42,8 @@ public class StructureDeControleListener implements ActionListener {
 			String Fin = JOptionPane
 					.showInputDialog("Entrez la fin de la boucle");
 			System.out.println(e.getSource().getClass());
+			
+			// Instanciation d'une nouvelle structure Pour a partir des donnees entrees par l'utilisateur
 			try {
 				sdc = classe
 						.getConstructor(new Class<?>[] { String.class,
@@ -54,9 +58,11 @@ public class StructureDeControleListener implements ActionListener {
 			}
 		}
 
+		// Pour toutes les autre structures
 		else {
 			String condition = JOptionPane
 					.showInputDialog("Entrez une condition");
+			// Instanciation generique de la structure 
 			try {
 				sdc = classe
 						.getConstructor(
@@ -70,7 +76,7 @@ public class StructureDeControleListener implements ActionListener {
 				e1.printStackTrace();
 			}
 		}
-
+		// Mise a jour de la vue d'Edition des raffinage
 		vueEd.update();
 	}
 

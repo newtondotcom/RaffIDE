@@ -1,4 +1,5 @@
 package theAssistantDesRaffinages;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +25,9 @@ public class ActionComplexe implements Action {
     /* la couleur du texte à appliquer. */
     private TextColor couleur;
     
+    /* la couleur du surlignage */
+    private Color surlignage;
+    
 
     public ActionComplexe (VueEditionRaffinages textArea) {
         this.formats = new ArrayList<>();
@@ -39,6 +43,7 @@ public class ActionComplexe implements Action {
         this.couleur = TextColor.BLACK;
         this.elements = new LinkedList<>();
         this.niveau = niveau;
+        this.surlignage = Color.RED;
 
     }
     
@@ -99,11 +104,19 @@ public class ActionComplexe implements Action {
         this.couleur = nouvelleCouleur;
     }
     
-	
-
 	@Override
 	public TextColor getCouleur() {
 		return this.couleur;
+	}
+	
+   
+	public void setSurlignage(Color newSurlignage) {
+        this.surlignage = newSurlignage;
+    }
+    
+
+	public Color getSurlignage() {
+		return this.surlignage;
 	}
     
  // affichage
@@ -150,15 +163,26 @@ public class ActionComplexe implements Action {
     	return toStringRecursif(this.getNiveau());
     }
     
+    /**
+     * Permet un traitement different de l'affichage d'une Action complexe, selon sa reference au niveau courant
+     * @param niveau le niveau courant
+     */
     public String toStringRecursif(int niveau) {
+    	// Initialisation du string
     	String acString ="";
-    	if (niveau == this.getNiveau() - 1) acString += this.titre + "\n";
-    	for (Element element : this.elements) {
-    		if (element instanceof ActionComplexe) {
-    			acString += ((ActionComplexe) element).toStringRecursif(niveau);
-    		} else {
-    			acString += element;
-    		}
+    	
+    	// Si on est un raffinage plus profond, on affiche juste le titre de l'Action complexe
+    	if (niveau == this.getNiveau() - 1) {
+    		acString += "\r" + this.titre + " \n";
+    	} else {
+    		//Sinon, on affiche tout les elements contenu dans le raffinage
+	    	for (Element element : this.elements) {
+	    		if (element instanceof ActionComplexe) {
+	    			acString += ((ActionComplexe) element).toStringRecursif(niveau);
+	    		} else {
+	    			acString += element;
+	    		}
+	    	}
     	}
     	return acString;
     }
@@ -166,4 +190,16 @@ public class ActionComplexe implements Action {
     public List<TextFormat> getFormats() {
     	return this.formats;
     }
+
+	public Color getSurlignageSuivant(String mot) {
+		for (Element element : elements) {
+			if (element instanceof ActionComplexe && ((ActionComplexe) element).getTitre().equals(mot)){
+				return ((ActionComplexe) element).getSurlignage();
+			}
+		
+		}
+		
+		return Color.RED;
+		
+	}
 }
