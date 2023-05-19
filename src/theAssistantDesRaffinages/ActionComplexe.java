@@ -142,6 +142,15 @@ public class ActionComplexe implements Action {
         return formattedTitle.toString();
     }
 
+    private char surlignageToChar() {
+    	if (surlignage.equals(Color.GREEN)){
+    		return 'g';
+    	} else if (surlignage.equals(Color.ORANGE)){
+    		return 'o';
+    	} else {
+    		return 'r';
+    	}
+    }
 
     @Override
 	public void print() {
@@ -173,7 +182,7 @@ public class ActionComplexe implements Action {
     	
     	// Si on est un raffinage plus profond, on affiche juste le titre de l'Action complexe
     	if (niveau == this.getNiveau() - 1) {
-    		acString += "\r" + this.titre + " \n";
+    		acString += "\r" + surlignageToChar() + this.titre + " \n";
     	} else {
     		//Sinon, on affiche tout les elements contenu dans le raffinage
 	    	for (Element element : this.elements) {
@@ -191,15 +200,10 @@ public class ActionComplexe implements Action {
     	return this.formats;
     }
 
-	public Color getSurlignageSuivant(String mot) {
-		for (Element element : elements) {
-			if (element instanceof ActionComplexe && ((ActionComplexe) element).getTitre().equals(mot)){
-				return ((ActionComplexe) element).getSurlignage();
-			}
-		
-		}
-		
-		return Color.RED;
-		
+	
+	public boolean estVide() {
+		return this.elements.isEmpty();
 	}
+	
+	
 }

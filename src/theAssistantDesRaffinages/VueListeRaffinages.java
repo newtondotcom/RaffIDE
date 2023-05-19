@@ -129,7 +129,7 @@ public class VueListeRaffinages {
 			     
 			        // Recuperation du raffinage courant
 			        ActionComplexe raffinageCourant = (ActionComplexe) courant.getUserObject();
-			        updateSurlignage(courant);
+			        updateSurlignage((RaffinageMutableTreeNode) tree.getModel().getRoot());
 			        vueEd.setRaffCourant(raffinageCourant);
 			        vueEd.update();
 				}
@@ -143,8 +143,24 @@ public class VueListeRaffinages {
 	}
 
 
-	protected Color updateSurlignage(DefaultMutableTreeNode courant) {
-		return Color.RED;
+	protected Color updateSurlignage(RaffinageMutableTreeNode courant) {
+		int nombreEnfants = courant.getChildCount();
+		Color couleur;
+		ActionComplexe raffinage = (ActionComplexe) courant.getUserObject();
+;		if (raffinage.estVide()) {
+			couleur = Color.RED;
+		} else if (nombreEnfants > 0) {
+			Color couleurEnfant;
+			couleur = Color.GREEN;
+			for(int i=0;i<nombreEnfants;i++) {
+				couleurEnfant = updateSurlignage((RaffinageMutableTreeNode) courant.getChildAt(i));
+				if (!couleurEnfant.equals(Color.GREEN)) couleur = Color.ORANGE;
+			}
+		} else {
+			couleur = Color.GREEN;
+		}
+		raffinage.setSurlignage(couleur);
+		return couleur;
 	}
 
 	/**

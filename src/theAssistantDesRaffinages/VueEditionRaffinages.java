@@ -66,6 +66,7 @@ public class VueEditionRaffinages {
                     int id = (int) attributeSet.getAttribute("id");
                     System.out.println(
                             String.format("Vous avez clické sur '%s',\n qui est un mot-clé de type '%s',\n avec comme id %d.\n",mot,type,(id)));
+                    
                 }
             }
         });
@@ -186,12 +187,20 @@ public class VueEditionRaffinages {
 					
 				}else if (mot.contains("\r")) {
 					type = "raffinage";
-					mot.replaceAll("\r", "");
+					if (mot.contains("\rg")) {
+						type += 'G';
+						mot = mot.replaceAll("\rg", "");
+					} else if (mot.contains("\ro")) {
+						type += 'O';
+						mot = mot.replaceAll("\ro", "");
+					} else {
+						type += 'R';
+						mot = mot.replaceAll("\rr", "");
+					}
 					
 				} else {
 					type = "condition";
 				}
-			
 			
 			
 			doc.insertString(doc.getLength(),
@@ -212,9 +221,16 @@ public class VueEditionRaffinages {
         	style.addAttribute(StyleConstants.Foreground, Color.RED);
             style.addAttribute("emphasis", TextAttribute.WEIGHT_BOLD);
             break;
-        case "raffinage":
-        	style.addAttribute(StyleConstants.Background, raffCourant.getSurlignageSuivant(mot));
-       
+        case "raffinageR":
+        	style.addAttribute(StyleConstants.Background, Color.RED);
+        	break;
+        case "raffinageG":
+        	style.addAttribute(StyleConstants.Background, Color.GREEN);
+        	break;
+        case "raffinageO":
+        	style.addAttribute(StyleConstants.Background, Color.ORANGE);
+        	break;
+        	
         default:
         	style.addAttribute(StyleConstants.Foreground, Color.BLUE);
             style.addAttribute("emphasis", TextAttribute.WEIGHT_LIGHT);
@@ -228,6 +244,7 @@ public class VueEditionRaffinages {
     }
 
 	public void update() {
+		currentWordId = 0;
 		edition.setText(raffCourant.getTitreEntier() + '\n');
 		this.append(raffCourant.toString());
 	}
