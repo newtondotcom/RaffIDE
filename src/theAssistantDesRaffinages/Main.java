@@ -13,6 +13,7 @@ import java.util.List;
 public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private VueEditionRaffinages vueEdition;
+	private VueListeRaffinages vueListe;
 	
     /**
      * 
@@ -42,12 +43,12 @@ public class Main extends JFrame {
         JScrollPane scrollEdition = vueEdition.getScrollPane();
         
         //Zone d'affichage de l'ensemble des raffinages
-        VueListeRaffinages vueListe = new VueListeRaffinages(vueEdition);
+        vueListe = new VueListeRaffinages(vueEdition);
         JScrollPane scrollAffichage = vueListe.getScrollPane();
         
         
         //Créer le menu
-        Menu Menuframe = new Menu(vueEdition);
+        Menu Menuframe = new Menu(vueEdition,vueListe);
         
         //Récupérer le menu
         JMenuBar menuBarreBar = Menuframe.getJMenuBar();
@@ -127,7 +128,11 @@ public class Main extends JFrame {
     public VueEditionRaffinages getVueEditionRaffinages() {
 		return this.vueEdition;
 	}
-
+    
+    public VueListeRaffinages getVueListeRaffinages() {
+		return this.vueListe;
+	}
+    
     public static void main(String[] args) {
         @SuppressWarnings("unused")
 		Main fenetre = new Main();

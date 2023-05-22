@@ -1,5 +1,7 @@
 package theAssistantDesRaffinages;
 
+import java.util.LinkedList;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class RaffinageMutableTreeNode extends DefaultMutableTreeNode {
@@ -11,5 +13,9 @@ public class RaffinageMutableTreeNode extends DefaultMutableTreeNode {
 	@Override
 	public String toString() {
 		return ((ActionComplexe) this.getUserObject()).getTitreEntier();
+	}
+
+	public ActionComplexe getActionComplexe() {
+		return ((ActionComplexe) this.getUserObject());
 	}
 }

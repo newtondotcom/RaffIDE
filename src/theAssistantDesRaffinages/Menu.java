@@ -53,7 +53,7 @@ public class Menu extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private VueEditionRaffinages vueEdition;
-    private VueListeRaffinages vueRaffinages;
+    private VueListeRaffinages vueListe;
     private String filePath;
     
     private boolean italique = false; // initialisation de la variable italique
@@ -61,9 +61,10 @@ public class Menu extends JFrame {
     private JLabel fontSizeLabel;
     
 	/* Construction de l'interface graphique */
-    public Menu(VueEditionRaffinages vueEdition) {
+    public Menu(VueEditionRaffinages vueEdition, VueListeRaffinages vueListe) {
         super( "Ra77ineur" );
         this.vueEdition = vueEdition;
+        this.vueListe = vueListe;
         this.setSize(600,400);
         this.setLocationRelativeTo( null );
         this.setDefaultCloseOperation( DISPOSE_ON_CLOSE );
@@ -239,24 +240,25 @@ public class Menu extends JFrame {
             // Créer un objet JFileChooser pour permettre à l'utilisateur de sélectionner un emplacement et un nom de fichier
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Save as"); // Titre de la boîte de dialogue
-            fileChooser.setFileFilter(new FileNameExtensionFilter("JSON Files", "json")); // Filtrer les fichiers pour afficher uniquement les fichiers .json
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Txt Files", "txt")); // Filtrer les fichiers pour afficher uniquement les fichiers .json
             
             // Afficher la boîte de dialogue pour que l'utilisateur sélectionne l'emplacement et le nom du fichier à enregistrer
             int userSelection = fileChooser.showSaveDialog(null); 
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 // Si l'utilisateur a sélectionné un emplacement et un nom de fichier, récupérer le fichier sélectionné
                 File fileToSave = fileChooser.getSelectedFile();
-                String filePath = fileToSave.getAbsolutePath();
-                if (!filePath.endsWith(".json")) {
-                    // Si le nom de fichier ne se termine pas par .json, ajouter l'extension .json
-                    fileToSave = new File(filePath + ".json");
+                //String filePath = fileToSave.getAbsolutePath();
+                filePath = fileToSave.getPath();
+                if (!filePath.endsWith(".txt")) {
+                    // Si le nom de fichier ne se termine pas par .txt, ajouter l'extension .txt
+                    filePath = filePath + ".txt";
                 }
             }
             // TODO enregistrer le fichier qu'on veut ( en .json ) 
-            VueListeRaffinages vueRaffinages = new VueListeRaffinages(new VueEditionRaffinages());
-            DefaultTreeModel arbre = vueRaffinages.getTreeModel();
+            //VueListeRaffinages vueListe = VueListeRaffinages.get();
+            JTree arbre = vueListe.getTree();
             Export classExport = new Export();
-            String dataString = classExport.exportation(arbre);
+            String dataString = classExport.getString(arbre);
 
             FileWriter writer;
 			try {
