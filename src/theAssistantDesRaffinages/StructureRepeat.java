@@ -10,10 +10,10 @@ public class StructureRepeat extends StructureDeControle {
 	public String toString() {
 		String stringToAppend = "Faire :" ;
 		for (Element struct : this.getCorps()) {
-			stringToAppend += "\t";
-			// TODO Gerer le Corps
+			stringToAppend += "\n\t";
+			stringToAppend += struct.toString();
 		}
-		stringToAppend += "\n Jusqu'À (" + this.getCondition() + ") \n";
+		stringToAppend += "\n Jusqu'À " + this.getCondition() + ".\n";
 		return stringToAppend;
 
 	}

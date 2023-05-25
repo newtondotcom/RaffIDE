@@ -7,7 +7,7 @@ public class StructureTantque extends StructureDeControle {
 
 	@Override
 	public String toString() {
-		String stringToAppend = "TantQue (" + this.getCondition() + ") Faire :" ;
+		String stringToAppend = "TantQue  " + this.getCondition() + " Faire :" ;
 		for (Element struct : this.getCorps()) {
 			stringToAppend += "\n\t";
 			stringToAppend += struct;
