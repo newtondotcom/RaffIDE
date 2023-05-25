@@ -74,6 +74,10 @@ public class Main extends JFrame {
         	StructureDeControle pour = new StructurePour("Pour"," "," "," ");
         	sdcs.add(pour);
         	
+        	//Creation de la structure de controle "SiSinon"
+        	StructureDeControle siSinon = new StructureSiSinon(" ","SiSinon");
+        	sdcs.add(siSinon);
+        	
         	// Creation de la Vue
         	VueStructuresDeControles vueStructures = new VueStructuresDeControles(sdcs,vueEdition);
         	JSplitPane structuresPanel = vueStructures.getPanel();
