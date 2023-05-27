@@ -164,7 +164,7 @@ public class ActionComplexe implements Action {
     }
     
     public String getTitreEntier() {
-        return "R" + this.niveau + "  :  Comment " + this.titre + " ?" ;
+        return "<t>R" + this.niveau + "<s>:<s>Comment<s>" + this.titre + "<s>?" ;
     }
 
     @Override
@@ -203,6 +203,11 @@ public class ActionComplexe implements Action {
 	
 	public boolean estVide() {
 		return this.elements.isEmpty();
+	}
+
+	public void delElement(Element element) {
+		elements.remove(element);
+		
 	}
 	
 	

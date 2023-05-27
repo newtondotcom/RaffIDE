@@ -31,7 +31,6 @@ public class ActionComplexeListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		System.out.print("bouton action complexe clické \n");
 		vueListe.getAdd().getActionListeners()[0].actionPerformed(new ActionEvent(this,1001,"add"));
-
 	}
 
 }

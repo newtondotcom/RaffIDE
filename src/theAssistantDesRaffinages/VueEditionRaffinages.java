@@ -201,6 +201,10 @@ public class VueEditionRaffinages {
 					}
 					mot = mot.replace("<s>", " ");
 					
+				} else if (mot.contains("<t>")) {
+					type = "titre";
+					mot = mot.replaceAll("<t>","");
+					mot = mot.replaceAll("<s>"," ");
 				} else {
 					type = "condition";
 				}
@@ -232,6 +236,9 @@ public class VueEditionRaffinages {
         case "raffinageO":
         	style.addAttribute(StyleConstants.Background, Color.ORANGE);
         	break;
+        
+        case "titre":
+        	style.addAttribute(StyleConstants.Foreground, Color.BLUE);
         	
         default:
         	style.addAttribute(StyleConstants.Foreground, Color.BLUE);
@@ -247,8 +254,8 @@ public class VueEditionRaffinages {
 
 	public void update() {
 		currentWordId = 0;
-		edition.setText(raffCourant.getTitreEntier().replaceAll("<s>", " ") + '\n');
-		this.append(raffCourant.toString());
+		edition.setText("");
+		this.append(raffCourant.getTitreEntier() + "\n " + raffCourant.toString());
 	}
 	
 }

@@ -173,14 +173,14 @@ public class VueListeRaffinages {
 		newname = newname.replaceAll(" ", "<s>");
 		
 		// Creation de l'action complexe
-		ActionComplexe r0 = new ActionComplexe(newname, 0);
+		ActionComplexe r1 = new ActionComplexe(newname, 1);
 
 		// Recuperation de la racine
 		RaffinageMutableTreeNode root = (RaffinageMutableTreeNode) tree.getModel()
 				.getRoot();
 
 		// Changement d'objet
-		root.setUserObject(r0);
+		root.setUserObject(r1);
 
 		// Mise a jour
 		((DefaultTreeModel) tree.getModel()).nodeChanged(root);
@@ -293,19 +293,16 @@ public class VueListeRaffinages {
 	        
 	        // Traitement de la commande
 	        if (ADD_COMMAND.equals(command)) {
-	        	
-	        	String titre = JOptionPane.showInputDialog("Entrez une action complexe");
-	        	titre = titre.replaceAll(" ","<s>");
-	    		ActionComplexe action = new ActionComplexe(vueEd);
-	    		action.setTitre(titre);
-	    		if (titre != null) {
-	    	        
-	    			action.setNiveau(raffinageCourant.getNiveau() + 1);
-	                AddRaffinage(action, courant);
-	                vueEd.getRaffCourant().addElement(action);
-	                vueEd.update();
-	        	
-	    		}
+	        	String titre = "";
+	        	while (titre == "") {
+	        		titre = JOptionPane.showInputDialog("Entrez une action complexe");
+	    		} 
+	   
+        		titre = titre.replaceAll(" ","<s>");
+        		ActionComplexe action = new ActionComplexe(titre,raffinageCourant.getNiveau() + 1);
+                AddRaffinage(action, courant);
+                vueEd.getRaffCourant().addElement(action);
+                vueEd.update();
 	        }
 	        
 	        if (DELETE_COMMAND.equals(command)) {
@@ -314,6 +311,11 @@ public class VueListeRaffinages {
 	                int nodeIndex = parent.getIndex(courant);
 	                courant.removeAllChildren();
 	                parent.remove(nodeIndex);
+	                ActionComplexe RaffParent = (ActionComplexe) parent.getUserObject();
+	                RaffParent.delElement(raffinageCourant);
+			        updateSurlignage((RaffinageMutableTreeNode) tree.getModel().getRoot());
+			        vueEd.setRaffCourant(RaffParent);
+			        vueEd.update();
 	                ((DefaultTreeModel) tree.getModel()).nodeStructureChanged((TreeNode) courant);
 	            } catch (NullPointerException e) {
 	                JOptionPane.showMessageDialog(supprimer, "On ne peut pas supprimer le R0");
