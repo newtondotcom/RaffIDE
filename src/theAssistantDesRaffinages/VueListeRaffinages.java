@@ -168,6 +168,10 @@ public class VueListeRaffinages {
 	 * @param newname Le nouveau nom de la racine
 	 */
 	public void changeRoot(String newname) {
+		
+		// Replace spaces with a '+'for later parsing
+		newname = newname.replaceAll(" ", "<s>");
+		
 		// Creation de l'action complexe
 		ActionComplexe r0 = new ActionComplexe(newname, 0);
 
@@ -291,6 +295,7 @@ public class VueListeRaffinages {
 	        if (ADD_COMMAND.equals(command)) {
 	        	
 	        	String titre = JOptionPane.showInputDialog("Entrez une action complexe");
+	        	titre = titre.replaceAll(" ","<s>");
 	    		ActionComplexe action = new ActionComplexe(vueEd);
 	    		action.setTitre(titre);
 	    		if (titre != null) {

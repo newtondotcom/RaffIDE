@@ -185,23 +185,25 @@ public class VueEditionRaffinages {
 				if (this.structKeywords.contains(mot.replaceAll("[\n\t]", ""))) {
 					type = "structure";
 					
-				}else if (mot.contains("\r")) {
+				}else if (mot.contains("<r")) {
+
 					type = "raffinage";
-					if (mot.contains("\rg")) {
+					
+					if (mot.contains("<rg>")) {
 						type += 'G';
-						mot = mot.replaceAll("\rg", "");
-					} else if (mot.contains("\ro")) {
+						mot = mot.replaceAll("<rg>", "");
+					} else if (mot.contains("<ro>")) {
 						type += 'O';
-						mot = mot.replaceAll("\ro", "");
+						mot = mot.replaceAll("<ro>", "");
 					} else {
 						type += 'R';
-						mot = mot.replaceAll("\rr", "");
+						mot = mot.replaceAll("<rr>", "");
 					}
+					mot = mot.replace("<s>", " ");
 					
 				} else {
 					type = "condition";
 				}
-			
 			
 			doc.insertString(doc.getLength(),
 					mot+(mot.contains("\n")?"":" "),
@@ -245,7 +247,7 @@ public class VueEditionRaffinages {
 
 	public void update() {
 		currentWordId = 0;
-		edition.setText(raffCourant.getTitreEntier() + '\n');
+		edition.setText(raffCourant.getTitreEntier().replaceAll("<s>", " ") + '\n');
 		this.append(raffCourant.toString());
 	}
 	

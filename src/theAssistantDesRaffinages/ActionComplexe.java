@@ -182,7 +182,7 @@ public class ActionComplexe implements Action {
     	
     	// Si on est un raffinage plus profond, on affiche juste le titre de l'Action complexe
     	if (niveau == this.getNiveau() - 1) {
-    		acString += "\r" + surlignageToChar() + this.titre + " \n";
+    		acString += "<r" + surlignageToChar() + '>' + this.titre + " \n";
     	} else {
     		//Sinon, on affiche tout les elements contenu dans le raffinage
 	    	for (Element element : this.elements) {

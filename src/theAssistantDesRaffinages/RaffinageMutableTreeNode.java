@@ -12,7 +12,7 @@ public class RaffinageMutableTreeNode extends DefaultMutableTreeNode {
 	
 	@Override
 	public String toString() {
-		return ((ActionComplexe) this.getUserObject()).getTitreEntier();
+		return ((ActionComplexe) this.getUserObject()).getTitreEntier().replaceAll("<s>", " ");
 	}
 
 	public ActionComplexe getActionComplexe() {
