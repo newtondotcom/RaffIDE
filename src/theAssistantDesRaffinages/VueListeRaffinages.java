@@ -185,6 +185,10 @@ public class VueListeRaffinages {
 		// Mise a jour
 		((DefaultTreeModel) tree.getModel()).nodeChanged(root);
 		tree.setVisible(true);
+		
+		tree.getSelectionModel().setSelectionPath(new TreePath(root));
+		vueEd.setRaffCourant(r1);
+		vueEd.update();
 	}
 
 	/**
