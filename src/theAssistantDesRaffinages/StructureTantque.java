@@ -12,7 +12,7 @@ public class StructureTantque extends StructureDeControle {
 			stringToAppend += "\n\t";
 			stringToAppend += struct;
 		}
-		stringToAppend += "\n FinTQ \n";
+		stringToAppend += "\n FinTQ \n ";
 		return stringToAppend;
 		
 	}

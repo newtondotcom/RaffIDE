@@ -13,6 +13,6 @@ public class StructurePour extends StructureDeControle {
 			stringToAppend += "\n\t";
 			stringToAppend += struct.toString();
 		}
-		stringToAppend += "\n FinPour \n";
+		stringToAppend += "\n FinPour \n ";
 		return stringToAppend; }
 }

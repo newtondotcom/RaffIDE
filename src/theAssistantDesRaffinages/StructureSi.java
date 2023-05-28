@@ -15,7 +15,7 @@ public class StructureSi extends StructureDeControle {
 			stringToAppend += "\n\t";
 			stringToAppend += struct.toString();
 		}
-		stringToAppend += "\n FinSi \n";
+		stringToAppend += "\n FinSi \n ";
 		return stringToAppend;		
 	}
 }

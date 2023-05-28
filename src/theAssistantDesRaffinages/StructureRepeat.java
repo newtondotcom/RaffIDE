@@ -13,7 +13,7 @@ public class StructureRepeat extends StructureDeControle {
 			stringToAppend += "\n\t";
 			stringToAppend += struct.toString();
 		}
-		stringToAppend += "\n Jusqu'À " + this.getCondition() + ".\n";
+		stringToAppend += "\n Jusqu'À " + this.getCondition() + ".\n ";
 		return stringToAppend;
 
 	}
