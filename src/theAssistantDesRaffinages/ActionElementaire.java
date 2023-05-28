@@ -116,7 +116,7 @@ public class ActionElementaire implements Action {
 	    @Override
 	    public String toString() {
 	    	String titre;
-	    	titre = this.getTexteFormate() + "\n";
+	    	titre = this.getTexteFormate() + "\n ";
 	    	return titre;
 	    }
 

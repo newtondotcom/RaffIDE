@@ -51,213 +51,216 @@ import theAssistantDesRaffinages.Export;
 @SuppressWarnings("serial")
 public class Menu extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private VueEditionRaffinages vueEdition;
-	private VueListeRaffinages vueRaffinages;
-	private String filePath;
-
-	private boolean italique = false; // initialisation de la variable italique
-
-	private JLabel fontSizeLabel;
-
+    private static final long serialVersionUID = 1L;
+    private VueEditionRaffinages vueEdition;
+    private VueListeRaffinages vueListe;
+    private String filePath;
+    
+    private boolean italique = false; // initialisation de la variable italique
+    
+    private JLabel fontSizeLabel;
+    
 	/* Construction de l'interface graphique */
-	public Menu(VueEditionRaffinages vueEdition) {
-		super("Ra77ineur");
-		this.vueEdition = vueEdition;
-		this.setSize(600, 400);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    public Menu(VueEditionRaffinages vueEdition, VueListeRaffinages vueListe) {
+        super( "Ra77ineur" );
+        this.vueEdition = vueEdition;
+        this.vueListe = vueListe;
+        this.setSize(600,400);
+        this.setLocationRelativeTo( null );
+        this.setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        
+   
+        // Construction et injection de la barre de menu
+        this.setJMenuBar( this.createMenuBar() );
 
-		// Construction et injection de la barre de menu
-		this.setJMenuBar(this.createMenuBar());
+        // Construction et injection de la barre d'outils
+        JPanel contentPane = (JPanel) getContentPane();
+        contentPane.add( this.createToolBar(), BorderLayout.NORTH );
+        
+       
+      
+    }
 
-		// Construction et injection de la barre d'outils
-		JPanel contentPane = (JPanel) getContentPane();
-		contentPane.add(this.createToolBar(), BorderLayout.NORTH);
+    /* Methode de construction de la barre de menu */
+    public JMenuBar createMenuBar() {
 
-	}
+        // La barre de menu à proprement parler
+        JMenuBar menuBar = new JMenuBar();
 
-	/* Methode de construction de la barre de menu */
-	public JMenuBar createMenuBar() {
+        // Définition du menu déroulant "File" et de son contenu
+        JMenu mnuFile = new JMenu( "File" );
+        mnuFile.setMnemonic( 'F' );
 
-		// La barre de menu à proprement parler
-		JMenuBar menuBar = new JMenuBar();
+        /*JMenuItem mnuNewFile =*/ 
+        mnuFile.add( actNew );
+        mnuFile.addSeparator();
+        mnuFile.add( actOpen );
+        mnuFile.add( actSave );
+        mnuFile.add( actSaveAs );
+        mnuFile.addSeparator();
+        mnuFile.add( actExit );
+       
+        
+        menuBar.add(mnuFile);
+        
+        // Définition du menu déroulant "Edit" et de son contenu
+        JMenu mnuEdit = new JMenu( "Edit" );
+        mnuEdit.setMnemonic( 'E' );
+        
+        mnuEdit.add( actUndo );
+        mnuEdit.add( actRedo );
+        mnuEdit.addSeparator();
+        mnuEdit.add( actCopy );
+        mnuEdit.add( actCut );
+        mnuEdit.add( actPaste );
 
-		// Définition du menu déroulant "File" et de son contenu
-		JMenu mnuFile = new JMenu("File");
-		mnuFile.setMnemonic('F');
+        menuBar.add(mnuEdit);
 
-		/* JMenuItem mnuNewFile = */
-		mnuFile.add(actNew);
-		mnuFile.addSeparator();
-		mnuFile.add(actOpen);
-		mnuFile.add(actSave);
-		mnuFile.add(actSaveAs);
-		mnuFile.addSeparator();
-		mnuFile.add(actExit);
+        // Définition du menu déroulant "Help" et de son contenu
+        JMenu mnuHelp = new JMenu( "Help" );
+        mnuHelp.setMnemonic( 'H' );
+        
+        menuBar.add( mnuHelp );
+        
+        return menuBar;
+    }
 
-		menuBar.add(mnuFile);
+    /* Methode de construction de la barre d'outils */
+    public JToolBar createToolBar() {
+        JToolBar toolBar = new JToolBar();
 
-		// Définition du menu déroulant "Edit" et de son contenu
-		JMenu mnuEdit = new JMenu("Edit");
-		mnuEdit.setMnemonic('E');
+        toolBar.add( actNew ).setHideActionText( true );
+        toolBar.addSeparator();
+        toolBar.add( actOpen ).setHideActionText( true );
+        toolBar.add( actSave ).setHideActionText( true );
+        toolBar.add( actSaveAs ).setHideActionText( true );
+        
+        
+       
 
-		mnuEdit.add(actUndo);
-		mnuEdit.add(actRedo);
-		mnuEdit.addSeparator();
-		mnuEdit.add(actCopy);
-		mnuEdit.add(actCut);
-		mnuEdit.add(actPaste);
+        /* Ajout pour pouvoir changer police d'ecriture */
+        
+        // Créer une liste de noms de police disponibles
+        String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
-		menuBar.add(mnuEdit);
+        // Créer la JComboBox pour sélectionner une police
+        JComboBox<String> police = new JComboBox<>(fonts);
+        police.setMaximumSize(new Dimension(150, police.getPreferredSize().height)); // ajuster la taille de la JComboBox
+        police.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String fontName = (String) police.getSelectedItem();
+                Font font = new Font(fontName, Font.PLAIN, vueEdition.getFontSize());
+                vueEdition.updatePolice(font);
+            }
+        });
 
-		// Définition du menu déroulant "Help" et de son contenu
-		JMenu mnuHelp = new JMenu("Help");
-		mnuHelp.setMnemonic('H');
+        // Ajouter la JComboBox à la JToolBar
+        toolBar.add(police);
 
-		menuBar.add(mnuHelp);
+        
+     // Créer un JLabel pour afficher la taille de police courante
+        
+        toolBar.add(incFontSizeButton).setHideActionText(true);;
+        toolBar.add(decFontSizeButton).setHideActionText(true);;
+        //toolBar.add(fontSizeLabel);
+        
+        
 
-		return menuBar;
-	}
+     
+        toolBar.add(actBold).setHideActionText(true);
+        toolBar.add(actItalic).setHideActionText(true);
+        toolBar.add(actUnderline).setHideActionText(true);
+        toolBar.add(actZoomIn).setHideActionText(true);
+        toolBar.add(actZoomOut).setHideActionText(true);
+        toolBar.addSeparator();
+        toolBar.add( actExit ).setHideActionText( true );
+       
+        return toolBar;
+    }
 
-	/* Methode de construction de la barre d'outils */
-	public JToolBar createToolBar() {
-		JToolBar toolBar = new JToolBar();
+    
+    
+    /* Nos diverses actions */
+    private AbstractAction actNew = new AbstractAction() {  
+        {
+            putValue( Action.NAME, "New File..." );
+            putValue( Action.SMALL_ICON, new ImageIcon( "icons/new.png" ) );
+            putValue( Action.MNEMONIC_KEY, KeyEvent.VK_N );
+            putValue( Action.SHORT_DESCRIPTION, "New file (CTRL+N)" );
+            putValue( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK ) ); 
+        }
+        
+        @Override public void actionPerformed( ActionEvent e ) {
+            System.out.println( "New" );
+        }
+    };
 
-		toolBar.add(actNew).setHideActionText(true);
-		toolBar.addSeparator();
-		toolBar.add(actOpen).setHideActionText(true);
-		toolBar.add(actSave).setHideActionText(true);
-		toolBar.add(actSaveAs).setHideActionText(true);
+    private AbstractAction actOpen = new AbstractAction() {  
+        {
+            putValue( Action.NAME, "Open File..." );
+            putValue( Action.SMALL_ICON, new ImageIcon( "icons/open.png" ) );
+            putValue( Action.MNEMONIC_KEY, KeyEvent.VK_O );
+            putValue( Action.SHORT_DESCRIPTION, "Open file (CTRL+O)" );
+            putValue( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK ) ); 
+        }
+        
+        @Override public void actionPerformed( ActionEvent e ) {
+            System.out.println( "Open" );
+            //Ouvrir le fichier et modifier l'arbre correspondant
+        }
+    };
 
-		/* Ajout pour pouvoir changer police d'ecriture */
+    private AbstractAction actSave = new AbstractAction() {  
+        {
+            putValue( Action.NAME, "Save File" );
+            putValue( Action.SMALL_ICON, new ImageIcon( "icons/save.png" ) );
+            putValue( Action.MNEMONIC_KEY, KeyEvent.VK_S );
+            putValue( Action.SHORT_DESCRIPTION, "Save file (CTRL+S)" );
+            putValue( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK ) ); 
+        }
+        
+        @Override public void actionPerformed( ActionEvent e ) {
+            System.out.println( "Save" );
+            //Rajouter enregistrement normal
+            
+        }
+    };
+   
+    private AbstractAction actSaveAs = new AbstractAction() {  
+        {
+            putValue( Action.NAME, "Save As..." );
+            putValue( Action.SMALL_ICON, new ImageIcon( "icons/save_as.png" ) );
+            putValue( Action.MNEMONIC_KEY, KeyEvent.VK_A );
+            putValue( Action.SHORT_DESCRIPTION, "Save file" );
+        }
+        
+        @Override public void actionPerformed( ActionEvent e ) {
+            System.out.println( "Save as" );
+            // Créer un objet JFileChooser pour permettre à l'utilisateur de sélectionner un emplacement et un nom de fichier
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Save as"); // Titre de la boîte de dialogue
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Txt Files", "txt")); // Filtrer les fichiers pour afficher uniquement les fichiers .json
+            
+            // Afficher la boîte de dialogue pour que l'utilisateur sélectionne l'emplacement et le nom du fichier à enregistrer
+            int userSelection = fileChooser.showSaveDialog(null); 
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                // Si l'utilisateur a sélectionné un emplacement et un nom de fichier, récupérer le fichier sélectionné
+                File fileToSave = fileChooser.getSelectedFile();
+                //String filePath = fileToSave.getAbsolutePath();
+                filePath = fileToSave.getPath();
+                if (!filePath.endsWith(".txt")) {
+                    // Si le nom de fichier ne se termine pas par .txt, ajouter l'extension .txt
+                    filePath = filePath + ".txt";
+                }
+            }
+            // TODO enregistrer le fichier qu'on veut ( en .json ) 
+            //VueListeRaffinages vueListe = VueListeRaffinages.get();
+            JTree arbre = vueListe.getTree();
+            Export classExport = new Export();
+            String dataString = classExport.getString(arbre);
 
-		// Créer une liste de noms de police disponibles
-		String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-
-		// Créer la JComboBox pour sélectionner une police
-		JComboBox<String> police = new JComboBox<>(fonts);
-		police.setMaximumSize(new Dimension(150, police.getPreferredSize().height)); // ajuster la taille de la
-																						// JComboBox
-		police.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String fontName = (String) police.getSelectedItem();
-				Font font = new Font(fontName, Font.PLAIN, vueEdition.getFontSize());
-				vueEdition.updatePolice(font);
-			}
-		});
-
-		// Ajouter la JComboBox à la JToolBar
-		toolBar.add(police);
-
-		// Créer un JLabel pour afficher la taille de police courante
-
-		toolBar.add(incFontSizeButton).setHideActionText(true);
-		;
-		toolBar.add(decFontSizeButton).setHideActionText(true);
-		;
-		// toolBar.add(fontSizeLabel);
-
-		toolBar.add(actBold).setHideActionText(true);
-		toolBar.add(actItalic).setHideActionText(true);
-		toolBar.add(actUnderline).setHideActionText(true);
-		toolBar.add(actZoomIn).setHideActionText(true);
-		toolBar.add(actZoomOut).setHideActionText(true);
-		toolBar.addSeparator();
-		toolBar.add(actExit).setHideActionText(true);
-
-		return toolBar;
-	}
-
-	/* Nos diverses actions */
-	private AbstractAction actNew = new AbstractAction() {
-		{
-			putValue(Action.NAME, "New File...");
-			putValue(Action.SMALL_ICON, new ImageIcon("icons/new.png"));
-			putValue(Action.MNEMONIC_KEY, KeyEvent.VK_N);
-			putValue(Action.SHORT_DESCRIPTION, "New file (CTRL+N)");
-			putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("New");
-		}
-	};
-
-	private AbstractAction actOpen = new AbstractAction() {
-		{
-			putValue(Action.NAME, "Open File...");
-			putValue(Action.SMALL_ICON, new ImageIcon("icons/open.png"));
-			putValue(Action.MNEMONIC_KEY, KeyEvent.VK_O);
-			putValue(Action.SHORT_DESCRIPTION, "Open file (CTRL+O)");
-			putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("Open");
-			// Ouvrir le fichier et modifier l'arbre correspondant
-		}
-	};
-
-	private AbstractAction actSave = new AbstractAction() {
-		{
-			putValue(Action.NAME, "Save File");
-			putValue(Action.SMALL_ICON, new ImageIcon("icons/save.png"));
-			putValue(Action.MNEMONIC_KEY, KeyEvent.VK_S);
-			putValue(Action.SHORT_DESCRIPTION, "Save file (CTRL+S)");
-			putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("Save");
-			// Rajouter enregistrement normal
-
-		}
-	};
-
-	private AbstractAction actSaveAs = new AbstractAction() {
-		{
-			putValue(Action.NAME, "Save As...");
-			putValue(Action.SMALL_ICON, new ImageIcon("icons/save_as.png"));
-			putValue(Action.MNEMONIC_KEY, KeyEvent.VK_A);
-			putValue(Action.SHORT_DESCRIPTION, "Save file");
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("Save as");
-			// Créer un objet JFileChooser pour permettre à l'utilisateur de sélectionner un
-			// emplacement et un nom de fichier
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setDialogTitle("Save as"); // Titre de la boîte de dialogue
-			fileChooser.setFileFilter(new FileNameExtensionFilter("JSON Files", "json")); // Filtrer les fichiers pour
-																							// afficher uniquement les
-																							// fichiers .json
-
-			// Afficher la boîte de dialogue pour que l'utilisateur sélectionne
-			// l'emplacement et le nom du fichier à enregistrer
-			int userSelection = fileChooser.showSaveDialog(null);
-			if (userSelection == JFileChooser.APPROVE_OPTION) {
-				// Si l'utilisateur a sélectionné un emplacement et un nom de fichier, récupérer
-				// le fichier sélectionné
-				File fileToSave = fileChooser.getSelectedFile();
-				String filePath = fileToSave.getAbsolutePath();
-				if (!filePath.endsWith(".json")) {
-					// Si le nom de fichier ne se termine pas par .json, ajouter l'extension .json
-					fileToSave = new File(filePath + ".json");
-				}
-			}
-			// TODO enregistrer le fichier qu'on veut ( en .json )
-			VueListeRaffinages vueRaffinages = new VueListeRaffinages(new VueEditionRaffinages());
-			DefaultTreeModel arbre = vueRaffinages.getTreeModel();
-			Export classExport = new Export();
-			String dataString = classExport.exportation(((RaffinageMutableTreeNode)arbre.getRoot()));
-
-			FileWriter writer;
+            FileWriter writer;
 			try {
 				writer = new FileWriter(filePath);
 				writer.write(dataString);

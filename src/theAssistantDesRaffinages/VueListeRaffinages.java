@@ -129,7 +129,7 @@ public class VueListeRaffinages {
 			     
 			        // Recuperation du raffinage courant
 			        ActionComplexe raffinageCourant = (ActionComplexe) courant.getUserObject();
-			        updateSurlignage(courant);
+			        updateSurlignage((RaffinageMutableTreeNode) tree.getModel().getRoot());
 			        vueEd.setRaffCourant(raffinageCourant);
 			        vueEd.update();
 				}
@@ -143,8 +143,24 @@ public class VueListeRaffinages {
 	}
 
 
-	protected Color updateSurlignage(DefaultMutableTreeNode courant) {
-		return Color.RED;
+	protected Color updateSurlignage(RaffinageMutableTreeNode courant) {
+		int nombreEnfants = courant.getChildCount();
+		Color couleur;
+		ActionComplexe raffinage = (ActionComplexe) courant.getUserObject();
+;		if (raffinage.estVide()) {
+			couleur = Color.RED;
+		} else if (nombreEnfants > 0) {
+			Color couleurEnfant;
+			couleur = Color.GREEN;
+			for(int i=0;i<nombreEnfants;i++) {
+				couleurEnfant = updateSurlignage((RaffinageMutableTreeNode) courant.getChildAt(i));
+				if (!couleurEnfant.equals(Color.GREEN)) couleur = Color.ORANGE;
+			}
+		} else {
+			couleur = Color.GREEN;
+		}
+		raffinage.setSurlignage(couleur);
+		return couleur;
 	}
 
 	/**
@@ -152,19 +168,27 @@ public class VueListeRaffinages {
 	 * @param newname Le nouveau nom de la racine
 	 */
 	public void changeRoot(String newname) {
+		
+		// Replace spaces with a '+'for later parsing
+		newname = newname.replaceAll(" ", "<s>");
+		
 		// Creation de l'action complexe
-		ActionComplexe r0 = new ActionComplexe(newname, 0);
+		ActionComplexe r1 = new ActionComplexe(newname, 1);
 
 		// Recuperation de la racine
 		RaffinageMutableTreeNode root = (RaffinageMutableTreeNode) tree.getModel()
 				.getRoot();
 
 		// Changement d'objet
-		root.setUserObject(r0);
+		root.setUserObject(r1);
 
 		// Mise a jour
 		((DefaultTreeModel) tree.getModel()).nodeChanged(root);
 		tree.setVisible(true);
+		
+		tree.getSelectionModel().setSelectionPath(new TreePath(root));
+		vueEd.setRaffCourant(r1);
+		vueEd.update();
 	}
 
 	/**
@@ -273,18 +297,16 @@ public class VueListeRaffinages {
 	        
 	        // Traitement de la commande
 	        if (ADD_COMMAND.equals(command)) {
-	        	
-	        	String titre = JOptionPane.showInputDialog("Entrez une action complexe");
-	    		ActionComplexe action = new ActionComplexe(vueEd);
-	    		action.setTitre(titre);
-	    		if (titre != null) {
-	    	        
-	    			action.setNiveau(raffinageCourant.getNiveau() + 1);
-	                AddRaffinage(action, courant);
-	                vueEd.getRaffCourant().addElement(action);
-	                vueEd.update();
-	        	
-	    		}
+	        	String titre = "";
+	        	while (titre == "") {
+	        		titre = JOptionPane.showInputDialog("Entrez une action complexe");
+	    		} 
+	   
+        		titre = titre.replaceAll(" ","<s>");
+        		ActionComplexe action = new ActionComplexe(titre,raffinageCourant.getNiveau() + 1);
+                AddRaffinage(action, courant);
+                vueEd.getRaffCourant().addElement(action);
+                vueEd.update();
 	        }
 	        
 	        if (DELETE_COMMAND.equals(command)) {
@@ -293,6 +315,11 @@ public class VueListeRaffinages {
 	                int nodeIndex = parent.getIndex(courant);
 	                courant.removeAllChildren();
 	                parent.remove(nodeIndex);
+	                ActionComplexe RaffParent = (ActionComplexe) parent.getUserObject();
+	                RaffParent.delElement(raffinageCourant);
+			        updateSurlignage((RaffinageMutableTreeNode) tree.getModel().getRoot());
+			        vueEd.setRaffCourant(RaffParent);
+			        vueEd.update();
 	                ((DefaultTreeModel) tree.getModel()).nodeStructureChanged((TreeNode) courant);
 	            } catch (NullPointerException e) {
 	                JOptionPane.showMessageDialog(supprimer, "On ne peut pas supprimer le R0");
