@@ -18,7 +18,7 @@ public class Export {
 	public Export() {};
 	
 	//ajouter des références avec du \hyperref{sec:intro}{cliquer ici} et \hypertarget{sec:intro}{Introduction}
-	//\usepackage{hyperref}
+
 
 	
 	//passage au txt manuel

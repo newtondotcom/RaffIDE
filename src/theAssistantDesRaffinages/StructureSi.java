@@ -9,7 +9,7 @@ public class StructureSi extends StructureDeControle {
 	}
 
 	@Override
-	public String toString() {
+	public String toStringAbstrait() {
 		String stringToAppend = "Si " + this.getCondition() + "  Alors :" ;
 		for (Element struct : this.getCorps()) {
 			stringToAppend += "\n\t";

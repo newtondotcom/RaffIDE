@@ -8,6 +8,7 @@ import java.util.List;
 
 public class ActionElementaire implements Action {
 
+		private int elementId;
 		/* le titre de l'action. */
 	    private String titre;
 	    /* le niveau de raffinage de l'action. */
@@ -116,10 +117,21 @@ public class ActionElementaire implements Action {
 	    @Override
 	    public String toString() {
 	    	String titre;
-	    	titre = this.getTexteFormate() + "\n ";
+	    	titre = "<"+ this.elementId + ">" +
+	    				this.getTexteFormate() + "\n " +
+	    						"</" + this.elementId + ">";
 	    	return titre;
 	    }
-
+// Identifiant
+	    @Override
+		public int getElementId() {
+			return this.elementId;
+		}
+		
+		@Override
+		public void setElementId(int elt) {
+			this.elementId = elt;
+		}
 	    
 
 

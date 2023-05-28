@@ -36,9 +36,9 @@ public class VueEditionRaffinages {
 	JScrollPane scrollEdition;
 	
 	/** identifiant du mot en cours dans la zone d'affichage **/
-	private int currentWordId = 0;
-	
-	
+	private int currentGroupId = 0;
+	private int elementCourant = 0; 
+	private final int GROUP_INCREMENT = 2048;
 	/** Le Raffinage courant */
 	private ActionComplexe raffCourant;
 	
@@ -174,7 +174,6 @@ public class VueEditionRaffinages {
 	 * @param stringToAppend
 	 */
 	public void append(String stringToAppend) {
-		
 		try{
 		doc = edition.getStyledDocument();
 		String[] mots = stringToAppend.split(" ");
@@ -211,7 +210,7 @@ public class VueEditionRaffinages {
 			
 			doc.insertString(doc.getLength(),
 					mot+(mot.contains("\n")?"":" "),
-					createStyle(mot, type, currentWordId++));
+					createStyle(mot, type, currentGroupId++));
 		}
 
 		}catch (BadLocationException e) {
@@ -253,9 +252,13 @@ public class VueEditionRaffinages {
     }
 
 	public void update() {
-		currentWordId = 0;
+		currentGroupId = 0;
 		edition.setText("");
 		this.append(raffCourant.getTitreEntier() + "\n " + raffCourant.toString());
+	}
+	
+	public int incrementerEltCourant() {
+		return this.elementCourant++;
 	}
 	
 }

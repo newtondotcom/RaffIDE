@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class ActionComplexe implements Action {
 	
+	private int elementId;
+	
     /* le niveau de raffinage de l'action. */
     private int niveau;
     
@@ -195,7 +197,7 @@ public class ActionComplexe implements Action {
     	}
     	return acString;
     }
-
+    
     public List<TextFormat> getFormats() {
     	return this.formats;
     }
@@ -208,6 +210,16 @@ public class ActionComplexe implements Action {
 	public void delElement(Element element) {
 		elements.remove(element);
 		
+	}
+	
+	@Override
+	public int getElementId() {
+		return this.elementId;
+	}
+	
+	@Override
+	public void setElementId(int elt) {
+		this.elementId = elt;
 	}
 	
 	

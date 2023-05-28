@@ -7,7 +7,7 @@ public class StructureRepeat extends StructureDeControle {
 	}
 
 	@Override
-	public String toString() {
+	public String toStringAbstrait() {
 		String stringToAppend = "Faire :" ;
 		for (Element struct : this.getCorps()) {
 			stringToAppend += "\n\t";

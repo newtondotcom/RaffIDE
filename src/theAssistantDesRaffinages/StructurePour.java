@@ -7,7 +7,7 @@ public class StructurePour extends StructureDeControle {
 	}
 
 	@Override
-	public String toString(){
+	public String toStringAbstrait(){
 		String stringToAppend = "Pour  " + this.getVar() + " De " + this.getDebut() + " À " + this.getFin() + " Faire :" ;
 		for (Element struct : this.getCorps()) {
 			stringToAppend += "\n\t";

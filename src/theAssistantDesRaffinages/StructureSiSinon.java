@@ -13,7 +13,7 @@ public class StructureSiSinon extends StructureDeControle {
     }
 
     @Override
-    public String toString() {
+    public String toStringAbstrait() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\u001B[1m"); // Appliquer le format en gras
         stringBuilder.append("\u001B[33m"); // Appliquer la couleur jaune

@@ -68,6 +68,7 @@ public class StructureDeControleListener implements ActionListener {
 						.getConstructor(
 								new Class<?>[] { String.class, String.class })
 						.newInstance(condition, "");
+				
 				vueEd.getRaffCourant().addElement(sdc);
 			} catch (InstantiationException | IllegalAccessException
 					| IllegalArgumentException | InvocationTargetException

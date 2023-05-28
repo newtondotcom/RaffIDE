@@ -3,8 +3,9 @@ package theAssistantDesRaffinages;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StructureDeControle implements Element {
+public abstract class StructureDeControle implements Element {
 	
+	private int elementId;
 	private String condition;
 	private String nom;
 	private String var;
@@ -74,5 +75,23 @@ public class StructureDeControle implements Element {
 	public void setFin(String fin) {
 		this.fin = fin;
 	}
+
+	@Override
+	public int getElementId() {
+		return this.elementId;
+	}
+	
+	@Override
+	public void setElementId(int elt) {
+		this.elementId = elt;
+	}
+	
+	public String toString() {
+		return "<"+ this.elementId + ">" +
+				this.toStringAbstrait()+
+				"</" + this.elementId + ">";
+	}
+	
+	public abstract String toStringAbstrait();
 
 }
