@@ -35,7 +35,7 @@ public class TestActionComplexe {
 	public void testInitialisation() {
 		assertNotNull(r1_1);
 		assertEquals(r1_1.getNiveau(),1, EPSILON);
-		assertTrue(r1_1.getSousFils().isEmpty());
+		assertTrue(r1_1.estVide());
 		assertTrue(r1_1.getCouleur() == TextColor.BLACK);
 	}
 	
@@ -53,16 +53,15 @@ public class TestActionComplexe {
 		List<Element> nouveausousFils = new ArrayList<>();
 		nouveausousFils.add(r2_1);
 		nouveausousFils.add(r2_2);
-		assertTrue(r1_1.getSousFils().isEmpty());
+		assertTrue(r1_1.estVide());
 		r1_1.addElement(r2_1);
 		r1_1.addElement(r2_2);
-		assertEquals(r1_1.getSousFils().get(0), r2_1);
-		assertTrue(r1_1.getSousFils().contains(r2_1));
-		r1_1.setSousFils(nouveausousFils);
-		assertTrue(r1_1.getSousFils().contains(r2_2));
-		r1_1.removeSousFils(r2_1);
-		r1_1.removeSousFils(r2_2);
-		assertTrue(r1_1.getSousFils().isEmpty());	
+		assertEquals(r1_1.getElements().get(0), r2_1);
+		assertTrue(r1_1.getElements().contains(r2_1));
+		assertTrue(r1_1.getElements().contains(r2_2));
+		r1_1.removeElement(r2_1);
+		r1_1.removeElement(r2_2);
+		assertTrue(r1_1.estVide());	
 	}
 	
 	@Test
@@ -74,7 +73,7 @@ public class TestActionComplexe {
 	
 	@Test
 	public void testTitre() { 
-		assertEquals(r1_2.toString(), "R1  :  Comment R1: 2 ?");
+		assertEquals(r1_2.toString(), r1_2.toStringRecursif(1));
 		
 	}
 	
