@@ -224,24 +224,11 @@ public class Menu extends JFrame {
         @Override public void actionPerformed( ActionEvent e ) {
             System.out.println( "Save" );
             //Rajouter enregistrement normal
-            
-        }
-    };
-   
-    private AbstractAction actSaveAs = new AbstractAction() {  
-        {
-            putValue( Action.NAME, "Save As..." );
-            putValue( Action.SMALL_ICON, new ImageIcon( "icons/save_as.png" ) );
-            putValue( Action.MNEMONIC_KEY, KeyEvent.VK_A );
-            putValue( Action.SHORT_DESCRIPTION, "Save file" );
-        }
-        
-        @Override public void actionPerformed( ActionEvent e ) {
-            System.out.println( "Save as" );
+            ///Pas implémenté : Utilisation de l'export
             // Créer un objet JFileChooser pour permettre à l'utilisateur de sélectionner un emplacement et un nom de fichier
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Save as"); // Titre de la boîte de dialogue
-            fileChooser.setFileFilter(new FileNameExtensionFilter("Txt Files", "txt")); // Filtrer les fichiers pour afficher uniquement les fichiers .json
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Tex Files", "tex")); // Filtrer les fichiers pour afficher uniquement les fichiers .json
             
             // Afficher la boîte de dialogue pour que l'utilisateur sélectionne l'emplacement et le nom du fichier à enregistrer
             int userSelection = fileChooser.showSaveDialog(null); 
@@ -250,12 +237,56 @@ public class Menu extends JFrame {
                 File fileToSave = fileChooser.getSelectedFile();
                 //String filePath = fileToSave.getAbsolutePath();
                 filePath = fileToSave.getPath();
-                if (!filePath.endsWith(".txt")) {
+                if (!filePath.endsWith(".tex")) {
                     // Si le nom de fichier ne se termine pas par .txt, ajouter l'extension .txt
-                    filePath = filePath + ".txt";
+                    filePath = filePath + ".tex";
                 }
             }
-            // TODO enregistrer le fichier qu'on veut ( en .json ) 
+            //VueListeRaffinages vueListe = VueListeRaffinages.get();
+            JTree arbre = vueListe.getTree();
+            Export classExport = new Export();
+            String dataString = classExport.getString(arbre);
+
+            FileWriter writer;
+			try {
+				writer = new FileWriter(filePath);
+				writer.write(dataString);
+				writer.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+            
+        }
+    };
+   
+    private AbstractAction actSaveAs = new AbstractAction() {  
+        {
+            putValue( Action.NAME, "Export As..." );
+            putValue( Action.SMALL_ICON, new ImageIcon( "icons/save_as.png" ) );
+            putValue( Action.MNEMONIC_KEY, KeyEvent.VK_A );
+            putValue( Action.SHORT_DESCRIPTION, "Export file in .tex" );
+        }
+        
+        @Override public void actionPerformed( ActionEvent e ) {
+            System.out.println( "Export as" );
+
+            // Créer un objet JFileChooser pour permettre à l'utilisateur de sélectionner un emplacement et un nom de fichier
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Save as"); // Titre de la boîte de dialogue
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Tex Files", "tex")); // Filtrer les fichiers pour afficher uniquement les fichiers .json
+            
+            // Afficher la boîte de dialogue pour que l'utilisateur sélectionne l'emplacement et le nom du fichier à enregistrer
+            int userSelection = fileChooser.showSaveDialog(null); 
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                // Si l'utilisateur a sélectionné un emplacement et un nom de fichier, récupérer le fichier sélectionné
+                File fileToSave = fileChooser.getSelectedFile();
+                //String filePath = fileToSave.getAbsolutePath();
+                filePath = fileToSave.getPath();
+                if (!filePath.endsWith(".tex")) {
+                    // Si le nom de fichier ne se termine pas par .txt, ajouter l'extension .txt
+                    filePath = filePath + ".tex";
+                }
+            }
             //VueListeRaffinages vueListe = VueListeRaffinages.get();
             JTree arbre = vueListe.getTree();
             Export classExport = new Export();
