@@ -34,7 +34,7 @@ public class Export {
         string = actionComplexe.getTitreEntier();
         list = (LinkedList<Element>) actionComplexe.getElements();
         System.out.println("Size of the LinkedList: " + list.size());
-        string = before() + "\\textbf{R0 : }" + actionComplexe.getTitre() + "\\\\ \r\n \\>\\hspace{2em}\\\\ \\r\\n" + miseEnPage(parse_recursif(actionComplexe)) +" \n \\end{tabbing} \n \\end{document}";
+        string = before() + "\\textbf{R0 : }" + actionComplexe.getTitre() + "\\\\ \r\n \\>\\hspace{2em}\\\\ \r\n" + miseEnPage(parse_recursif(actionComplexe)) +" \n \\end{tabbing} \n \\end{document}";
         //System.out.println("String written: " + string);
 		return string;
 	}
