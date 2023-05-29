@@ -544,6 +544,7 @@ public class Menu extends JFrame {
 	private AbstractAction incFontSizeButton = new AbstractAction() {
 		{
 			putValue(Action.NAME, "+");
+			putValue(Action.SMALL_ICON, new ImageIcon("icons/plus.png"));
 
 		}
 
@@ -558,7 +559,7 @@ public class Menu extends JFrame {
 	private AbstractAction decFontSizeButton = new AbstractAction() {
 		{
 			putValue(Action.NAME, "-");
-
+			putValue(Action.SMALL_ICON, new ImageIcon("icons/minus.png"));
 		}
 
 		@Override

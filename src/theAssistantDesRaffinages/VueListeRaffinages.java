@@ -44,7 +44,7 @@ public class VueListeRaffinages {
 	private JMenuItem ajouter, supprimer;
 	
 	/** La JTree contenant les raffinages */
-	private JTree tree;
+	static JTree tree;
 	
 	/** Les constantes pour les commandes d'ajout et de suppression */
 	private static String ADD_COMMAND = "add";

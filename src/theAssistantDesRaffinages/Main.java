@@ -128,7 +128,7 @@ public class Main extends JFrame {
         //vueActions.changeRoot(r0);
         
     }
-    
+
     public VueEditionRaffinages getVueEditionRaffinages() {
 		return this.vueEdition;
 	}
