@@ -1,6 +1,9 @@
 package theAssistantDesRaffinages;
 
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -121,7 +124,14 @@ public class Menu extends JFrame {
         menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	 JOptionPane.showMessageDialog(null,  "Voici où nous contacter : https://github.com/newtondotcom/theAssistantDesRaffinages");
+                String githubLink = "https://github.com/newtondotcom/theAssistantDesRaffinages";
+
+                // Copier le lien dans le presse-papiers
+                StringSelection stringSelection = new StringSelection(githubLink);
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(stringSelection, null);
+
+                JOptionPane.showMessageDialog(null, "Le lien GitHub a été copié dans le presse-papiers : " + githubLink);
             }
         });
 
