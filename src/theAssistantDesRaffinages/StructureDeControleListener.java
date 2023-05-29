@@ -49,7 +49,11 @@ public class StructureDeControleListener implements ActionListener {
 						.getConstructor(new Class<?>[] { String.class,int.class,
 								String.class, String.class, String.class })
 						.newInstance("",vueEd.incrementerEltCourant(),var, Debut, Fin);
-				vueEd.getRaffCourant().addElement(sdc);
+				
+				String ligne = vueEd.getLigneCourante();
+                Element element = vueEd.getElementCourant();
+				vueEd.getRaffCourant().addElement(sdc,ligne,element);
+				
 				System.out.println(sdc.getElementId());
 			} catch (InstantiationException | IllegalAccessException
 					| IllegalArgumentException | InvocationTargetException

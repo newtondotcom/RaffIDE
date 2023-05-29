@@ -38,7 +38,7 @@ public class VueEditionRaffinages {
 	/** Le Raffinage courant */
 	private ActionComplexe raffCourant;
 	private Element elementCourantCurseur;
-	private int ligneCourante;
+	private String ligneCourante;
 	/**
 	 * Creer un UI d'edition de raffinage
 	 */
@@ -63,7 +63,6 @@ public class VueEditionRaffinages {
                     int id = (int) attributeSet.getAttribute("id");
                     System.out.println(
                             String.format("Vous avez cliqué sur '%s',\n qui est un mot-clé de type '%s',\n avec comme id %d.\n",mot,type,(id)));
-                    System.out.println(raffCourant.getElements().get(id-1));
                     
                     elementCourantCurseur = raffCourant.getReferences().get(id);
                     System.out.println(elementCourantCurseur);
@@ -78,6 +77,7 @@ public class VueEditionRaffinages {
                     try {
 						String lineText = doc.getText(lineStart, lineEnd - lineStart);
 						System.out.println("Clicked on line: " + lineText);
+						ligneCourante = lineText;
 					} catch (BadLocationException e1) {
 						e1.printStackTrace();
 					}
@@ -196,9 +196,9 @@ public class VueEditionRaffinages {
 		
 		String mot = "";
 		String type = "";
+		String regex = "<([0-9]+)([a-z])([a-zA-Z]*)>(.*)</\\1\\2(\\3*)>";
 		
-		
-		Pattern p = Pattern.compile("<([0-9]+)([a-z])([a-zA-Z]*)>(.*)</\\1\\2(\\3*)>",Pattern.DOTALL);
+		Pattern p = Pattern.compile(regex,Pattern.DOTALL);
 		Matcher m = p.matcher(stringToAppend);
 		
 		while(m.find()) {	
@@ -229,7 +229,15 @@ public class VueEditionRaffinages {
 			break;
 			
 			case "s":
+				System.out.println(mot.split(":")[0]+mot.split(":")[1].replaceAll(regex, ""));
 				type = "structure";
+				doc.insertString(doc.getLength(),mot.split("\t")[0] + "\t",
+						createStyle(mot, type, currentGroupId++));
+				
+				append(m.group(4));
+				
+				doc.insertString(doc.getLength(),mot.split("\t")[1].replaceAll(regex, "") + "\n",
+						createStyle(mot, type, currentGroupId));
 				break;
 				
 			case "t":
@@ -241,16 +249,21 @@ public class VueEditionRaffinages {
 				break;
 			}
 			
-
-			doc.insertString(doc.getLength(),
-			mot + "\n",
-			createStyle(mot, type, currentGroupId++));
-				
+			if (type != "structure" && mot != "") {
+				doc.insertString(doc.getLength(),
+				mot + "\n",
+				createStyle(mot, type, currentGroupId++));
+			}
 			
 		}
 		if (mot == "") {
 			System.out.println("NO MATCHES");
 		}
+		
+		
+		
+		
+		
 		
 	
 //		String[] mots = stringToAppend.split(" ");
@@ -337,12 +350,22 @@ public class VueEditionRaffinages {
 
 	public void update() {
 		currentGroupId = 0;
+		ligneCourante = "";
+		elementCourantCurseur = null;
 		edition.setText("");
 		this.append(raffCourant.getTitreEntier() + raffCourant.toString());
 	}
 	
 	public int incrementerEltCourant() {
 		return this.currentGroupId++;
+	}
+
+	public String getLigneCourante() {
+		return ligneCourante;
+	}
+	
+	public Element getElementCourant() {
+		return this.elementCourantCurseur;
 	}
 	
 }

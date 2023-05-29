@@ -12,11 +12,11 @@ public class StructurePour extends StructureDeControle {
 
 	@Override
 	public String toStringAbstrait(){
-		String stringToAppend = "Pour " + this.getVar() + " De " + this.getDebut() + " À " + this.getFin() + " Faire :" ;
+		String stringToAppend = "Pour " + this.getVar() + " De " + this.getDebut() + " À " + this.getFin() + " Faire : \n" ;
 		for (Element struct : this.getCorps()) {
-			stringToAppend += "\n\t";
-			stringToAppend += struct.toString();
+			stringToAppend += "\t";
+			stringToAppend += struct;
 		}
-		stringToAppend += "\n" + "FinPour";
+		stringToAppend += "FinPour";
 		return stringToAppend; }
 }

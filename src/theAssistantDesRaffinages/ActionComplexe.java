@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  * La classe ActionComplexe implémente Action 
  * et définit les méthodes pour gérer les raffinages à décomposer(formatage, couleur..)
@@ -12,6 +14,7 @@ public class ActionComplexe implements Action {
 	
 	private int internalActionId;
 	private int elementId;
+	private VueEditionRaffinages vueEd;
 
     /* le niveau de raffinage de l'action. */
     private int niveau;
@@ -51,6 +54,11 @@ public class ActionComplexe implements Action {
     public ActionComplexe (String titre, int niveau,int id) {
     	this(titre,niveau);
         this.elementId = id;
+    }
+    
+    public ActionComplexe (String titre, int niveau,int id,VueEditionRaffinages vueEd) {
+    	this(titre,niveau,id);
+        this.vueEd = vueEd;
     }
     
     
@@ -181,25 +189,15 @@ public class ActionComplexe implements Action {
     }
 
     
-    
   
-    
     
     @Override
     public String toString() {
-    	return toStringRecursif(this.getNiveau());
-    }
-    
-    /**
-     * Permet un traitement different de l'affichage d'une Action complexe, selon sa reference au niveau courant
-     * @param niveau le niveau courant
-     */
-    public String toStringRecursif(int niveau) {
     	// Initialisation du string
     	String acString ="";
     	
     	// Si on est un raffinage plus profond, on affiche juste le titre de l'Action complexe
-    	if (niveau == this.getNiveau() - 1) {
+    	if (this.getNiveau() != vueEd.getRaffCourant().getNiveau()) {
     		acString = "<" + this.elementId + "r" + surlignageToChar(this.surlignage) + ">" 
     				+ this.titre 
     				+ "</" + this.elementId + "r" + surlignageToChar(this.surlignage) + ">";
@@ -207,12 +205,9 @@ public class ActionComplexe implements Action {
     		//Sinon, on affiche tout les elements contenu dans le raffinage
 	    	for (Integer elementId : this.elements) {
 	    		Element element = this.references.get(elementId);
-	    		if (element instanceof ActionComplexe) {
-	    			acString += ((ActionComplexe) element).toStringRecursif(niveau);
-	    		} else {
-	    			acString += element;
-	    		}
-	    	}
+	    		acString += element;
+	    		
+	    	} 
     	}
     	return acString;
     }
@@ -249,6 +244,40 @@ public class ActionComplexe implements Action {
 	
 	public void setInternalActionId(int id) {
 		this.internalActionId = id;
+	}
+
+
+	public void addElement(Element elementAAjouter, String ligne, Element elementClique) {
+		
+		if (elementClique == null) {
+			System.out.println("NULL");
+			addElement(elementAAjouter);
+		} else {
+		
+			if (elementClique instanceof StructureDeControle) {
+				Pattern pFin = Pattern.compile(".*(FinTq|FinSi|FinPour|Jusqu'À|FinRépéter).*");
+				Matcher mFin = pFin.matcher(ligne);
+				if (!mFin.find()) {
+					((StructureDeControle) this.references.get(elementClique.getElementId())).add(elementAAjouter);
+				} else {
+					if (this.elements.size() >= this.elements.indexOf(elementClique.getElementId()+1) ) {
+						this.elements.add(this.elements.indexOf(elementClique.getElementId())+1,elementAAjouter.getElementId());
+					} else {
+						this.elements.add(elementAAjouter.getElementId());
+					}
+					
+				}
+				
+			} else {
+				if (this.elements.size() >= this.elements.indexOf(elementClique.getElementId()+1) ) {
+					this.elements.add(this.elements.indexOf(elementClique.getElementId())+1,elementAAjouter.getElementId());
+				} else {
+					this.elements.add(elementAAjouter.getElementId());
+				}
+			}
+			this.references.put(elementAAjouter.getElementId(), elementAAjouter);
+		}
+		
 	}
 
 	

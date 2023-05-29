@@ -12,12 +12,12 @@ public class StructureRepeat extends StructureDeControle {
 
 	@Override
 	public String toStringAbstrait() {
-		String stringToAppend = "Faire :" ;
+		String stringToAppend = "Faire : + \n" ;
 		for (Element struct : this.getCorps()) {
-			stringToAppend += "\n\t";
+			stringToAppend += "\t";
 			stringToAppend += struct.toString();
 		}
-		stringToAppend += "\n Jusqu'À " + this.getCondition() + ".";
+		stringToAppend += "Jusqu'À " + this.getCondition() + ".";
 		return stringToAppend;
 
 	}

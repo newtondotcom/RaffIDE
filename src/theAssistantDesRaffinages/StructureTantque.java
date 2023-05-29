@@ -11,12 +11,12 @@ public class StructureTantque extends StructureDeControle {
 
 	@Override
 	public String toStringAbstrait() {
-		String stringToAppend = "TantQue  " + this.getCondition() + " Faire :" ;
+		String stringToAppend = "TantQue  " + this.getCondition() + " Faire : +\n" ;
 		for (Element struct : this.getCorps()) {
-			stringToAppend += "\n\t";
+			stringToAppend += "\t";
 			stringToAppend += struct;
 		}
-		stringToAppend += "\n FinTQ";
+		stringToAppend += "FinTQ";
 		return stringToAppend;
 		
 	}
