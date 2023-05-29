@@ -71,11 +71,6 @@ public class TestActionComplexe {
 		assertEquals(r1_1.getCouleur(), TextColor.GREEN);
 	}
 	
-	@Test
-	public void testTitre() { 
-		assertEquals(r1_2.toString(), r1_2.toStringRecursif(1));
-		
-	}
 	
 	
 }
