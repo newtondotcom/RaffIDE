@@ -114,10 +114,19 @@ public class Menu extends JFrame {
         menuBar.add(mnuEdit);
 
         // Définition du menu déroulant "Help" et de son contenu
-        JMenu mnuHelp = new JMenu( "Help" );
-        mnuHelp.setMnemonic( 'H' );
-        
-        menuBar.add( mnuHelp );
+        JMenu mnuHelp = new JMenu("Help");
+        mnuHelp.setMnemonic('H');
+
+        JMenuItem menuItem = new JMenuItem("Contact");
+        menuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	 JOptionPane.showMessageDialog(null,  "Voici où nous contacter : https://github.com/newtondotcom/theAssistantDesRaffinages");
+            }
+        });
+
+        mnuHelp.add(menuItem);
+        menuBar.add(mnuHelp);
         
         return menuBar;
     }
