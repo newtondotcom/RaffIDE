@@ -190,6 +190,8 @@ public class Menu extends JFrame {
         
         @Override public void actionPerformed( ActionEvent e ) {
             System.out.println( "New" );
+            Main nouvelleFenetre = new Main();
+            nouvelleFenetre.setVisible(true);
             //vueEdition = new VueEditionRaffinages();
             //vueListe = new VueListeRaffinages(vueEdition);
         }
