@@ -6,4 +6,4 @@ Project made with [Julien](https://github.com/juleelee), [Amandine](https://gith
 
 
 
-![Diagramme UML](UML.PNG)
+![Diagramme UML](uml.PNG)
