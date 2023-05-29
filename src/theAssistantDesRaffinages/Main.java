@@ -9,6 +9,11 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private VueEditionRaffinages vueEdition;
@@ -35,7 +40,6 @@ public class Main extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
         
         //Zone d'edition des raffinages
         vueEdition = new VueEditionRaffinages();
@@ -120,14 +124,34 @@ public class Main extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        //setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
         
         String r0 = JOptionPane.showInputDialog("Entrez R0");
         vueListe.changeRoot(r0);
         	
         
         
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int choice = JOptionPane.showConfirmDialog(
+                        null,
+                        "Voulez-vous vraiment quitter l'application ?",
+                        "Confirmation de sortie",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    // Fermer l'application
+                    dispose();
+                    System.exit(0);
+                }
+            }
+        });
+        
     }
-    
+
     public VueEditionRaffinages getVueEditionRaffinages() {
 		return this.vueEdition;
 	}
