@@ -339,6 +339,9 @@ public class Menu extends JFrame {
 	        if (choice == JOptionPane.YES_OPTION) {
 	            System.exit(0);
 	        }
+	        else {
+	        	
+	        }
 		}
 	};
 

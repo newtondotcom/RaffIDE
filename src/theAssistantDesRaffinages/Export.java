@@ -4,6 +4,7 @@ import java.lang.String;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,7 +25,8 @@ public class Export {
 	//passage au txt manuel
 	public String getString(JTree tree) {
 		String string;
-		LinkedList<Element> list;
+		LinkedList<Integer> list;
+		HashMap<Integer, Element> references;
 		
         RaffinageMutableTreeNode selectedNode = (RaffinageMutableTreeNode) tree.getModel().getRoot();
         ActionComplexe actionComplexe = selectedNode.getActionComplexe();
@@ -32,9 +34,8 @@ public class Export {
         // On peut utiliser les méthodes et attributs de la classe ActionComplexe
         
         string = actionComplexe.getTitreEntier();
-        list = (LinkedList<Element>) actionComplexe.getElements();
-        System.out.println("Size of the LinkedList: " + list.size());
-        string = before() + "\\textbf{R0 : }" + actionComplexe.getTitre() + "\\\\ \r\n \\>\\hspace{2em}\\\\ \r\n" + miseEnPage(parse_recursif(actionComplexe)) +" \n \\end{tabbing} \n \\end{document}";
+        list = (LinkedList<Integer>)actionComplexe.getElements();
+        string = before() + "\\textbf{R0 : }" + actionComplexe.getTitre().replaceAll("<(\\d+\\w+)>|</(\\d+\\w+)>", "") + "\\\\ \r\n \\>\\hspace{2em}\\\\ \r\n" + miseEnPage(parse_recursif(actionComplexe)) +" \n \\end{tabbing} \n \\end{document}";
         //System.out.println("String written: " + string);
 		return string;
 	}
@@ -62,34 +63,35 @@ public class Export {
 		}
 		title = "{ \\label{" + String.valueOf(hash) + "}{ \\textbf{R" + String.valueOf(ac.getNiveau())+ " : Comment \"}" + ac.getTitre().replaceAll("<(?:s|r|rr|t|rg)>", "") + "\\textbf{\" ?}}}\n";
 		List<ActionComplexe> liste = new ArrayList<>();
-		System.out.println("Affichage des actions de" + ac.getTitreEntier());
-        for ( Element e : ac.getElements()) {
-        	System.out.println("Actions " + e.toString());
+        HashMap<Integer, Element> ref = (HashMap<Integer, Element>)ac.getReferences();
+		
+        for ( Integer a : ac.getElements()) {
+        	Element e = ref.get(a);
         	if (!(e instanceof StructureDeControle)) {
         		if (e instanceof ActionComplexe) {
+        			System.out.println(e.toString());
+	        		String current  = ((ActionComplexe) e).getTitreEntier().replaceAll("<(\\d+\\w+)>|</(\\d+\\w+)>", "").replaceAll("\n", "");
 	        		try {
 	        			md = MessageDigest.getInstance("MD5");
-	        		    byte[] hashBytes = md.digest(ac.getTitre().getBytes(StandardCharsets.UTF_8));
+	        		    byte[] hashBytes = md.digest(((ActionComplexe) e).getTitre().getBytes(StandardCharsets.UTF_8));
 	        		    hash = bytesToInt(hashBytes);
 	        		} catch (NoSuchAlgorithmException e1) {
 	        			e1.printStackTrace();
 	        		}
-	        		String current  = ((ActionComplexe) e).getTitreEntier().replaceAll("<(?:s|r|rr|t|rg)>", "").replaceAll("\n", "");
-	        		body += " {\\hyperlink{"+ String.valueOf(hash) + "}{" + current.substring(10,current.length()-1) + "}}\n";
+	        		body += " {\\hyperlink{"+ String.valueOf(hash) + "}{" + current.substring(13,current.length()-1) + "}}\n";
 	        		liste.add((ActionComplexe) e);
         		} else {
-            		body += e.toString().replaceAll("<(?:s|r|rr|t|rg)>", "") + "\n";
+            		body += e.toString().replaceAll("<(\\d+\\w+)>|</(\\d+\\w+)>", "") + "\n";
         		}
         	} else {
-        		body += e.toString().replaceAll("<(?:s|r|rr|t|rg)>", "") + "\n";
+        		body += e.toString().replaceAll("<(\\d+\\w+)>|</(\\d+\\w+)>", "").replace("FinTQ","\nFinTQ") + "\n";
         	}
         }	
         if (liste.size()>0) {
 	        for (ActionComplexe e : liste) {
-	        	body += parse_recursif((ActionComplexe) e)+"\n"; 
+	        	body += parse_recursif((ActionComplexe) e)+"\n";
 	        }
         }
-        System.out.print(liste.size());
         return title + body;
 	}
 	
@@ -103,6 +105,18 @@ public class Export {
 		    else {
 		    	if (i>0) {
 		    		lines[i-1] = lines[i-1].replace("\\\\", "\\\\[3ex]");
+		    	}
+		    	else if (lines[i].contains("Fin")) {
+		    		int j=i;
+		    		boolean isEndControle = false;
+		    		while (!isEndControle) {
+		    			j -- ;
+		    			isEndControle = (lines[j].contains("Si") || lines[j].contains("Tant") || lines[j].contains("Pour") || lines[j].contains("Faire"));
+		    			if (!isEndControle) {
+		    				lines[j]=lines[j].replace("\\hspace{2em}", "\\\\hspace{2em}\\hspace{2em}");
+		    			}
+		    			
+		    		}
 		    	}
 		    }
 		    lines[i] = lines[i] + "\\\\" ;

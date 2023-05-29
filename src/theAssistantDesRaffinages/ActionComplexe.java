@@ -37,8 +37,6 @@ public class ActionComplexe implements Action {
     /* la couleur du surlignage */
     private Color surlignage;
     
-
-    
     public ActionComplexe (String titre, int niveau) {
         this.formats = new ArrayList<>();
         this.titre = titre;
@@ -77,8 +75,6 @@ public class ActionComplexe implements Action {
 		return this.niveau;
 	}
 	
-
-
 	public String getTitre() {
 		return titre;
 	}

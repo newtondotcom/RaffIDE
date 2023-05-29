@@ -147,6 +147,9 @@ public class Main extends JFrame {
                     dispose();
                     System.exit(0);
                 }
+                else {
+                	
+                }
             }
         });
         
