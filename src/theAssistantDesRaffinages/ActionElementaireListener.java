@@ -27,7 +27,7 @@ public class ActionElementaireListener implements ActionListener {
 		String titre = JOptionPane.showInputDialog("Entrez une action élémentaire");
 		ActionElementaire action = new ActionElementaire(vueEdition);
 		action.setTitre(titre);
-		action.setElementId(this.vueEdition.incrementerEltCourant());
+		action.setElementId(this.vueEdition.getRaffCourant().getInternalActionId());
 		if (titre != null) {
 			//action.toString();
 			this.vueEdition.getRaffCourant().addElement(action);

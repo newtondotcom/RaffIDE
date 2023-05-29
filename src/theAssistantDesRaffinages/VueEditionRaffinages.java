@@ -6,16 +6,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.*;
-
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Highlighter;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -38,7 +32,7 @@ public class VueEditionRaffinages {
 	
 	/** identifiant du mot en cours dans la zone d'affichage **/
 	private int currentGroupId = 0;
-	private int elementCourant = 0; 
+
 	/** Le Raffinage courant */
 	private ActionComplexe raffCourant;
 	
@@ -65,8 +59,7 @@ public class VueEditionRaffinages {
                     String mot = (String) attributeSet.getAttribute("keyword");
                     int id = (int) attributeSet.getAttribute("id");
                     System.out.println(
-                            String.format("Vous avez clické sur '%s',\n qui est un mot-clé de type '%s',\n avec comme id %d.\n",mot,type,(id)));
-                    
+                            String.format("Vous avez cliqué sur '%s',\n qui est un mot-clé de type '%s',\n avec comme id %d.\n",mot,type,(id)));
                 }
             }
         });
@@ -230,7 +223,7 @@ public class VueEditionRaffinages {
 
 			doc.insertString(doc.getLength(),
 			mot + "\n",
-			createStyle(mot, type, currentGroupId));
+			createStyle(mot, type, currentGroupId++));
 				
 			
 		}
@@ -318,6 +311,7 @@ public class VueEditionRaffinages {
         style.addAttribute("keyword", mot);
         style.addAttribute("type", type);
         style.addAttribute("id", id);
+        
         return style;
     }
 
@@ -328,7 +322,7 @@ public class VueEditionRaffinages {
 	}
 	
 	public int incrementerEltCourant() {
-		return this.elementCourant++;
+		return this.currentGroupId++;
 	}
 	
 }

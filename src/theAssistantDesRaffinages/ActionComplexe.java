@@ -1,6 +1,7 @@
 package theAssistantDesRaffinages;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class ActionComplexe implements Action {
 	
-	
+	private int internalActionId;
 	private int elementId;
 
     /* le niveau de raffinage de l'action. */
@@ -17,7 +18,7 @@ public class ActionComplexe implements Action {
     
     /* les sous blocs de texte de l'action complexe (par exemple les structures de controle,
      *  les actions éléméntaires la décomposant..). */
-    private LinkedList<Element> elements;
+    private HashMap<Integer, Element> elements;
 
     /* le titre de l'action. */
     private String titre;
@@ -35,7 +36,7 @@ public class ActionComplexe implements Action {
     public ActionComplexe (VueEditionRaffinages textArea) {
         this.formats = new ArrayList<>();
         this.couleur = TextColor.BLACK;
-        this.elements = new LinkedList<>();
+        this.elements = new HashMap<>();
 
 
     }
@@ -44,7 +45,7 @@ public class ActionComplexe implements Action {
         this.formats = new ArrayList<>();
         this.titre = titre;
         this.couleur = TextColor.BLACK;
-        this.elements = new LinkedList<>();
+        this.elements = new HashMap<>();
         this.niveau = niveau;
         this.surlignage = Color.RED;
 
@@ -55,7 +56,7 @@ public class ActionComplexe implements Action {
         this.formats = new ArrayList<>();
         this.titre = titre;
         this.couleur = TextColor.BLACK;
-        this.elements = new LinkedList<>();
+        this.elements = new HashMap<>();
         this.niveau = niveau;
         this.surlignage = Color.RED;
         this.elementId = id;
@@ -89,14 +90,14 @@ public class ActionComplexe implements Action {
 
 	// gestion des elements
 	public void addElement (Element newElement) {
-		this.elements.add(newElement);
+		this.elements.put(this.getInternalActionId(), newElement);
 	}
 
 	public void removeElement (Element element) {
 		this.elements.remove(element);
 	}
 
-	public LinkedList<Element> getElements() {
+	public HashMap<Integer, Element> getElements() {
 		return elements;
 	}
 
@@ -208,7 +209,7 @@ public class ActionComplexe implements Action {
     				+ "</" + this.elementId + "r" + surlignageToChar(this.surlignage) + ">";
     	} else {
     		//Sinon, on affiche tout les elements contenu dans le raffinage
-	    	for (Element element : this.elements) {
+	    	for (Element element : this.elements.values()) {
 	    		if (element instanceof ActionComplexe) {
 	    			acString += ((ActionComplexe) element).toStringRecursif(niveau);
 	    		} else {
@@ -245,6 +246,12 @@ public class ActionComplexe implements Action {
 		
 	}
 	
+	public int getInternalActionId() {
+		return this.internalActionId++;
+	}
 	
-	
+	public void setInternalActionId(int id) {
+		this.internalActionId = id;
+	}
+
 }
