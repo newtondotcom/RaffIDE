@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
+import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.regex.*;
 import javax.swing.JScrollPane;
@@ -231,12 +232,13 @@ public class VueEditionRaffinages {
 			case "s":
 				System.out.println(mot.split(":")[0]+mot.split(":")[1].replaceAll(regex, ""));
 				type = "structure";
-				doc.insertString(doc.getLength(),mot.split("\t")[0] + "\t",
+				String motSplit[] = mot.split("\n");
+				doc.insertString(doc.getLength(),motSplit[0] + "\n",
 						createStyle(mot, type, currentGroupId++));
 				
 				append(m.group(4));
 				
-				doc.insertString(doc.getLength(),mot.split("\t")[1].replaceAll(regex, "") + "\n",
+				doc.insertString(doc.getLength(),motSplit[1].replaceAll(regex, "") + "\n",
 						createStyle(mot, type, currentGroupId));
 				break;
 				

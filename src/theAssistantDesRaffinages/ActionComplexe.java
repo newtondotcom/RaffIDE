@@ -250,7 +250,6 @@ public class ActionComplexe implements Action {
 	public void addElement(Element elementAAjouter, String ligne, Element elementClique) {
 		
 		if (elementClique == null) {
-			System.out.println("NULL");
 			addElement(elementAAjouter);
 		} else {
 		

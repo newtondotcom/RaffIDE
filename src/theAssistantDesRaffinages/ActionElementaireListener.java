@@ -9,12 +9,12 @@ public class ActionElementaireListener implements ActionListener {
 	
 	/** L'action élémentaire */
 	//private ActionElementaire action;
-	private VueEditionRaffinages vueEdition;
+	private VueEditionRaffinages vueEd;
 
 	/** Creer un observateur de l'action */
 	public ActionElementaireListener(VueEditionRaffinages vueEdition) {
 		//this.action = new ActionElementaire(vueEdition);
-		this.vueEdition = vueEdition;
+		this.vueEd = vueEdition;
 	}
 	
 	/**
@@ -24,15 +24,21 @@ public class ActionElementaireListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.print("bouton action élémentaire clické \n");
-		String titre = JOptionPane.showInputDialog("Entrez une action élémentaire");
-		ActionElementaire action = new ActionElementaire(vueEdition);
-		action.setTitre(titre);
-		action.setElementId(this.vueEdition.getRaffCourant().getInternalActionId());
-		if (titre != null) {
-			//action.toString();
-			this.vueEdition.getRaffCourant().addElement(action);
-            this.vueEdition.update();
+		
+		String titre = null;
+		while (titre == null) {
+			titre = JOptionPane.showInputDialog("Entrez une action élémentaire");
 		}
+		
+		ActionElementaire action = new ActionElementaire(vueEd);
+		action.setTitre(titre);
+		action.setElementId(vueEd.incrementerEltCourant());
+		
+		String ligne = vueEd.getLigneCourante();
+        Element element = vueEd.getElementCourant();
+        vueEd.getRaffCourant().addElement(action,ligne,element);
+        this.vueEd.update();
+		
 		
 	}
 
