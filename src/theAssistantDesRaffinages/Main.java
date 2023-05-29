@@ -37,7 +37,6 @@ public class Main extends JFrame {
 			e.printStackTrace();
 		}
         
-        
         //Zone d'edition des raffinages
         vueEdition = new VueEditionRaffinages();
         JScrollPane scrollEdition = vueEdition.getScrollPane();
@@ -119,8 +118,10 @@ public class Main extends JFrame {
         // Paramètres de la fenêtre
         setSize(1400, 800);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
         
         String r0 = JOptionPane.showInputDialog("Entrez R0");
         vueListe.changeRoot(r0);

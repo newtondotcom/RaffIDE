@@ -315,9 +315,11 @@ public class Menu extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Exit");
-			
-			System.exit(0);
+	        int choice = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment quitter ? (il faut sauvegarder dans le vie)", "Exit Confirmation",
+	                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	        if (choice == JOptionPane.YES_OPTION) {
+	            System.exit(0);
+	        }
 		}
 	};
 
