@@ -1,6 +1,8 @@
 package theAssistantDesRaffinages;
 
-import java.util.LinkedList;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -12,7 +14,11 @@ public class RaffinageMutableTreeNode extends DefaultMutableTreeNode {
 	
 	@Override
 	public String toString() {
-		return ((ActionComplexe) this.getUserObject()).getTitreEntier().replaceAll("<s>", " ").replaceAll("<t>", "");
+		Pattern pTitre = Pattern.compile("<(0t)>(.*)</\\1>"); 
+		Matcher mTitre = pTitre.matcher(((ActionComplexe) this.getUserObject()).getTitreEntier());
+		mTitre.find();
+		return mTitre.group(2);
+		
 	}
 
 	public ActionComplexe getActionComplexe() {
