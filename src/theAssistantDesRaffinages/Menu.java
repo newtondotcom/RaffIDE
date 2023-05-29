@@ -284,7 +284,8 @@ public class Menu extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Exit");
-			dispose();
+			
+			System.exit(0);
 		}
 	};
 
