@@ -60,7 +60,10 @@ public class VueEditionRaffinages {
                     int id = (int) attributeSet.getAttribute("id");
                     System.out.println(
                             String.format("Vous avez cliqué sur '%s',\n qui est un mot-clé de type '%s',\n avec comme id %d.\n",mot,type,(id)));
-                    		System.out.println(raffCourant.getElements().get(id));
+                    System.out.println(raffCourant.getElements().get(id-1));
+                    
+                    System.out.println(raffCourant.getReferences().get(id));
+                    		
                 }
             }
         });
@@ -312,7 +315,6 @@ public class VueEditionRaffinages {
         style.addAttribute("keyword", mot);
         style.addAttribute("type", type);
         style.addAttribute("id", id);
-        
         return style;
     }
 

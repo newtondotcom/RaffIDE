@@ -18,7 +18,9 @@ public class ActionComplexe implements Action {
     
     /* les sous blocs de texte de l'action complexe (par exemple les structures de controle,
      *  les actions éléméntaires la décomposant..). */
-    private HashMap<Integer, Element> elements;
+    
+    private LinkedList<Integer> elements;
+    private HashMap<Integer, Element> references;
 
     /* le titre de l'action. */
     private String titre;
@@ -33,19 +35,13 @@ public class ActionComplexe implements Action {
     private Color surlignage;
     
 
-    public ActionComplexe (VueEditionRaffinages textArea) {
-        this.formats = new ArrayList<>();
-        this.couleur = TextColor.BLACK;
-        this.elements = new HashMap<>();
-
-
-    }
     
     public ActionComplexe (String titre, int niveau) {
         this.formats = new ArrayList<>();
         this.titre = titre;
         this.couleur = TextColor.BLACK;
-        this.elements = new HashMap<>();
+        this.elements = new LinkedList<>();
+        this.references = new HashMap<>();
         this.niveau = niveau;
         this.surlignage = Color.RED;
 
@@ -53,12 +49,7 @@ public class ActionComplexe implements Action {
     
     
     public ActionComplexe (String titre, int niveau,int id) {
-        this.formats = new ArrayList<>();
-        this.titre = titre;
-        this.couleur = TextColor.BLACK;
-        this.elements = new HashMap<>();
-        this.niveau = niveau;
-        this.surlignage = Color.RED;
+    	this(titre,niveau);
         this.elementId = id;
     }
     
@@ -90,15 +81,20 @@ public class ActionComplexe implements Action {
 
 	// gestion des elements
 	public void addElement (Element newElement) {
-		this.elements.put(this.getInternalActionId(), newElement);
+		this.references.put(newElement.getElementId(), newElement);
+		this.elements.add(newElement.getElementId());
 	}
 
 	public void removeElement (Element element) {
-		this.elements.remove(element);
+		this.elements.remove(element.getElementId());
 	}
 
-	public HashMap<Integer, Element> getElements() {
-		return elements;
+	public LinkedList<Integer> getElements() {
+		return this.elements;
+	}
+	
+	public HashMap<Integer,Element> getReferences(){
+		return this.references;
 	}
 
 //gestion du format
@@ -209,7 +205,8 @@ public class ActionComplexe implements Action {
     				+ "</" + this.elementId + "r" + surlignageToChar(this.surlignage) + ">";
     	} else {
     		//Sinon, on affiche tout les elements contenu dans le raffinage
-	    	for (Element element : this.elements.values()) {
+	    	for (Integer elementId : this.elements) {
+	    		Element element = this.references.get(elementId);
 	    		if (element instanceof ActionComplexe) {
 	    			acString += ((ActionComplexe) element).toStringRecursif(niveau);
 	    		} else {
@@ -231,8 +228,8 @@ public class ActionComplexe implements Action {
 	}
 
 	public void delElement(Element element) {
-		elements.remove(element);
-		
+		elements.remove(element.getElementId());
+		references.remove(element.getElementId());
 	}
 
 	@Override
