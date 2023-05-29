@@ -63,3 +63,5 @@ local.properties
 
 .class
 /bin1/
+
+.DS_Store
