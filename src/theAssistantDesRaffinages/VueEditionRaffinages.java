@@ -10,6 +10,8 @@ import java.util.regex.*;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -35,7 +37,8 @@ public class VueEditionRaffinages {
 
 	/** Le Raffinage courant */
 	private ActionComplexe raffCourant;
-	
+	private Element elementCourantCurseur;
+	private int ligneCourante;
 	/**
 	 * Creer un UI d'edition de raffinage
 	 */
@@ -62,8 +65,22 @@ public class VueEditionRaffinages {
                             String.format("Vous avez cliqué sur '%s',\n qui est un mot-clé de type '%s',\n avec comme id %d.\n",mot,type,(id)));
                     System.out.println(raffCourant.getElements().get(id-1));
                     
-                    System.out.println(raffCourant.getReferences().get(id));
-                    		
+                    elementCourantCurseur = raffCourant.getReferences().get(id);
+                    System.out.println(elementCourantCurseur);
+                    
+                    
+                    Document doc = edition.getDocument();
+                    javax.swing.text.Element root = doc.getDefaultRootElement();
+                    int line = root.getElementIndex(offset);
+                    javax.swing.text.Element lineElement = root.getElement(line);
+                    int lineStart = lineElement.getStartOffset();
+                    int lineEnd = lineElement.getEndOffset() - 1;
+                    try {
+						String lineText = doc.getText(lineStart, lineEnd - lineStart);
+						System.out.println("Clicked on line: " + lineText);
+					} catch (BadLocationException e1) {
+						e1.printStackTrace();
+					}
                 }
             }
         });
