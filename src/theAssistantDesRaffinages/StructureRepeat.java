@@ -5,6 +5,10 @@ public class StructureRepeat extends StructureDeControle {
 	public StructureRepeat(String condition,String nom) {
 		super(condition,nom);
 	}
+	
+	public StructureRepeat(int id,String condition,String nom) {
+		super(id,condition,nom);
+	}
 
 	@Override
 	public String toStringAbstrait() {
@@ -13,7 +17,7 @@ public class StructureRepeat extends StructureDeControle {
 			stringToAppend += "\n\t";
 			stringToAppend += struct.toString();
 		}
-		stringToAppend += "\n Jusqu'À " + this.getCondition() + ".\n ";
+		stringToAppend += "\n Jusqu'À " + this.getCondition() + ".";
 		return stringToAppend;
 
 	}

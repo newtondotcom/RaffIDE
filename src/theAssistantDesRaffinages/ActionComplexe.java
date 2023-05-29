@@ -9,8 +9,9 @@ import java.util.List;
  */
 public class ActionComplexe implements Action {
 	
-	private int elementId;
 	
+	private int elementId;
+
     /* le niveau de raffinage de l'action. */
     private int niveau;
     
@@ -48,6 +49,18 @@ public class ActionComplexe implements Action {
         this.surlignage = Color.RED;
 
     }
+    
+    
+    public ActionComplexe (String titre, int niveau,int id) {
+        this.formats = new ArrayList<>();
+        this.titre = titre;
+        this.couleur = TextColor.BLACK;
+        this.elements = new LinkedList<>();
+        this.niveau = niveau;
+        this.surlignage = Color.RED;
+        this.elementId = id;
+    }
+    
     
 //gestion des niveaux
     @Override
@@ -114,6 +127,7 @@ public class ActionComplexe implements Action {
    
 	public void setSurlignage(Color newSurlignage) {
         this.surlignage = newSurlignage;
+ 
     }
     
 
@@ -144,13 +158,13 @@ public class ActionComplexe implements Action {
         return formattedTitle.toString();
     }
 
-    private char surlignageToChar() {
-    	if (surlignage.equals(Color.GREEN)){
-    		return 'g';
-    	} else if (surlignage.equals(Color.ORANGE)){
-    		return 'o';
+    private String surlignageToChar(Color color) {
+    	if (color.equals(Color.GREEN)){
+    		return "g";
+    	} else if (color.equals(Color.ORANGE)){
+    		return "o";
     	} else {
-    		return 'r';
+    		return "r";
     	}
     }
 
@@ -166,9 +180,14 @@ public class ActionComplexe implements Action {
     }
     
     public String getTitreEntier() {
-        return "<t>R" + this.niveau + "<s>:<s>Comment<s>" + this.titre + "<s>?" ;
+        return "<0t>R" + this.niveau + " : Comment " + this.titre + " ?</0t>" ;
     }
 
+    
+    
+  
+    
+    
     @Override
     public String toString() {
     	return toStringRecursif(this.getNiveau());
@@ -184,7 +203,9 @@ public class ActionComplexe implements Action {
     	
     	// Si on est un raffinage plus profond, on affiche juste le titre de l'Action complexe
     	if (niveau == this.getNiveau() - 1) {
-    		acString += "<r" + surlignageToChar() + '>' + this.titre + " \n";
+    		acString = "<" + this.elementId + "r" + surlignageToChar(this.surlignage) + ">" 
+    				+ this.titre 
+    				+ "</" + this.elementId + "r" + surlignageToChar(this.surlignage) + ">";
     	} else {
     		//Sinon, on affiche tout les elements contenu dans le raffinage
 	    	for (Element element : this.elements) {
@@ -197,6 +218,7 @@ public class ActionComplexe implements Action {
     	}
     	return acString;
     }
+     
     
     public List<TextFormat> getFormats() {
     	return this.formats;
@@ -211,16 +233,18 @@ public class ActionComplexe implements Action {
 		elements.remove(element);
 		
 	}
-	
+
 	@Override
 	public int getElementId() {
 		return this.elementId;
 	}
-	
+
 	@Override
 	public void setElementId(int elt) {
 		this.elementId = elt;
+		
 	}
+	
 	
 	
 }

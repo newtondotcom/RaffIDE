@@ -7,6 +7,10 @@ public class StructureSi extends StructureDeControle {
 	public StructureSi(String condition,String nom) {
 		super(condition,nom);
 	}
+	
+	public StructureSi(int id,String condition,String nom) {
+		super(id,condition,nom);
+	}
 
 	@Override
 	public String toStringAbstrait() {
@@ -15,7 +19,7 @@ public class StructureSi extends StructureDeControle {
 			stringToAppend += "\n\t";
 			stringToAppend += struct.toString();
 		}
-		stringToAppend += "\n FinSi \n ";
+		stringToAppend += "\n FinSi";
 		return stringToAppend;		
 	}
 }

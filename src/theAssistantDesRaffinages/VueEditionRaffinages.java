@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.*;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -38,7 +39,6 @@ public class VueEditionRaffinages {
 	/** identifiant du mot en cours dans la zone d'affichage **/
 	private int currentGroupId = 0;
 	private int elementCourant = 0; 
-	private final int GROUP_INCREMENT = 2048;
 	/** Le Raffinage courant */
 	private ActionComplexe raffCourant;
 	
@@ -174,48 +174,118 @@ public class VueEditionRaffinages {
 	 * @param stringToAppend
 	 */
 	public void append(String stringToAppend) {
+		System.out.println("Append : " + stringToAppend);
 		try{
-		doc = edition.getStyledDocument();
-		String[] mots = stringToAppend.split(" ");
-		
-		for (String mot:mots) {
-			System.out.println(mot);
-			String type; 
-				if (this.structKeywords.contains(mot.replaceAll("[\n\t]", ""))) {
-					type = "structure";
-					
-				}else if (mot.contains("<r")) {
-
-					type = "raffinage";
-					
-					if (mot.contains("<rg>")) {
-						type += 'G';
-						mot = mot.replaceAll("<rg>", "");
-					} else if (mot.contains("<ro>")) {
-						type += 'O';
-						mot = mot.replaceAll("<ro>", "");
-					} else {
-						type += 'R';
-						mot = mot.replaceAll("<rr>", "");
-					}
-					mot = mot.replace("<s>", " ");
-					
-				} else if (mot.contains("<t>")) {
-					type = "titre";
-					mot = mot.replaceAll("<t>","");
-					mot = mot.replaceAll("<s>"," ");
-				} else {
-					type = "condition";
-				}
 			
-			doc.insertString(doc.getLength(),
-					mot+(mot.contains("\n")?"":" "),
-					createStyle(mot, type, currentGroupId++));
-		}
+		doc = edition.getStyledDocument();
 
-		}catch (BadLocationException e) {
+		
+		String mot = "";
+		String type = "";
+		
+		
+		Pattern p = Pattern.compile("<([0-9]+)([a-z])([a-zA-Z]*)>(.*)</\\1\\2(\\3*)>",Pattern.DOTALL);
+		Matcher m = p.matcher(stringToAppend);
+		
+		while(m.find()) {	
+			
+			System.out.println("Match!");
+			
+			mot = m.group(4);
+			System.out.println("Mot : " + mot);
+			
+			switch (m.group(2)) {
+			
+			case "r": 
+				type = "raffinage";
+				switch (m.group(3)) {
+				
+				case "r":
+					type += "R";
+					break;
+					
+				case "o":
+					type += "O";
+					break;
+					
+				default:
+					type += "V";
+					break;
+				}
+			break;
+			
+			case "s":
+				type = "structure";
+				break;
+				
+			case "t":
+				type = "titre";
+				break;
+					
+			default:
+				type = "elementaire";
+				break;
+			}
+			
+
+			doc.insertString(doc.getLength(),
+			mot + "\n",
+			createStyle(mot, type, currentGroupId));
+				
+			
+		}
+		if (mot == "") {
+			System.out.println("NO MATCHES");
+		}
+		
+	
+//		String[] mots = stringToAppend.split(" ");
+		
+//		for (String mot:mots) {
+//			System.out.println(mot);
+//			String type; 
+//				if (this.structKeywords.contains(mot.replaceAll("[\n\t]", ""))) {
+//					type = "structure";
+//					
+//				}else if (mot.contains("<r")) {
+//
+//					type = "raffinage";
+//					
+//					if (mot.contains("<rg>")) {
+//						type += 'G';
+//						mot = mot.replaceAll("<rg>", "");
+//					} else if (mot.contains("<ro>")) {
+//						type += 'O';
+//						mot = mot.replaceAll("<ro>", "");
+//					} else {
+//						type += 'R';
+//						mot = mot.replaceAll("<rr>", "");
+//					}
+//					mot = mot.replace("<s>", " ");
+//					
+//				} else if (mot.contains("<t>")) {
+//					type = "titre";
+//					mot = mot.replaceAll("<t>","");
+//					mot = mot.replaceAll("<s>"," ");
+//				} else {
+//					type = "condition";
+//				}
+//			
+//			doc.insertString(doc.getLength(),
+//					mot+(mot.contains("\n")?"":" "),
+//					createStyle(mot, type, currentGroupId++));
+//		}
+ 
+	
+		
+		
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+		
 	}
 	
 	private SimpleAttributeSet createStyle(String mot, String type, int id) {
@@ -229,7 +299,7 @@ public class VueEditionRaffinages {
         case "raffinageR":
         	style.addAttribute(StyleConstants.Background, Color.RED);
         	break;
-        case "raffinageG":
+        case "raffinageV":
         	style.addAttribute(StyleConstants.Background, Color.GREEN);
         	break;
         case "raffinageO":
@@ -254,7 +324,7 @@ public class VueEditionRaffinages {
 	public void update() {
 		currentGroupId = 0;
 		edition.setText("");
-		this.append(raffCourant.getTitreEntier() + "\n " + raffCourant.toString());
+		this.append(raffCourant.getTitreEntier() + raffCourant.toString());
 	}
 	
 	public int incrementerEltCourant() {

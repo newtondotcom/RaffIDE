@@ -116,23 +116,20 @@ public class ActionElementaire implements Action {
 	    
 	    @Override
 	    public String toString() {
-	    	String titre;
-	    	titre = "<"+ this.elementId + ">" +
-	    				this.getTexteFormate() + "\n " +
-	    						"</" + this.elementId + ">";
-	    	return titre;
+	    	return "<" + this.elementId + "e>" +this.titre + "</"+ this.elementId + "e>"; 
 	    }
-// Identifiant
-	    @Override
+
+		@Override
 		public int getElementId() {
 			return this.elementId;
 		}
-		
+
 		@Override
 		public void setElementId(int elt) {
 			this.elementId = elt;
+			
 		}
+
 	    
 
-
-	}
+}

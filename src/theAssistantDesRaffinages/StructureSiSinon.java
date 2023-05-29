@@ -11,6 +11,9 @@ public class StructureSiSinon extends StructureDeControle {
         super(condition, nom);
         SinonCorps = new ArrayList<>();
     }
+	public StructureSiSinon(int id,String condition,String nom) {
+		super(id,condition,nom);
+	}
 
     @Override
     public String toStringAbstrait() {

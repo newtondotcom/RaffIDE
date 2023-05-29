@@ -46,10 +46,11 @@ public class StructureDeControleListener implements ActionListener {
 			// Instanciation d'une nouvelle structure Pour a partir des donnees entrees par l'utilisateur
 			try {
 				sdc = classe
-						.getConstructor(new Class<?>[] { String.class,
+						.getConstructor(new Class<?>[] { String.class,int.class,
 								String.class, String.class, String.class })
-						.newInstance("", var, Debut, Fin);
+						.newInstance("",vueEd.incrementerEltCourant(),var, Debut, Fin);
 				vueEd.getRaffCourant().addElement(sdc);
+				System.out.println(sdc.getElementId());
 			} catch (InstantiationException | IllegalAccessException
 					| IllegalArgumentException | InvocationTargetException
 					| NoSuchMethodException | SecurityException e1) {
@@ -66,8 +67,8 @@ public class StructureDeControleListener implements ActionListener {
 			try {
 				sdc = classe
 						.getConstructor(
-								new Class<?>[] { String.class, String.class })
-						.newInstance(condition, "");
+								new Class<?>[] { int.class,String.class, String.class })
+						.newInstance(vueEd.incrementerEltCourant(),condition, "");
 				
 				vueEd.getRaffCourant().addElement(sdc);
 			} catch (InstantiationException | IllegalAccessException

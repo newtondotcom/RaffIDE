@@ -169,9 +169,6 @@ public class VueListeRaffinages {
 	 */
 	public void changeRoot(String newname) {
 		
-		// Replace spaces with a '+'for later parsing
-		newname = newname.replaceAll(" ", "<s>");
-		
 		// Creation de l'action complexe
 		ActionComplexe r1 = new ActionComplexe(newname, 1);
 
@@ -302,8 +299,7 @@ public class VueListeRaffinages {
 	        		titre = JOptionPane.showInputDialog("Entrez une action complexe");
 	    		} 
 	   
-        		titre = titre.replaceAll(" ","<s>");
-        		ActionComplexe action = new ActionComplexe(titre,raffinageCourant.getNiveau() + 1);
+        		ActionComplexe action = new ActionComplexe(titre,raffinageCourant.getNiveau() + 1,vueEd.incrementerEltCourant());
                 AddRaffinage(action, courant);
                 vueEd.getRaffCourant().addElement(action);
                 vueEd.update();
