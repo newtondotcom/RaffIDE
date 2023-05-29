@@ -9,6 +9,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -118,15 +122,33 @@ public class Main extends JFrame {
         // Paramètres de la fenêtre
         setSize(1400, 800);
         setLocationRelativeTo(null);
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         
         String r0 = JOptionPane.showInputDialog("Entrez R0");
         vueListe.changeRoot(r0);
         vueEdition.setRaffCourant((ActionComplexe)((RaffinageMutableTreeNode) vueListe.getTree().getModel().getRoot()).getUserObject());
         //vueActions.changeRoot(r0);
+        
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int choice = JOptionPane.showConfirmDialog(
+                        null,
+                        "Voulez-vous vraiment quitter l'application ?",
+                        "Confirmation de sortie",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    // Fermer l'application
+                    dispose();
+                    System.exit(0);
+                }
+            }
+        });
         
     }
 
