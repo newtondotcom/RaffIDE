@@ -11,9 +11,12 @@ public class StructureSiSinon extends StructureDeControle {
         super(condition, nom);
         SinonCorps = new ArrayList<>();
     }
+	public StructureSiSinon(int id,String condition,String nom) {
+		super(id,condition,nom);
+	}
 
     @Override
-    public String toString() {
+    public String toStringAbstrait() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\u001B[1m"); // Appliquer le format en gras
         stringBuilder.append("\u001B[33m"); // Appliquer la couleur jaune

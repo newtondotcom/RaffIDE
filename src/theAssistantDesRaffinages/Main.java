@@ -9,7 +9,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
-
 public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private VueEditionRaffinages vueEdition;
@@ -124,8 +123,8 @@ public class Main extends JFrame {
         
         String r0 = JOptionPane.showInputDialog("Entrez R0");
         vueListe.changeRoot(r0);
-        vueEdition.setRaffCourant((ActionComplexe)((RaffinageMutableTreeNode) vueListe.getTree().getModel().getRoot()).getUserObject());
-        //vueActions.changeRoot(r0);
+        	
+        
         
     }
     

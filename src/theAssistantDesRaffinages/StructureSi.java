@@ -7,15 +7,18 @@ public class StructureSi extends StructureDeControle {
 	public StructureSi(String condition,String nom) {
 		super(condition,nom);
 	}
+	
+	public StructureSi(int id,String condition,String nom) {
+		super(id,condition,nom);
+	}
 
 	@Override
-	public String toString() {
-		String stringToAppend = "Si " + this.getCondition() + "  Alors :" ;
+	public String toStringAbstrait() {
+		String stringToAppend = "Si " + this.getCondition() + "  Alors :  \n" ;
 		for (Element struct : this.getCorps()) {
-			stringToAppend += "\n\t";
 			stringToAppend += struct.toString();
 		}
-		stringToAppend += "\n FinSi \n ";
+		stringToAppend += "FinSi";
 		return stringToAppend;		
 	}
 }

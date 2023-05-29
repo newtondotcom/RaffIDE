@@ -5,16 +5,14 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
+import java.lang.reflect.Array;
 import java.util.HashSet;
-import java.util.Set;
-
-import javax.swing.JOptionPane;
+import java.util.regex.*;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.Highlighter;
+import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -36,12 +34,12 @@ public class VueEditionRaffinages {
 	JScrollPane scrollEdition;
 	
 	/** identifiant du mot en cours dans la zone d'affichage **/
-	private int currentWordId = 0;
-	
-	
+	private int currentGroupId = 0;
+
 	/** Le Raffinage courant */
 	private ActionComplexe raffCourant;
-	
+	private Element elementCourantCurseur;
+	private String ligneCourante;
 	/**
 	 * Creer un UI d'edition de raffinage
 	 */
@@ -65,8 +63,25 @@ public class VueEditionRaffinages {
                     String mot = (String) attributeSet.getAttribute("keyword");
                     int id = (int) attributeSet.getAttribute("id");
                     System.out.println(
-                            String.format("Vous avez clické sur '%s',\n qui est un mot-clé de type '%s',\n avec comme id %d.\n",mot,type,(id)));
+                            String.format("Vous avez cliqué sur '%s',\n qui est un mot-clé de type '%s',\n avec comme id %d.\n",mot,type,(id)));
                     
+                    elementCourantCurseur = raffCourant.getReferences().get(id);
+                    System.out.println(elementCourantCurseur);
+                    
+                    
+                    Document doc = edition.getDocument();
+                    javax.swing.text.Element root = doc.getDefaultRootElement();
+                    int line = root.getElementIndex(offset);
+                    javax.swing.text.Element lineElement = root.getElement(line);
+                    int lineStart = lineElement.getStartOffset();
+                    int lineEnd = lineElement.getEndOffset() - 1;
+                    try {
+						String lineText = doc.getText(lineStart, lineEnd - lineStart);
+						System.out.println("Clicked on line: " + lineText);
+						ligneCourante = lineText;
+					} catch (BadLocationException e1) {
+						e1.printStackTrace();
+					}
                 }
             }
         });
@@ -174,49 +189,132 @@ public class VueEditionRaffinages {
 	 * @param stringToAppend
 	 */
 	public void append(String stringToAppend) {
-		
+		System.out.println("Append : " + stringToAppend);
 		try{
-		doc = edition.getStyledDocument();
-		String[] mots = stringToAppend.split(" ");
-		
-		for (String mot:mots) {
-			System.out.println(mot);
-			String type; 
-				if (this.structKeywords.contains(mot.replaceAll("[\n\t]", ""))) {
-					type = "structure";
-					
-				}else if (mot.contains("<r")) {
-
-					type = "raffinage";
-					
-					if (mot.contains("<rg>")) {
-						type += 'G';
-						mot = mot.replaceAll("<rg>", "");
-					} else if (mot.contains("<ro>")) {
-						type += 'O';
-						mot = mot.replaceAll("<ro>", "");
-					} else {
-						type += 'R';
-						mot = mot.replaceAll("<rr>", "");
-					}
-					mot = mot.replace("<s>", " ");
-					
-				} else if (mot.contains("<t>")) {
-					type = "titre";
-					mot = mot.replaceAll("<t>","");
-					mot = mot.replaceAll("<s>"," ");
-				} else {
-					type = "condition";
-				}
 			
-			doc.insertString(doc.getLength(),
-					mot+(mot.contains("\n")?"":" "),
-					createStyle(mot, type, currentWordId++));
-		}
+		doc = edition.getStyledDocument();
 
-		}catch (BadLocationException e) {
+		
+		String mot = "";
+		String type = "";
+		String regex = "<([0-9]+)([a-z])([a-zA-Z]*)>(.*)</\\1\\2(\\3*)>";
+		
+		Pattern p = Pattern.compile(regex,Pattern.DOTALL);
+		Matcher m = p.matcher(stringToAppend);
+		
+		while(m.find()) {	
+			
+			System.out.println("Match!");
+			
+			mot = m.group(4);
+			System.out.println("Mot : " + mot);
+			
+			switch (m.group(2)) {
+			
+			case "r": 
+				type = "raffinage";
+				switch (m.group(3)) {
+				
+				case "r":
+					type += "R";
+					break;
+					
+				case "o":
+					type += "O";
+					break;
+					
+				default:
+					type += "V";
+					break;
+				}
+			break;
+			
+			case "s":
+				System.out.println(mot.split(":")[0]+mot.split(":")[1].replaceAll(regex, ""));
+				type = "structure";
+				String motSplit[] = mot.split("\n");
+				doc.insertString(doc.getLength(),motSplit[0] + "\n",
+						createStyle(mot, type, currentGroupId++));
+				
+				append(m.group(4));
+				
+				doc.insertString(doc.getLength(),motSplit[1].replaceAll(regex, "") + "\n",
+						createStyle(mot, type, currentGroupId));
+				break;
+				
+			case "t":
+				type = "titre";
+				break;
+					
+			default:
+				type = "elementaire";
+				break;
+			}
+			
+			if (type != "structure" && mot != "") {
+				doc.insertString(doc.getLength(),
+				mot + "\n",
+				createStyle(mot, type, currentGroupId++));
+			}
+			
+		}
+		if (mot == "") {
+			System.out.println("NO MATCHES");
+		}
+		
+		
+		
+		
+		
+		
+	
+//		String[] mots = stringToAppend.split(" ");
+		
+//		for (String mot:mots) {
+//			System.out.println(mot);
+//			String type; 
+//				if (this.structKeywords.contains(mot.replaceAll("[\n\t]", ""))) {
+//					type = "structure";
+//					
+//				}else if (mot.contains("<r")) {
+//
+//					type = "raffinage";
+//					
+//					if (mot.contains("<rg>")) {
+//						type += 'G';
+//						mot = mot.replaceAll("<rg>", "");
+//					} else if (mot.contains("<ro>")) {
+//						type += 'O';
+//						mot = mot.replaceAll("<ro>", "");
+//					} else {
+//						type += 'R';
+//						mot = mot.replaceAll("<rr>", "");
+//					}
+//					mot = mot.replace("<s>", " ");
+//					
+//				} else if (mot.contains("<t>")) {
+//					type = "titre";
+//					mot = mot.replaceAll("<t>","");
+//					mot = mot.replaceAll("<s>"," ");
+//				} else {
+//					type = "condition";
+//				}
+//			
+//			doc.insertString(doc.getLength(),
+//					mot+(mot.contains("\n")?"":" "),
+//					createStyle(mot, type, currentGroupId++));
+//		}
+ 
+	
+		
+		
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+		
 	}
 	
 	private SimpleAttributeSet createStyle(String mot, String type, int id) {
@@ -230,7 +328,7 @@ public class VueEditionRaffinages {
         case "raffinageR":
         	style.addAttribute(StyleConstants.Background, Color.RED);
         	break;
-        case "raffinageG":
+        case "raffinageV":
         	style.addAttribute(StyleConstants.Background, Color.GREEN);
         	break;
         case "raffinageO":
@@ -253,9 +351,23 @@ public class VueEditionRaffinages {
     }
 
 	public void update() {
-		currentWordId = 0;
+		currentGroupId = 0;
+		ligneCourante = "";
+		elementCourantCurseur = null;
 		edition.setText("");
-		this.append(raffCourant.getTitreEntier() + "\n " + raffCourant.toString());
+		this.append(raffCourant.getTitreEntier() + raffCourant.toString());
+	}
+	
+	public int incrementerEltCourant() {
+		return this.currentGroupId++;
+	}
+
+	public String getLigneCourante() {
+		return ligneCourante;
+	}
+	
+	public Element getElementCourant() {
+		return this.elementCourantCurseur;
 	}
 	
 }
