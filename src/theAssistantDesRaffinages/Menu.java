@@ -76,9 +76,6 @@ public class Menu extends JFrame {
         // Construction et injection de la barre d'outils
         JPanel contentPane = (JPanel) getContentPane();
         contentPane.add( this.createToolBar(), BorderLayout.NORTH );
-        
-       
-      
     }
 
     /* Methode de construction de la barre de menu */
@@ -193,6 +190,8 @@ public class Menu extends JFrame {
         
         @Override public void actionPerformed( ActionEvent e ) {
             System.out.println( "New" );
+            //vueEdition = new VueEditionRaffinages();
+            //vueListe = new VueListeRaffinages(vueEdition);
         }
     };
 

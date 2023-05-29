@@ -34,7 +34,7 @@ public class Export {
         string = actionComplexe.getTitreEntier();
         list = (LinkedList<Element>) actionComplexe.getElements();
         System.out.println("Size of the LinkedList: " + list.size());
-        string = before() + miseEnPage(parse_recursif(actionComplexe)) +" \n \\end{tabbing} \n \\end{document}";
+        string = before() + "\\textbf{R0 : }" + actionComplexe.getTitre() + "\\\\ \r\n \\>\\hspace{2em}\\\\ \\r\\n" + miseEnPage(parse_recursif(actionComplexe)) +" \n \\end{tabbing} \n \\end{document}";
         //System.out.println("String written: " + string);
 		return string;
 	}
@@ -76,7 +76,6 @@ public class Export {
 	        		}
 	        		String current  = ((ActionComplexe) e).getTitreEntier().replaceAll("<(?:s|r|rr|t|rg)>", "").replaceAll("\n", "");
 	        		body += " {\\hyperlink{"+ String.valueOf(hash) + "}{" + current.substring(10,current.length()-1) + "}}\n";
-	        		System.out.println("Action complexe :" + e.toString());
 	        		liste.add((ActionComplexe) e);
         		} else {
             		body += e.toString().replaceAll("<(?:s|r|rr|t|rg)>", "") + "\n";
@@ -107,26 +106,17 @@ public class Export {
 		    	}
 		    }
 		    lines[i] = lines[i] + "\\\\" ;
-		    //System.out.println(lines[i]);
 		}
 		
 		//Remove all empty lines
 		List<String> resultList = new ArrayList<>();
-
 		for (String line : lines) {
 		    if (line.length()>5){
 		        resultList.add(line);
 		    }
 		}
-
 		return String.join("\n", resultList);
 	}
-	
-	
-	
-	
-	
-	
 	
 	// Helper method to convert bytes to int
 	public static int bytesToInt(byte[] bytes) {
@@ -137,7 +127,7 @@ public class Export {
 	    return result;
 	}
 	
-	
+/*
 	//GSON
 	public String getString2(JTree tree) {
 		DefaultTreeModel treeModel = (DefaultTreeModel) tree.getModel();
@@ -176,6 +166,7 @@ public class Export {
 	    nodeJson.add("children", childrenJson);
 	    return nodeJson;
 	}
+*/
 	
 
     public String before() {
@@ -213,13 +204,13 @@ public class Export {
     			+ "\\setlength{\\headheight}{17.5pt}\r\n"
     			+ "\r\n"
     			+ "\r\n"
-    			+"\\title{Assistant de raffinages}\r\n"
-    			+ "\\author{Equipe EF-3: AUGEREAU Robin, BELAHRACH Safae, DO COUTO VIDAL Barbara, DEORA \\\\ Axel, EL ASRI Fatima Zahra, GRAVIER Amandine, HUANG Julien, TARRADE Antonin.}\r\n"
-    			+ "\\date{\\today}\r\n"
+    			//+"\\title{Assistant de raffinages}\r\n"
+    			//+ "\\author{Equipe EF-3: AUGEREAU Robin, BELAHRACH Safae, DO COUTO VIDAL Barbara, DEORA \\\\ Axel, EL ASRI Fatima Zahra, GRAVIER Amandine, HUANG Julien, TARRADE Antonin.}\r\n"
+    			//+ "\\date{\\today}\r\n"
     			+ "\\begin{document}\r\n"
     			+ "\\large \n"
-    			+"\\maketitle"
-    			+"\\newpage"
+    			//+"\\maketitle"
+    			//+"\\newpage"
     			+ "\\begin{tabbing}\n"
     			+"{\\color{white} R0 :} \\= {\\color{white}Tant que} \\= \\\\ \r\n";
     }
