@@ -1,18 +1,18 @@
 package theAssistantDesRaffinages;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import javax.swing.plaf.metal.*;
-import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+			import javax.swing.*;
+			import javax.swing.border.Border;
+			import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+			import javax.swing.plaf.metal.*;
+			import java.awt.*;
+			import java.awt.event.FocusEvent;
+			import java.awt.event.FocusListener;
+			import java.util.ArrayList;
+			import java.util.List;
+			import java.awt.event.WindowAdapter;
+			import java.awt.event.WindowEvent;
+			import javax.swing.JFrame;
+			import javax.swing.JOptionPane;
 
 public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -20,7 +20,7 @@ public class Main extends JFrame {
 	private VueListeRaffinages vueListe;
 	
     /**
-     * 
+     * Constructeur principal
      */
     public Main() {
     	
